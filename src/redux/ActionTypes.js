@@ -1,0 +1,8 @@
+export const ADD_CARS = "ADD_CARS";
+export const SET_USER = "SET_USER";
+export const SET_ADMIN = "SET_ADMIN";
+
+export const ADD_PERSONNELS = "ADD_PERSONNELS";
+export const PUSH_PERSONNELS = "PUSH_PERSONNELS";
+export const DELETE_PERSONNELS = "DELETE_PERSONNELS";
+export const ALTER_PERSONNELS = "ALTER_PERSONNELS";
