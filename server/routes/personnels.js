@@ -3,7 +3,7 @@ const con = require("./connection");
 let router = express.Router();
 const bcrypt = require("bcrypt");
 
-router.post("/", (req, res) => {
+router.get("/", (req, res) => {
   const query = "select * from Personnels ";
 
   con.query(query, [], function(err, result, fields) {
@@ -21,4 +21,53 @@ router.delete("/:id", (req, res) => {
     console.log(result);
   });
 });
+
+
+
+
+
+const insertPersonnel=(req,res,email,hash,firstname,lastname,telnum,adresse,dateEmbauche,grade,pseudo,salaire,position)=>{
+  const query="INSERT INTO `Personnels`( `email`, `password`, `nomPersonnel`, `prenomPersonnel`, `telephone`, `adresse`, `dateEmbauche`, `grade`, `pseudo`, `salaire`, `position`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+  con.query(query,[email,hash,firstname,lastname,telnum,adresse,dateEmbauche,grade,pseudo,salaire,position], function (err, result, fields) {
+ if (err) throw err;
+    req.body['grade']=1;
+    res.status(200).json(req.body)
+    console.log(JSON.stringify(result));
+
+});
+};
+
+router.post('/',(req,res,)=>{
+  const {email,nomPersonnel,prenomPersonnel,
+  position,salaire,telephone,adresse,pseudo,dateEmbauche,password}=req.body;
+  const query="select * from Personnels where email=?";
+
+  con.query(query,[email], function (err, result, fields) {
+    if (err) throw err;
+    if(!result.length)
+    bcrypt.hash(password, 10, function(err, hash) {
+      insertPersonnel(req,res,email,hash,nomPersonnel,prenomPersonnel,telephone,adresse,dateEmbauche,1,pseudo,salaire,position);
+      })
+    else console.log("user exist")
+  
+   })
+  });
+
+
+
+
+  router.put("/", (req, res) => {
+    const query = "UPDATE `Personnels` SET `nomPersonnel`=?,`prenomPersonnel`=?,`telephone`=?,`adresse`=?,`pseudo`=?,`salaire`=?,`position`=? WHERE cin=?";
+    const {nomPersonnel,prenomPersonnel,
+      position,salaire,telephone,adresse,pseudo,dateEmbauche,cin}=req.body;
+    con.query(query, [nomPersonnel,prenomPersonnel,telephone,adresse,pseudo,salaire,position,cin], function(err, result, fields) {
+      if (err) throw err;
+      res.send(req.body)
+      console.log(result);
+    });
+  });
+  
+
+
+
 module.exports = router;

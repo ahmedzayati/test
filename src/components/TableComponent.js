@@ -22,6 +22,8 @@ import {  withRouter } from "react-router-dom";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
+import AlertDialogSlide1 from './Dialog';
+import AlertDialogSlide2 from './DialogUpdate';
 
 import { connect } from "react-redux";
 import { styled } from '@material-ui/styles';
@@ -32,7 +34,8 @@ import {
     pushPersonnels,
     alterPersonnels,
     fetchPersonnels,
-    deletePersonnel
+    deletePersonnel,
+    postPersonnel
   } from "../redux/ActionCreators";
 let counter = 0;
 function createData(cin,name, position, email, startDate, salary) {
@@ -74,12 +77,16 @@ function getSorting(order, orderBy) {
 
 const rows = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
+  { id: 'pseudo', numeric: true, disablePadding: false, label: 'pseudo' },
+
   { id: 'position', numeric: true, disablePadding: false, label: 'Position' },
   { id: 'email', numeric: true, disablePadding: false, label: 'Email' },
   { id: 'startDate', numeric: true, disablePadding: false, label: 'Start Date' },
-  { id: 'salary', numeric: true, disablePadding: false, label: 'Salary' },
-  { id: 'add', numeric: true, disablePadding: false, label: '' },
-  { id: 'update', numeric: true, disablePadding: false, label: '' }
+  { id: 'salaire', numeric: true, disablePadding: false, label: 'Salary' },
+  { id: 'telephone', numeric: true, disablePadding: false, label: 'Telephone' },
+  { id: 'adresse', numeric: true, disablePadding: false, label: 'Adress' },
+
+  { id: 'delete', numeric: true, disablePadding: false, label: '' },
 
 ];
 
@@ -178,11 +185,12 @@ let EnhancedTableToolbar = props => {
           </Typography>
         ) : (
           <div className="row">
-         <Button variant="contained" color="secondary" className={classes.button}>
+          <AlertDialogSlide1 postPersonnel={props.postPersonnel}/>
+         {/* <Button variant="contained" color="secondary" className={classes.button}>
         Add Personnel
         <AddIcon className={classes.rightIcon} />
-      </Button>
-       <MyButton>Styled Components</MyButton>;
+      </Button> */}
+      
 
         </div>
         )}
@@ -249,7 +257,8 @@ const mapDispatchToProps = dispatch => {
         onPushPersonnels: (code, pseudo) => dispatch(pushPersonnels(code, pseudo)),
         onAlterPersonnels: (id, salary, position) =>
           dispatch(alterPersonnels(id, salary, position)),
-        fetchPersonnels: () => dispatch(fetchPersonnels())
+        fetchPersonnels: () => dispatch(fetchPersonnels()),
+        postPersonnel:(personnel)=>dispatch(postPersonnel(personnel))
       };
   };
 class EnhancedTable extends React.Component {
@@ -340,7 +349,7 @@ componentWillMount(){
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length}/>
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -356,6 +365,7 @@ componentWillMount(){
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.cin);
+                  const date=new Date(n.dateEmbauche)
                   return (
                     <TableRow
                       hover
@@ -369,26 +379,31 @@ componentWillMount(){
                         
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.nomPersonnel}
+                        {n.nomPersonnel+" "+n.prenomPersonnel}
                       </TableCell>
+                      <TableCell align="right">{n.pseudo}</TableCell>
+
                       <TableCell align="right">{n.position}</TableCell>
                       <TableCell align="right">{n.email}</TableCell>
-                      <TableCell align="right">{n.startDate}</TableCell>
-                      <TableCell align="right">{n.dateEmbauche}</TableCell>
+                      <TableCell align="right">{date.getDate()+"-"+date.getMonth()+"-"+date.getFullYear()}</TableCell>
+                      <TableCell align="right">{n.salaire}</TableCell>
+                      <TableCell align="right">{n.telephone}</TableCell>
+                      <TableCell align="right">{n.adresse}</TableCell>
+
                       <TableCell align="right" >
-                        <Tooltip title="Delete" className="col-4">
+                        <Tooltip title="Delete" className="col-2">
                         <IconButton aria-label="Delete" >
                             <DeleteIcon onClick={() => {
                                   this.props.deletePersonnel(n.cin);console.log(n.cin)
                                 }} />
                         </IconButton>
                          </Tooltip>
-                     </TableCell>
-                     <TableCell>
-                         <Tooltip title="Update" className="col-4">
-                                 <IconButton aria-label="Update">
-                                 <ThreeSixtyIcon className={classes.icon} />
-                        </IconButton>
+                     
+
+                         <Tooltip title="Update" className="col-2">
+                                 
+                                 <AlertDialogSlide2 personnel={n}/>
+
                         </Tooltip>
         </TableCell>
                     </TableRow>

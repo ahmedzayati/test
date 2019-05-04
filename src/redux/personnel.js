@@ -5,6 +5,22 @@ export const Personnels = (state = { personnels: [] }, action) => {
   switch (action.type) {
     case ActionTypes.ADD_PERSONNELS:
       return { ...state, personnels: action.personnels };
+    case ActionTypes.ADD_PERSONNEL:
+      return { ...state,personnels: state.personnels.concat(action.personnel) };
+    case ActionTypes.UPDATE_PERSONNEL:
+      return {...state,
+        personnels: state.personnels.map(personnel => {
+          if (personnel.cin == action.personnel.cin) {
+            personnel.salaire = action.personnel.salaire;
+            personnel.nomPersonnel = action.personnel.nomPersonnel;
+            personnel.telephone=action.personnel.telephone;
+            personnel.prenomPersonnel=action.personnel.nomPersonnel
+            personnel.position = action.personnel.position;
+            personnel.adresse=action.personnel.adresse;
+          }
+          return personnel;
+        })
+      }
 
     case ActionTypes.DELETE_PERSONNELS:
     console.log(action.Id+"red")
@@ -13,6 +29,7 @@ export const Personnels = (state = { personnels: [] }, action) => {
         ...state,
         personnels: x
       };
+      
     case ActionTypes.PUSH_PERSONNELS:
       Date.prototype.yyyymmdd = function() {
         var mm = this.getMonth() + 1; // getMonth() is zero-based

@@ -11,6 +11,14 @@ export const addPersonnels = personnels => ({
   type: ActionTypes.ADD_PERSONNELS,
   personnels: personnels
 });
+export const addPersonnel = personnel => ({
+  type: ActionTypes.ADD_PERSONNEL,
+  personnel: personnel
+});
+export const upPersonnel = personnel => ({
+  type: ActionTypes.UPDATE_PERSONNEL,
+  personnel: personnel
+});
 export const pushPersonnels = (code, pseudo) => ({
   //addition
   type: ActionTypes.PUSH_PERSONNELS,
@@ -36,10 +44,10 @@ export const deletePersonnel = id => dispatch => {
       console.log(error);
     })
 };
-export const userSignup = userData => dispatch => {
+export const userSignup = (userData,history) => dispatch => {
   return axios
     .post("http://localhost:3000/api/users", userData)
-    .then(function(response) {})
+    .then(function(response) {history.push('/home')})
     .catch(function(error) {
       console.log(error);
     });
@@ -91,6 +99,19 @@ export const loginAdmin = (userData, h) => dispatch => {
 
 export const fetchPersonnels = () => dispatch => {
   return axios
-    .post("http://localhost:3000/api/personnels")
+    .get("http://localhost:3000/api/personnels")
     .then(response => {dispatch(addPersonnels(response.data));console.log("fetch")});
+};
+
+
+export const postPersonnel = (personnelData) => dispatch => {
+  return axios
+    .post("http://localhost:3000/api/personnels",personnelData)
+    .then(response => {dispatch(addPersonnel(response.data))});
+};
+
+export const updatePersonnel = (personnelData) => dispatch => {
+  return axios
+    .put("http://localhost:3000/api/personnels",personnelData)
+    .then(response => {dispatch(upPersonnel(response.data))});
 };

@@ -39,7 +39,7 @@ class Sign extends React.Component{
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.userSignup(this.state).then(this.props.history.push('home'))
+        this.props.userSignup(this.state,this.props.history)
     }
 
     render(){
