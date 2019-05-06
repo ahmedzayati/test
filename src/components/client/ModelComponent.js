@@ -49,9 +49,11 @@ class Model extends React.Component {
              <center> <Link to={"/signup"}>
                 <Button color="info">BUY NOW </Button>{" "}
               </Link>
-              <Button color="secondary" onClick={this.toggle}>
+              <Link to={`/cars/${model.id}`}>
+              <Button color="secondary" >
                 show more
               </Button>
+              </Link>
               </center>
             </CardBody>
           </Card>
@@ -61,9 +63,9 @@ class Model extends React.Component {
     });
     return (
       <div >
-        <center>
+        {/* <center>
           <img className="m-2" height="250" width="300" src={"../assets/images/"+this.props.cathegory+".png"} />
-        </center>
+        </center> */}
         <div className="col-12 col-sm-10 offset-1">
           <div className="row">{allmodels}</div>
         </div>

@@ -23,7 +23,6 @@ class Home extends React.Component {
 
     return (
       <div>
-        <CarouselHome />
         <Category />
         {/* <div className="row">
         <img className="col-12" height="400" src="assets/images/cover2.jpg" />
@@ -39,9 +38,7 @@ class Home extends React.Component {
             of mind. We call it Hyundai SmartSense.
           </p>
         </center> */}
-        <Fab size="small" color="secondary" aria-label="Add" className={styles.margin}>
-          <AddIcon />
-        </Fab>
+        
       </div>
     );
   }

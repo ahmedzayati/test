@@ -8,7 +8,7 @@ class Footer extends React.Component {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-6 col-sm-3">
-              <h5>Plan de site</h5>
+              <h5 className="titre">Plan de site</h5>
               <ul className="list-unstyled">
                 <li>
                   <Link to="/home">Home</Link>
@@ -25,7 +25,7 @@ class Footer extends React.Component {
               </ul>
             </div>
             <div className="col-6 col-sm-3">
-              <h5>Espace Client</h5>
+              <h5 className="titre">Espace Client</h5>
               <address>
                 Inscription
                 <br />
@@ -37,7 +37,7 @@ class Footer extends React.Component {
               </address>
             </div>
             <div className="col-6 col-sm-3">
-              <h5>Guide pratique</h5>
+              <h5 className="titre">Guide pratique</h5>
               <address>
                 Procédure d'achat
                 <br />
@@ -47,7 +47,7 @@ class Footer extends React.Component {
               </address>
             </div>
             <div className="col-6 col-sm-3">
-              <h5>Qui sommes-nous</h5>
+              <h5 className="titre">Qui sommes-nous</h5>
               <address>
                 Contacter-nous
                 <br />

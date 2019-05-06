@@ -12,7 +12,9 @@ class Category extends React.Component {
       },
       {
         id: 2,
-        src: "assets/images/audi.png"
+        src: "assets/images/audi.png",
+        cath: "audi"
+
       },
       {
         id: 3,
@@ -113,6 +115,7 @@ class Category extends React.Component {
               alt="ghjkl"
               height="100"
               width="120"
+              alt={cathegory.cath}
             />
           </Link>
         </div>

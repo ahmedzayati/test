@@ -26,7 +26,8 @@ import LoginAdmin from "./LoginAdminComponent";
 import Personnel from "./PersonnelComponent2";
 import Product from "./ProductComponent";
 import Chart from "./ChartComponent";
-
+import CarDetail from './client/CarDetail';
+import CheckoutComponent from './CheckoutComponent';
 const mapStateToProps = state => {
   return {
     cars: state.cars,
@@ -64,6 +65,32 @@ class Main extends React.Component {
         />
       );
     };
+    const ModelWithCars= ({ match }) => {
+      {console.log(match.params.cath)};
+
+      return (
+        <CarDetail
+          cars={this.props.cars.filter(
+            car => car.id ===parseInt( match.params.car)
+          )}
+          cathegory={match.params.cath}
+         
+        />
+      );
+    };
+    const CheckoutComponentCar= ({ match }) => {
+      {console.log(match.params.cath)};
+
+      return (
+        <CheckoutComponent
+          cars={this.props.cars.filter(
+            car => car.id ===parseInt( match.params.car)
+          )}
+          cathegory={match.params.cath}
+         
+        />
+      );
+    };
     return (
       <div>
         <Header
@@ -86,6 +113,9 @@ class Main extends React.Component {
             component={() => <Login login={this.props.login} />}
           />
           <Route path="/model/:cath" component={ModelWithCath} />
+          <Route path="/cars/:car" component={ModelWithCars} />
+          <Route path="/checkout/:car" component={CheckoutComponentCar} />
+
           <Route
             path="/model"
             component={() => <Model cars={this.props.cars} />}
