@@ -1,10 +1,9 @@
-import { CARS } from "../shared/cars";
 import * as ActionTypes from "./ActionTypes";
 
-export const Cars = (state = CARS, action) => {
+export const Cars = (state = { cars: [] }, action) => {
   switch (action.type) {
     case ActionTypes.ADD_CARS:
-      return state;
+      return { ...state, cars: action.cars };
 
     default:
       return state;

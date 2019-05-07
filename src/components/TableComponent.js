@@ -1,44 +1,44 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
-import {  withRouter } from "react-router-dom";
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
-import AlertDialogSlide1 from './Dialog';
-import AlertDialogSlide2 from './DialogUpdate';
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Checkbox from "@material-ui/core/Checkbox";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
+import DeleteIcon from "@material-ui/icons/Delete";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import { lighten } from "@material-ui/core/styles/colorManipulator";
+import { withRouter } from "react-router-dom";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
+import AlertDialogSlide1 from "./Dialog";
+import AlertDialogSlide2 from "./DialogUpdate";
 
 import { connect } from "react-redux";
-import { styled } from '@material-ui/styles';
-import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
+import { styled } from "@material-ui/styles";
+import ThreeSixtyIcon from "@material-ui/icons/ThreeSixty";
 import {
-    addPersonnels,
-    deletePersonnels,
-    pushPersonnels,
-    alterPersonnels,
-    fetchPersonnels,
-    deletePersonnel,
-    postPersonnel
-  } from "../redux/ActionCreators";
+  addPersonnels,
+  deletePersonnels,
+  pushPersonnels,
+  alterPersonnels,
+  fetchPersonnels,
+  deletePersonnel,
+  postPersonnel
+} from "../redux/ActionCreators";
 let counter = 0;
-function createData(cin,name, position, email, startDate, salary) {
+function createData(cin, name, position, email, startDate, salary) {
   counter += 1;
   return { cin, name, position, email, startDate, salary };
 }
@@ -53,13 +53,13 @@ function desc(a, b, orderBy) {
   return 0;
 }
 const MyButton = styled(Button)({
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
   border: 0,
   borderRadius: 3,
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-  color: 'white',
+  boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+  color: "white",
   height: 48,
-  padding: '0 30px',
+  padding: "0 30px"
 });
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
@@ -72,22 +72,28 @@ function stableSort(array, cmp) {
 }
 
 function getSorting(order, orderBy) {
-  return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
+  return order === "desc"
+    ? (a, b) => desc(a, b, orderBy)
+    : (a, b) => -desc(a, b, orderBy);
 }
 
 const rows = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'pseudo', numeric: true, disablePadding: false, label: 'pseudo' },
+  { id: "name", numeric: false, disablePadding: true, label: "Name" },
+  { id: "pseudo", numeric: true, disablePadding: false, label: "pseudo" },
 
-  { id: 'position', numeric: true, disablePadding: false, label: 'Position' },
-  { id: 'email', numeric: true, disablePadding: false, label: 'Email' },
-  { id: 'startDate', numeric: true, disablePadding: false, label: 'Start Date' },
-  { id: 'salaire', numeric: true, disablePadding: false, label: 'Salary' },
-  { id: 'telephone', numeric: true, disablePadding: false, label: 'Telephone' },
-  { id: 'adresse', numeric: true, disablePadding: false, label: 'Adress' },
+  { id: "position", numeric: true, disablePadding: false, label: "Position" },
+  { id: "email", numeric: true, disablePadding: false, label: "Email" },
+  {
+    id: "startDate",
+    numeric: true,
+    disablePadding: false,
+    label: "Start Date"
+  },
+  { id: "salaire", numeric: true, disablePadding: false, label: "Salary" },
+  { id: "telephone", numeric: true, disablePadding: false, label: "Telephone" },
+  { id: "adresse", numeric: true, disablePadding: false, label: "Adress" },
 
-  { id: 'delete', numeric: true, disablePadding: false, label: '' },
-
+  { id: "delete", numeric: true, disablePadding: false, label: "" }
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -96,25 +102,29 @@ class EnhancedTableHead extends React.Component {
   };
 
   render() {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+    const {
+      onSelectAllClick,
+      order,
+      orderBy,
+      numSelected,
+      rowCount
+    } = this.props;
 
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            
-          </TableCell>
+          <TableCell padding="checkbox" />
           {rows.map(
             row => (
               <TableCell
                 key={row.id}
-                align={row.numeric ? 'right' : 'left'}
-                padding={row.disablePadding ? 'none' : 'default'}
+                align={row.numeric ? "right" : "left"}
+                padding={row.disablePadding ? "none" : "default"}
                 sortDirection={orderBy === row.id ? order : false}
               >
                 <Tooltip
                   title="Sort"
-                  placement={row.numeric ? 'bottom-end' : 'bottom-start'}
+                  placement={row.numeric ? "bottom-end" : "bottom-start"}
                   enterDelay={300}
                 >
                   <TableSortLabel
@@ -127,7 +137,7 @@ class EnhancedTableHead extends React.Component {
                 </Tooltip>
               </TableCell>
             ),
-            this,
+            this
           )}
         </TableRow>
       </TableHead>
@@ -141,32 +151,32 @@ EnhancedTableHead.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
+  rowCount: PropTypes.number.isRequired
 };
 
 const toolbarStyles = theme => ({
   root: {
-    paddingRight: theme.spacing.unit,
+    paddingRight: theme.spacing.unit
   },
   highlight:
-    theme.palette.type === 'light'
+    theme.palette.type === "light"
       ? {
           color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85)
         }
       : {
           color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
+          backgroundColor: theme.palette.secondary.dark
         },
   spacer: {
-    flex: '1 1 100%',
+    flex: "1 1 100%"
   },
   actions: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary
   },
   title: {
-    flex: '0 0 auto',
-  },
+    flex: "0 0 auto"
+  }
 });
 
 let EnhancedTableToolbar = props => {
@@ -175,7 +185,7 @@ let EnhancedTableToolbar = props => {
   return (
     <Toolbar
       className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0,
+        [classes.highlight]: numSelected > 0
       })}
     >
       <div className={classes.title}>
@@ -185,41 +195,35 @@ let EnhancedTableToolbar = props => {
           </Typography>
         ) : (
           <div className="row">
-          <AlertDialogSlide1 postPersonnel={props.postPersonnel}/>
-         {/* <Button variant="contained" color="secondary" className={classes.button}>
+            <AlertDialogSlide1 postPersonnel={props.postPersonnel} />
+            {/* <Button variant="contained" color="secondary" className={classes.button}>
         Add Personnel
         <AddIcon className={classes.rightIcon} />
       </Button> */}
-      
-
-        </div>
+          </div>
         )}
       </div>
       <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 ? (
-                <div className="row">
-
-            
-          <Tooltip title="Delete" className="col-4">
-            <IconButton aria-label="Delete">
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete" className="col-4">
-          <IconButton aria-label="Delete">
-          <ThreeSixtyIcon className={classes.icon} />
-        </IconButton>
-        </Tooltip>
-        
-        </div>
+          <div className="row">
+            <Tooltip title="Delete" className="col-4">
+              <IconButton aria-label="Delete">
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete" className="col-4">
+              <IconButton aria-label="Delete">
+                <ThreeSixtyIcon className={classes.icon} />
+              </IconButton>
+            </Tooltip>
+          </div>
         ) : (
           <Tooltip title="Filter list">
             <IconButton aria-label="Filter list">
               <FilterListIcon />
             </IconButton>
           </Tooltip>
-          
         )}
       </div>
     </Toolbar>
@@ -228,76 +232,74 @@ let EnhancedTableToolbar = props => {
 
 EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
+  numSelected: PropTypes.number.isRequired
 };
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    width: "100%",
+    marginTop: theme.spacing.unit * 3
   },
   table: {
-    minWidth: 1020,
+    minWidth: 1020
   },
   tableWrapper: {
-    overflowX: 'auto',
-  },
+    overflowX: "auto"
+  }
 });
 const mapStateToProps = state => {
-    return {
-      personnels: state.personnels
-    };
+  return {
+    personnels: state.personnels
   };
+};
 const mapDispatchToProps = dispatch => {
-    
-      return {
-        deletePersonnel: id => dispatch(deletePersonnel(id)),
-        onPushPersonnels: (code, pseudo) => dispatch(pushPersonnels(code, pseudo)),
-        onAlterPersonnels: (id, salary, position) =>
-          dispatch(alterPersonnels(id, salary, position)),
-        fetchPersonnels: () => dispatch(fetchPersonnels()),
-        postPersonnel:(personnel)=>dispatch(postPersonnel(personnel))
-      };
+  return {
+    deletePersonnel: id => dispatch(deletePersonnel(id)),
+    onPushPersonnels: (code, pseudo) => dispatch(pushPersonnels(code, pseudo)),
+    onAlterPersonnels: (id, salary, position) =>
+      dispatch(alterPersonnels(id, salary, position)),
+    fetchPersonnels: () => dispatch(fetchPersonnels()),
+    postPersonnel: personnel => dispatch(postPersonnel(personnel))
   };
+};
 class EnhancedTable extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
   state = {
-    order: 'asc',
-    orderBy: 'name',
+    order: "asc",
+    orderBy: "name",
     selected: [],
     data: [
-        // createData('Ahmed', '305', '3.7', '67', '4.3'),
-    //   this.props.personnels.personnels.map((personnel)=>{return(createData('Ahmed', '305', '3.7', '67', '4.3'))})
+      // createData('Ahmed', '305', '3.7', '67', '4.3'),
+      //   this.props.personnels.personnels.map((personnel)=>{return(createData('Ahmed', '305', '3.7', '67', '4.3'))})
     ],
     page: 0,
     rowsPerPage: 5,
-    l:0
+    l: 0
   };
-componentDidMount(){
-  console.log("a")
-  this.setState({l:this.props.personnels.personnels.length})
-    this.props.fetchPersonnels()
+  componentDidMount() {
+    console.log("a");
+    this.setState({ l: this.props.personnels.personnels.length });
+    this.props.fetchPersonnels();
     // .then((res)=>
 
     // {var x=[]
     // this.props.personnels.personnels.map((personnel)=>{x.push(createData(personnel.cin,personnel.nomPersonnel, '305', personnel.email, personnel.dateEmbauche, '4.3'))},)
     // this.setState({data:x})
     // console.log(this.state.data)})
-
-}
-componentWillMount(){
-  // this.props.fetchPersonnels()
-}
+  }
+  componentWillMount() {
+    // this.props.fetchPersonnels()
+  }
   handleRequestSort = (event, property) => {
     const orderBy = property;
-    let order = 'desc';
+    let order = "desc";
 
-    if (this.state.orderBy === property && this.state.order === 'desc') {
-      order = 'asc';
+    if (this.state.orderBy === property && this.state.order === "desc") {
+      order = "asc";
     }
 
     this.setState({ order, orderBy });
@@ -325,7 +327,7 @@ componentWillMount(){
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -345,11 +347,12 @@ componentWillMount(){
   render() {
     const { classes } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const emptyRows =
+      rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length}/>
+        <EnhancedTableToolbar numSelected={selected.length} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -361,11 +364,14 @@ componentWillMount(){
               rowCount={data.length}
             />
             <TableBody>
-              {stableSort(this.props.personnels.personnels, getSorting(order, orderBy))
+              {stableSort(
+                this.props.personnels.personnels,
+                getSorting(order, orderBy)
+              )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.cin);
-                  const date=new Date(n.dateEmbauche)
+                  const date = new Date(n.dateEmbauche);
                   return (
                     <TableRow
                       hover
@@ -375,37 +381,41 @@ componentWillMount(){
                       key={n.cin}
                       selected={isSelected}
                     >
-                      <TableCell  padding="checkbox">
-                        
-                      </TableCell>
+                      <TableCell padding="checkbox" />
                       <TableCell component="th" scope="row" padding="none">
-                        {n.nomPersonnel+" "+n.prenomPersonnel}
+                        {n.nomPersonnel + " " + n.prenomPersonnel}
                       </TableCell>
                       <TableCell align="right">{n.pseudo}</TableCell>
 
                       <TableCell align="right">{n.position}</TableCell>
                       <TableCell align="right">{n.email}</TableCell>
-                      <TableCell align="right">{date.getDate()+"-"+date.getMonth()+"-"+date.getFullYear()}</TableCell>
+                      <TableCell align="right">
+                        {date.getDate() +
+                          "-" +
+                          date.getMonth() +
+                          "-" +
+                          date.getFullYear()}
+                      </TableCell>
                       <TableCell align="right">{n.salaire}</TableCell>
                       <TableCell align="right">{n.telephone}</TableCell>
                       <TableCell align="right">{n.adresse}</TableCell>
 
-                      <TableCell align="right" >
+                      <TableCell align="right">
                         <Tooltip title="Delete" className="col-2">
-                        <IconButton aria-label="Delete" >
-                            <DeleteIcon onClick={() => {
-                                  this.props.deletePersonnel(n.cin);console.log(n.cin)
-                                }} />
-                        </IconButton>
-                         </Tooltip>
-                     
-
-                         <Tooltip title="Update" className="col-2">
-                                 
-                                 <AlertDialogSlide2 personnel={n}/>
-
+                          <IconButton aria-label="Delete">
+                            <DeleteIcon
+                              onClick={() => {
+                                this.props.deletePersonnel(n.cin);
+                                console.log(n.cin);
+                              }}
+                            />
+                          </IconButton>
                         </Tooltip>
-        </TableCell>
+
+                        <Tooltip title="Update" className="col-2">
+                          <AlertDialogSlide2 personnel={n} />
+                        </Tooltip>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -424,10 +434,10 @@ componentWillMount(){
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            'aria-label': 'Previous Page',
+            "aria-label": "Previous Page"
           }}
           nextIconButtonProps={{
-            'aria-label': 'Next Page',
+            "aria-label": "Next Page"
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
@@ -438,10 +448,12 @@ componentWillMount(){
 }
 
 EnhancedTable.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withRouter(
-   connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EnhancedTable))
-
-  );
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withStyles(styles)(EnhancedTable))
+);

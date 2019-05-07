@@ -4,27 +4,41 @@ import jwt from "jsonwebtoken";
 import createBrowserHistory from "history/createBrowserHistory";
 
 const history = createBrowserHistory({ forceRefresh: true });
-export const addCars = () => ({
-  type: ActionTypes.ADD_CARS
+
+export const addCars = cars => ({
+  type: ActionTypes.ADD_CARS,
+  cars: cars
 });
+
+export const fetchCars = () => dispatch => {
+  return axios.get("http://localhost:3000/api/cars").then(response => {
+    dispatch(addCars(response.data));
+    console.log(addCars(response.data));
+  });
+};
+
 export const addPersonnels = personnels => ({
   type: ActionTypes.ADD_PERSONNELS,
   personnels: personnels
 });
+
 export const addPersonnel = personnel => ({
   type: ActionTypes.ADD_PERSONNEL,
   personnel: personnel
 });
+
 export const upPersonnel = personnel => ({
   type: ActionTypes.UPDATE_PERSONNEL,
   personnel: personnel
 });
+
 export const pushPersonnels = (code, pseudo) => ({
   //addition
   type: ActionTypes.PUSH_PERSONNELS,
   code: code,
   pseudo: pseudo
 });
+
 export const alterPersonnels = (id, salary, position) => ({
   //addition
   type: ActionTypes.ALTER_PERSONNELS,
@@ -32,6 +46,7 @@ export const alterPersonnels = (id, salary, position) => ({
   Salary: salary,
   Position: position
 });
+
 export const deletePersonnels = id => ({
   type: ActionTypes.DELETE_PERSONNELS,
   Id: id
@@ -42,12 +57,14 @@ export const deletePersonnel = id => dispatch => {
     .then(response => dispatch(deletePersonnels(id)))
     .catch(function(error) {
       console.log(error);
-    })
+    });
 };
-export const userSignup = (userData,history) => dispatch => {
+export const userSignup = (userData, history) => dispatch => {
   return axios
     .post("http://localhost:3000/api/users", userData)
-    .then(function(response) {history.push('/home')})
+    .then(function(response) {
+      history.push("/home");
+    })
     .catch(function(error) {
       console.log(error);
     });
@@ -98,20 +115,24 @@ export const loginAdmin = (userData, h) => dispatch => {
 };
 
 export const fetchPersonnels = () => dispatch => {
-  return axios
-    .get("http://localhost:3000/api/personnels")
-    .then(response => {dispatch(addPersonnels(response.data));console.log("fetch")});
+  return axios.get("http://localhost:3000/api/personnels").then(response => {
+    dispatch(addPersonnels(response.data));
+    console.log("fetch");
+  });
 };
 
-
-export const postPersonnel = (personnelData) => dispatch => {
+export const postPersonnel = personnelData => dispatch => {
   return axios
-    .post("http://localhost:3000/api/personnels",personnelData)
-    .then(response => {dispatch(addPersonnel(response.data))});
+    .post("http://localhost:3000/api/personnels", personnelData)
+    .then(response => {
+      dispatch(addPersonnel(response.data));
+    });
 };
 
-export const updatePersonnel = (personnelData) => dispatch => {
+export const updatePersonnel = personnelData => dispatch => {
   return axios
-    .put("http://localhost:3000/api/personnels",personnelData)
-    .then(response => {dispatch(upPersonnel(response.data))});
+    .put("http://localhost:3000/api/personnels", personnelData)
+    .then(response => {
+      dispatch(upPersonnel(response.data));
+    });
 };

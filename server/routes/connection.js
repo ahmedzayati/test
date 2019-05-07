@@ -1,17 +1,13 @@
+var mysql = require("mysql");
 
-
-var mysql = require('mysql');
-
-
-
-
-
-var con = mysql.createConnection({
+var con = mysql.createConnection(
+  {
     host: "localhost",
     user: "root",
     password: "",
     database: "PFA"
   },
-  console.log("cnx"));
+  console.log("cnx")
+);
 
-module.exports= con;
+module.exports = con;

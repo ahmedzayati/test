@@ -13,7 +13,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import {  withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
 import { connect } from "react-redux";
 const mapStateToProps = state => {

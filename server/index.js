@@ -1,5 +1,6 @@
 const users = require("./routes/users");
 const auth = require("./routes/auth");
+const cars = require("./routes/cars");
 
 const admin = require("./routes/admin");
 const personnels = require("./routes/personnels");
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/users", users);
+app.use("/api/cars", cars);
 app.use("/api/auth", auth);
 app.use("/api/admin", admin);
 app.use("/api/personnels", personnels);

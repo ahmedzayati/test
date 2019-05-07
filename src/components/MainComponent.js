@@ -24,10 +24,10 @@ import Admin from "./AdminComponent";
 import personnel from "./PersonnelComponent";
 import LoginAdmin from "./LoginAdminComponent";
 import Personnel from "./PersonnelComponent2";
-import Product from "./ProductComponent";
+import Product from "./ProductComponent2";
 import Chart from "./ChartComponent";
-import CarDetail from './client/CarDetail';
-import CheckoutComponent from './CheckoutComponent';
+import CarDetail from "./client/CarDetail";
+import CheckoutComponent from "./CheckoutComponent";
 const mapStateToProps = state => {
   return {
     cars: state.cars,
@@ -46,13 +46,12 @@ const mapDispatchToProps = dispatch => ({
   },
   loginAdmin: data => {
     dispatch(loginAdmin(data));
-
   },
-  deletePersonnel:(id)=>dispatch(deletePersonnel(id))
+  deletePersonnel: id => dispatch(deletePersonnel(id))
 });
 class Main extends React.Component {
   componentDidMount() {
-     this.props.addCars();
+    this.props.addCars();
   }
   render() {
     const ModelWithCath = ({ match }) => {
@@ -65,29 +64,31 @@ class Main extends React.Component {
         />
       );
     };
-    const ModelWithCars= ({ match }) => {
-      {console.log(match.params.cath)};
+    const ModelWithCars = ({ match }) => {
+      {
+        console.log(match.params.cath);
+      }
 
       return (
         <CarDetail
           cars={this.props.cars.filter(
-            car => car.id ===parseInt( match.params.car)
+            car => car.id === parseInt(match.params.car)
           )}
           cathegory={match.params.cath}
-         
         />
       );
     };
-    const CheckoutComponentCar= ({ match }) => {
-      {console.log(match.params.cath)};
+    const CheckoutComponentCar = ({ match }) => {
+      {
+        console.log(match.params.cath);
+      }
 
       return (
         <CheckoutComponent
           cars={this.props.cars.filter(
-            car => car.id ===parseInt( match.params.car)
+            car => car.id === parseInt(match.params.car)
           )}
           cathegory={match.params.cath}
-         
         />
       );
     };
@@ -102,10 +103,7 @@ class Main extends React.Component {
           <Route path="/admin/chart" component={() => <Chart />} />
 
           <Route path="/admin/product" component={() => <Product />} />
-          <Route
-            path="/admin/personnel"
-            component={() => <Personnel  />}
-          />
+          <Route path="/admin/personnel" component={() => <Personnel />} />
           <Route path="/home" component={() => <Home />} />
           <Route path="/signup" component={() => <Sign />} />
           <Route
