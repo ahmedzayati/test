@@ -282,18 +282,8 @@ class EnhancedTable extends React.Component {
   };
   componentDidMount() {
     console.log("a");
-    this.setState({ l: this.props.personnels.personnels.length });
-    this.props.fetchPersonnels();
-    // .then((res)=>
-
-    // {var x=[]
-    // this.props.personnels.personnels.map((personnel)=>{x.push(createData(personnel.cin,personnel.nomPersonnel, '305', personnel.email, personnel.dateEmbauche, '4.3'))},)
-    // this.setState({data:x})
-    // console.log(this.state.data)})
   }
-  componentWillMount() {
-    // this.props.fetchPersonnels()
-  }
+  
   handleRequestSort = (event, property) => {
     const orderBy = property;
     let order = "desc";

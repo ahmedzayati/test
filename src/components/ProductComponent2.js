@@ -8,6 +8,8 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import { NavLink, Link } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+
 import { connect } from "react-redux";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import {
@@ -17,6 +19,7 @@ import {
   DropdownItem
 } from "reactstrap";
 import { addCars, fetchCars } from "../redux/ActionCreators";
+import AlertDialogSlide1 from "./DialogProduct";
 
 const styles = theme => ({
   root: {
@@ -48,8 +51,6 @@ const mapDispatchToProps = dispatch => {
 
 class ProductComponent2 extends React.Component {
   componentDidMount() {
-    console.log("aaaaaaaaaaaaa");
-    this.props.fetchCars();
   }
 
   render() {
@@ -417,6 +418,7 @@ class ProductComponent2 extends React.Component {
             </nav>
 
             <div className={classes.root}>
+            <AlertDialogSlide1 />
               <GridList
                 cellHeight={150}
                 cols={3}
@@ -432,10 +434,10 @@ class ProductComponent2 extends React.Component {
                 {console.log(this.props.cars)}
                 {this.props.cars.cars.map(car => (
                   <GridListTile key={car.numArticle}>
-                    <img width={300} />
+                    <img width={300} src={"../assets/images/"+car.path} alt={car.path}/>
 
                     <GridListTileBar
-                      subtitle={<span>by:{car.numArticle}</span>}
+                      subtitle={<span>by:{car.numVehicule}</span>}
                       actionIcon={
                         <IconButton className={classes.icon}>
                           <i class="fa fa-trash" aria-hidden="true" />

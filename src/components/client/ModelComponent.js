@@ -44,16 +44,16 @@ class Model extends React.Component {
           <GridListTile className="list" cols={3} style={{ height: "auto" }}>
             <ListSubheader component="div" />
           </GridListTile>
-          {this.props.cars.map(model => (
+          {this.props.cars.cars.map(model => (
             <GridListTile key={model.id}>
-              <img width={300} src={"../" + model.src} />
+              <img width={300} src={"../assets/images/" + model.path} />
 
               <GridListTileBar
                 title={model.name}
-                subtitle={<span>by: {model.categorie}</span>}
+                subtitle={<span>by: {model.immatriculation}</span>}
                 actionIcon={
                   <IconButton>
-                    <Link to={`/cars/${model.id}`}>
+                    <Link to={`/cars/${model.numArticle}`}>
                       <i class="fa fa-plus" aria-hidden="true" />
                     </Link>
                     <IconButton>

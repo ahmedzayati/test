@@ -26,7 +26,10 @@ export const addPersonnel = personnel => ({
   type: ActionTypes.ADD_PERSONNEL,
   personnel: personnel
 });
-
+export const addCar = car => ({
+  type: ActionTypes.ADD_CAR,
+  car: car
+});
 export const upPersonnel = personnel => ({
   type: ActionTypes.UPDATE_PERSONNEL,
   personnel: personnel
@@ -134,5 +137,12 @@ export const updatePersonnel = personnelData => dispatch => {
     .put("http://localhost:3000/api/personnels", personnelData)
     .then(response => {
       dispatch(upPersonnel(response.data));
+    });
+};
+export const postProduct = (productData) => dispatch => {
+  return axios
+    .post("http://localhost:3000/api/cars", productData)
+    .then(response => {
+      dispatch(addCar(response.data));
     });
 };

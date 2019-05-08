@@ -60,7 +60,7 @@ class LoginAdmin extends React.Component{
                          <Col md={7}>
                              <Input type="password" id="password" name="password"
                                  placeholder="Password"
-                                 value={this.state.passwoed}
+                                 value={this.state.password}
                                  onChange={this.handleInputChange} />
                          </Col>                        
                      </FormGroup>

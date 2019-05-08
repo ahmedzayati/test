@@ -17,7 +17,8 @@ import {
   userSignup,
   login,
   loginAdmin,
-  deletePersonnel
+  deletePersonnel,
+  fetchCars
 } from "../redux/ActionCreators";
 import Header from "./Header";
 import Admin from "./AdminComponent";
@@ -35,8 +36,8 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  addCars: () => {
-    dispatch(addCars());
+  fetchCars: () => {
+    dispatch(fetchCars());
   },
   userSignup: user => {
     dispatch(userSignup(user));
@@ -51,13 +52,13 @@ const mapDispatchToProps = dispatch => ({
 });
 class Main extends React.Component {
   componentDidMount() {
-    this.props.addCars();
+    this.props.fetchCars();
   }
   render() {
     const ModelWithCath = ({ match }) => {
       return (
         <Model
-          cars={this.props.cars.filter(
+          cars={this.props.cars.cars.filter(
             car => car.categorie === match.params.cath
           )}
           cathegory={match.params.cath}
