@@ -8,7 +8,11 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import { NavLink, Link } from "react-router-dom";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
+
+import AlertDialogSlide1 from "./DialogProduct";
+import AlertDialogSlide2 from "./CarUpdate";
 
 import { connect } from "react-redux";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
@@ -18,8 +22,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { addCars, fetchCars } from "../redux/ActionCreators";
-import AlertDialogSlide1 from "./DialogProduct";
+import { addCars, fetchCars, deleteCar } from "../redux/ActionCreators";
 
 const styles = theme => ({
   root: {
@@ -45,13 +48,13 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCars: () => dispatch(fetchCars())
+    fetchCars: () => dispatch(fetchCars()),
+    ondeleteCar: id => dispatch(deleteCar(id))
   };
 };
 
 class ProductComponent2 extends React.Component {
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   render() {
     const { classes } = this.props;
@@ -418,7 +421,7 @@ class ProductComponent2 extends React.Component {
             </nav>
 
             <div className={classes.root}>
-            <AlertDialogSlide1 />
+              <AlertDialogSlide1 />
               <GridList
                 cellHeight={150}
                 cols={3}
@@ -433,19 +436,29 @@ class ProductComponent2 extends React.Component {
                 />
                 {console.log(this.props.cars)}
                 {this.props.cars.cars.map(car => (
-                  <GridListTile key={car.numArticle}>
-                    <img width={300} src={"../assets/images/"+car.path} alt={car.path}/>
+                  <GridListTile key={car.numVehicule}>
+                    <img
+                      width={300}
+                      src={"../assets/images/" + car.path}
+                      alt={car.path}
+                    />
 
                     <GridListTileBar
-                      subtitle={<span>by:{car.numVehicule}</span>}
+                      title={car.nomVehicule}
+                      subtitle={<span>by:{car.nomMarque}</span>}
                       actionIcon={
                         <IconButton className={classes.icon}>
-                          <i class="fa fa-trash" aria-hidden="true" />
+                          <i
+                            class="fa fa-trash"
+                            aria-hidden="true"
+                            onClick={() => {
+                              this.props.ondeleteCar(car.numVehicule);
+                            }}
+                          />
                           <IconButton className={classes.icon}>
-                            <i
-                              class="fa fa-pencil-square-o"
-                              aria-hidden="true"
-                            />{" "}
+                            <Tooltip title="Update" className="col-2">
+                              <AlertDialogSlide2 car={car} />
+                            </Tooltip>
                           </IconButton>
                         </IconButton>
                       }

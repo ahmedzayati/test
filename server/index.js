@@ -8,11 +8,10 @@ const personnels = require("./routes/personnels");
 const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
-const fileUpload = require('express-fileupload');
+const fileUpload = require("express-fileupload");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 // default options
 app.use(fileUpload());

@@ -22,7 +22,6 @@ import {
 } from "../redux/ActionCreators";
 import Header from "./Header";
 import Admin from "./AdminComponent";
-import personnel from "./PersonnelComponent";
 import LoginAdmin from "./LoginAdminComponent";
 import Personnel from "./PersonnelComponent2";
 import Product from "./ProductComponent2";
@@ -59,37 +58,35 @@ class Main extends React.Component {
       return (
         <Model
           cars={this.props.cars.cars.filter(
-            car => car.categorie === match.params.cath
+            car => car.nomMarque === match.params.cath
           )}
-          cathegory={match.params.cath}
+          nomMarque={match.params.nomMarque}
         />
       );
     };
     const ModelWithCars = ({ match }) => {
       {
-        console.log(match.params.cath);
+        console.log(match.params.car);
       }
 
       return (
         <CarDetail
-          cars={this.props.cars.filter(
-            car => car.id === parseInt(match.params.car)
+          cars={this.props.cars.cars.filter(
+            car => car.nomVehicule === match.params.car
           )}
-          cathegory={match.params.cath}
         />
       );
     };
     const CheckoutComponentCar = ({ match }) => {
       {
-        console.log(match.params.cath);
+        console.log(match.params.car);
       }
 
       return (
         <CheckoutComponent
-          cars={this.props.cars.filter(
-            car => car.id === parseInt(match.params.car)
+          cars={this.props.cars.cars.filter(
+            car => car.nomVehicule === match.params.car
           )}
-          cathegory={match.params.cath}
         />
       );
     };
@@ -118,6 +115,10 @@ class Main extends React.Component {
           <Route
             path="/model"
             component={() => <Model cars={this.props.cars} />}
+          />
+          <Route
+            path="/cars"
+            component={() => <CarDetail cars={this.props.cars} />}
           />
           <Route
             path="/loginAdmin"

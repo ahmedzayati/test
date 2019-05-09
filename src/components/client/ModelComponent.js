@@ -22,7 +22,7 @@ const styles = theme => ({
   },
   gridList: {
     width: 1100,
-    height: 1000
+    height: "auto"
   },
   icon: {
     color: "rgba(255, 255, 255, 0.54)"
@@ -36,24 +36,29 @@ class Model extends React.Component {
     return (
       <div className={classes.root}>
         <GridList
-          cellHeight={180}
+          cellHeight={150}
           cols={3}
-          spacing={30}
+          spacing={40}
           className={classes.gridList}
         >
-          <GridListTile className="list" cols={3} style={{ height: "auto" }}>
+          <GridListTile
+            key="Subheader"
+            className="list"
+            cols={3}
+            style={{ height: "auto" }}
+          >
             <ListSubheader component="div" />
           </GridListTile>
-          {this.props.cars.cars.map(model => (
-            <GridListTile key={model.id}>
+          {this.props.cars.map(model => (
+            <GridListTile key={model.nomVehicule}>
               <img width={300} src={"../assets/images/" + model.path} />
 
               <GridListTileBar
-                title={model.name}
-                subtitle={<span>by: {model.immatriculation}</span>}
+                title={model.nomVehicule}
+                subtitle={<span>by: {model.nomMarque}</span>}
                 actionIcon={
                   <IconButton>
-                    <Link to={`/cars/${model.numArticle}`}>
+                    <Link to={`/cars/${model.nomVehicule}`}>
                       <i class="fa fa-plus" aria-hidden="true" />
                     </Link>
                     <IconButton>
@@ -64,6 +69,7 @@ class Model extends React.Component {
               />
             </GridListTile>
           ))}
+          <p />
         </GridList>
       </div>
 
@@ -97,12 +103,5 @@ class Model extends React.Component {
 Model.propTypes = {
   classes: PropTypes.object.isRequired
 };
-const mapStateToProps = state => {
-  return {
-    cars: state.cars
-  };
-};
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Model)));
-
-// export default withRouter(connect(mapStateToProps)(Model));
+export default withStyles(styles)(Model);

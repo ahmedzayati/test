@@ -5,7 +5,8 @@ var con = mysql.createConnection(
     host: "localhost",
     user: "root",
     password: "",
-    database: "PFA"
+    database: "PFA2",
+    port: 3002
   },
   console.log("cnx")
 );
