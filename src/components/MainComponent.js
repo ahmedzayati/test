@@ -72,7 +72,7 @@ class Main extends React.Component {
 
       return (
         <CarDetail
-          cars={this.props.cars.filter(
+          cars={this.props.cars.cars.filter(
             car => car.id === parseInt(match.params.car)
           )}
           cathegory={match.params.cath}
@@ -86,7 +86,7 @@ class Main extends React.Component {
 
       return (
         <CheckoutComponent
-          cars={this.props.cars.filter(
+          cars={this.props.cars.cars.filter(
             car => car.id === parseInt(match.params.car)
           )}
           cathegory={match.params.cath}

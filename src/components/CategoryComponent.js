@@ -130,8 +130,12 @@ class Category extends React.Component {
           <h3>Make your choice</h3>
         </center>
         <div className="row mb-5">
-          <div className="col-12 col-sm-8 offset-2">
+          <div className="col-12 col-sm-8 offset-1">
             <div className="row">{allCath}</div>
+          </div>
+          <div className="col-12 col-sm-2">
+            <img src="assets/images/pub1.jpg"alt="j" width="300" />
+            <img src="assets/images/pub2.jpg"alt="j" width="300" className="img-responsive"/>
           </div>
         </div>
       </>

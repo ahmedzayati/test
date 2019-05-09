@@ -45,10 +45,18 @@ handleChange = (event) => {
 }
 
 handleSubmit = () => {
-    
-    
-// this.props.postProduct(this.state);
-this.handleUploadImage();
+  const data = new FormData();
+  data.append('file', this.uploadInput.files[0]);
+  data.append('filename', this.fileName.value);
+  data.append('nomPrduit', this.state.nomProduit);
+  data.append('prixProduit', this.state.prixProduit);
+  data.append('immatriculation', this.state.immatriculation);
+  data.append('couleur', this.state.couleur);
+  data.append('description', this.state.description);
+  data.append('path', this.uploadInput.files[0].name);
+
+ this.props.postProduct(data);
+//this.handleUploadImage();
 }
 
   handleClickOpen = () => {

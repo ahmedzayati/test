@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => {
 };
  class FormDialog extends React.Component {
   state = {
-    open: false,email: '',nomPersonnel:'',prenomPersonnel:'',
+    open: false,email: '',nomPersonnel:'',prenomPersonnel:'',cin:'',
     position:'',salaire:'',telephone:'',adresse:'',pseudo:'',dateEmbauche:'',password:''
   };
 
@@ -93,7 +93,15 @@ console.log(this.state)
                     validators={['required']}
                     errorMessages={['this field is required']}
                     fullWidth
-                />
+                /><TextValidator
+                label="CIN"
+                onChange={this.handleChange}
+                name="cin"
+                value={this.state.cin}
+                validators={['required']}
+                errorMessages={['this field is required']}
+                fullWidth
+            />
                 <TextValidator
                     label="Pseudo"
                     onChange={this.handleChange}

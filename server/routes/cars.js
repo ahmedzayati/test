@@ -17,23 +17,23 @@ router.get("/", (req, res) => {
 
 
 router.post('/',(req,res,)=>{
-  const {description,nomProduit,prixProduit,
-  marque,immatriculation,couleur,data}=req.body;
-  console.log(req.body)
-  const query="INSERT INTO `Vehicule`( `numvehicule`,`nomvehicule`,`immatriculation`, `numMarque`, `couleur`, `prix`,`description`,`path`) VALUES (?,?,?,?,?,?,?,?)"
-  con.query(query,[1,nomProduit,immatriculation,1,couleur,prixProduit,description,req.files.file.name],function(err, result, fields) {
-    if (err) throw err;
+  
     var sampleFile = req.files.file;
   
       // Use the mv() method to place the file somewhere on your server
-      sampleFile.mv('/home/admed/Desktop/pfa2/pfa/public/assets/images/'+sampleFile.name, req,function(err) {
+      sampleFile.mv('/home/admed/Desktop/pfa2/pfa/public/assets/images/'+sampleFile.name, function(err) {
 
-          
-       res.status(200).json(req.body)
+        const {description,nomProduit,prixProduit,
+          marque,immatriculation,couleur,data}=req.body;
+          console.log(req.body)
+          const query="INSERT INTO `Vehicule`( `numvehicule`,`nomvehicule`,`immatriculation`, `numMarque`, `couleur`, `prix`,`description`,`path`) VALUES (?,?,?,?,?,?,?,?)"
+          con.query(query,[1,nomProduit,immatriculation,1,couleur,prixProduit,description,req.files.file.name],function(err, result, fields) {
+            if (err) throw err;
+            res.status(200).json(req.body)
        console.log("1")
    
    })
-  
+   
     
    
    })

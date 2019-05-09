@@ -10,15 +10,15 @@ import {
 const items = [
   {
     id: 1,
-    src:'assets/images/v1.jpg'
+    src:'assets/images/c5.jpg'
   },
   {
     id: 2,
-    src:'assets/images/v2.jpg'
+    src:'assets/images/c2.jpg'
   },
   {
     id: 3,
-    src:'assets/images/v3.jpg'
+    src:'assets/images/c4.jpg'
   }
 ];
 
