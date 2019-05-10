@@ -72,7 +72,7 @@ class Order extends React.Component {
       <td>{order.cin}</td>
       <td>{order.date}</td>
       <td>{order.etat}</td>
-      <td><Link to={`/admin/${order.nomVehicule}`}>Details</Link></td>
+      <td><Link to={`/admin/order/${order.numCommande}`}>Details</Link></td>
     </tr>)
       })
     return (
@@ -178,7 +178,7 @@ class Order extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/personnel">
+            <Link to="/admin/orders">
               <a
                 className="nav-link collapsed"
                 href="#"

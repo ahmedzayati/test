@@ -169,7 +169,7 @@ class Personnel extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/personnel">
+            <Link to="/admin/orders">
               <a
                 className="nav-link collapsed"
                 href="#"

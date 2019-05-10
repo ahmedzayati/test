@@ -70,37 +70,62 @@ class OrderDetail extends React.Component {
     const orders=this.props.orders.orders.map(order=>{if(parseInt( order.numCommande)===parseInt( this.props.numCommande))
         return(
             <div id="page-wrapper">
-            <h1>Details and Summary Elements Demo</h1>
+            <h1>Order Details and Summary </h1>
             
-            <h2>Example #1: Order Information</h2>
+            <h2>Order Information</h2>
             
             <details>
-              <summary>Order #24892105</summary>
+              <summary>Order #{order.numCommande}</summary>
               
               <table>
+              <tr>
+                  <th scope="row">Order Owner</th>
+                  <td>{order.nomClient} {order.prenomClient}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Owner Mail</th>
+                  <td>
+                   {order.email}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Car Name</th>
+                  <td>{order.nomVehicule}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Car Mark</th>
+                  <td>{order.nomMarque}</td>
+                </tr>
                 <tr>
                   <th scope="row">Order Date</th>
-                  <td>30th May 2003</td>
+                  <td>{order.date}</td>
                 </tr>
                 <tr>
                   <th scope="row">Order Number</th>
-                  <td>#24892105</td>
-                </tr>
-                <tr>
-                  <th scope="row">Courier</th>
-                  <td>Buy N Large Postal</td>
+                  <td>#{order.numCommande}</td>
                 </tr>
                 <tr>
                   <th scope="row">Shipping Address</th>
                   <td>
-                    P. Sherman,
-                    Australia
+                    {order.adresse}
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">Billing Address</th>
+                  <th scope="row">ZIP Code</th>
                   <td>
-                    P. Sherman,
+                   {order.zip}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Country</th>
+                  <td>
+                   {order.pays}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Telephone</th>
+                  <td>
+                   {order.telephone}
                   </td>
                 </tr>
               </table>
@@ -108,8 +133,13 @@ class OrderDetail extends React.Component {
             
             <h2>Example #2: Controls</h2>
             <details>
-              <summary>README.txt</summary>
+              <summary>
+              <div className = "App">
+        <a href ="../../home/admed/Desktop/pfa2/pfa/public/assets/files/si-Copie.pdf" target = "_blank">Download Pdf</a>
+      </div>
+              </summary>
               <ul>
+
                 <li>Open</li>
                 <li>Edit</li>
                 <li>Duplicate</li>

@@ -108,8 +108,8 @@ class Main extends React.Component {
 
           <Route path="/admin/product" component={() => <Product />} />
           <Route path="/admin/personnel" component={() => <Personnel />} />
-          <Route path="/admin/order" component={() => <Order  />} />
-          <Route path="/admin/orders/:numCom" component={({ match })=><OrderDetail numCommande={ match.params.numCom
+          <Route path="/admin/orders" component={() => <Order  />} />
+          <Route path="/admin/order/:numCom" component={({ match })=><OrderDetail numCommande={ match.params.numCom
           } />} />
 
           <Route path="/home" component={() => <Home />} />

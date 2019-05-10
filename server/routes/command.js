@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 
 router.get("/", (req, res) => {
-    const query = "SELECT * FROM `association8`, `commandes` where commandes.numCommande=association8.numCommande ";
+    const query = "SELECT * FROM `association8`, `commandes`,`Clients`,`Vehicule` where commandes.numCommande=association8.numCommande and Clients.cin=commandes.cin and association8.numVehicule=Vehicule.numVehicule";
   
     con.query(query, [], function(err, result, fields) {
       if (err) throw err;
