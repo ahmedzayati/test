@@ -20,8 +20,8 @@ import {
   deletePersonnel,
   fetchCars
 } from "../redux/ActionCreators";
-import Order from './OrderComponent';
-import OrderDetail from './orderDetailComponent';
+import Order from "./OrderComponent";
+import OrderDetail from "./orderDetailComponent";
 
 import Header from "./Header";
 import Admin from "./AdminComponent";
@@ -34,7 +34,7 @@ import CheckoutComponent from "./CheckoutComponent";
 const mapStateToProps = state => {
   return {
     cars: state.cars,
-    auth: state.auth,
+    auth: state.auth
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -51,14 +51,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loginAdmin(data));
   },
   deletePersonnel: id => dispatch(deletePersonnel(id)),
-  fetchOrders: () => dispatch(fetchOrders()),
-
+  fetchOrders: () => dispatch(fetchOrders())
 });
 class Main extends React.Component {
   componentDidMount() {
     this.props.fetchCars();
-    
-
   }
   render() {
     const ModelWithCath = ({ match }) => {
@@ -77,7 +74,6 @@ class Main extends React.Component {
       }
 
       return (
-        
         <CarDetail
           cars={this.props.cars.cars.filter(
             car => car.nomVehicule === match.params.car
@@ -86,8 +82,6 @@ class Main extends React.Component {
       );
     };
     const CheckoutComponentCar = ({ match }) => {
-      
-
       return (
         <CheckoutComponent
           car={this.props.cars.cars.filter(
@@ -108,9 +102,13 @@ class Main extends React.Component {
 
           <Route path="/admin/product" component={() => <Product />} />
           <Route path="/admin/personnel" component={() => <Personnel />} />
-          <Route path="/admin/order" component={() => <Order  />} />
-          <Route path="/admin/orders/:numCom" component={({ match })=><OrderDetail numCommande={ match.params.numCom
-          } />} />
+          <Route path="/admin/order" component={() => <Order />} />
+          <Route
+            path="/admin/orders/:numCom"
+            component={({ match }) => (
+              <OrderDetail numCommande={match.params.numCom} />
+            )}
+          />
 
           <Route path="/home" component={() => <Home />} />
           <Route path="/signup" component={() => <Sign />} />

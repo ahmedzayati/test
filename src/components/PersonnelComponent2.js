@@ -17,7 +17,7 @@ import {
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
 import { connect } from "react-redux";
-import EnhancedTable from './TableComponent';
+import EnhancedTable from "./TableComponent";
 const mapStateToProps = state => {
   return {
     personnels: state.personnels
@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => {
     onAlterPersonnels: (id, salary, position) =>
       dispatch(alterPersonnels(id, salary, position)),
     fetchPersonnels: () => dispatch(fetchPersonnels()),
-    deletePersonnel:()=>dispatch(deletePersonnel()),
+    deletePersonnel: () => dispatch(deletePersonnel())
   };
 };
 
@@ -137,6 +137,22 @@ class Personnel extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
+            <Link to="/admin/order">
+              <a
+                className="nav-link collapsed"
+                href="#"
+                data-toggle="collapse"
+                data-target="#collapseUtilities"
+                aria-expanded="true"
+                aria-controls="collapseUtilities"
+              >
+                <i class="fas fa-fw fa-shopping-cart" />
+
+                <span>Orders</span>
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link to="/admin/personnel">
               <a
                 className="nav-link collapsed"
@@ -165,22 +181,6 @@ class Personnel extends React.Component {
                 <i class="fas fa-fw fa-list" />
 
                 <span>Tasks</span>
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/admin/personnel">
-              <a
-                className="nav-link collapsed"
-                href="#"
-                data-toggle="collapse"
-                data-target="#collapseUtilities"
-                aria-expanded="true"
-                aria-controls="collapseUtilities"
-              >
-                <i class="fas fa-fw fa-shopping-cart" />
-
-                <span>Orders</span>
               </a>
             </Link>
           </li>
@@ -420,12 +420,8 @@ class Personnel extends React.Component {
             </nav>
 
             <div className="container-fluid">
-              <EnhancedTable  />
+              <EnhancedTable />
               <div class="card mb-3">
-                
-
-                
-                
                 <div class="card-footer small text-muted">
                   Updated yesterday at 11:59 PM
                 </div>

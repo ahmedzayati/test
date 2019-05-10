@@ -17,10 +17,10 @@ import {
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
 import { connect } from "react-redux";
-import EnhancedTable from './TableComponent';
+import EnhancedTable from "./TableComponent";
 const mapStateToProps = state => {
   return {
-    orders:state.orders
+    orders: state.orders
   };
 };
 // const mapDispatchToProps = dispatch => (  {
@@ -39,42 +39,30 @@ const mapDispatchToProps = dispatch => {
     onAlterPersonnels: (id, salary, position) =>
       dispatch(alterPersonnels(id, salary, position)),
     fetchOrders: () => dispatch(fetchOrders()),
-    deletePersonnel:()=>dispatch(deletePersonnel()),
+    deletePersonnel: () => dispatch(deletePersonnel())
   };
 };
 
 class Order extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { code: "", pseudo: "" };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value
-    });
-  }
   componentDidMount() {
     this.props.fetchOrders();
   }
-  handleSubmit(event) {
-    event.preventDefault();
-  }
+
   render() {
-      const orders=this.props.orders.orders.map(order=>{return(
-<tr>
-      <th scope="row">1</th>
-      <td>{order.cin}</td>
-      <td>{order.date}</td>
-      <td>{order.etat}</td>
-      <td><Link to={`/admin/${order.nomVehicule}`}>Details</Link></td>
-    </tr>)
-      })
+    const orders = this.props.orders.orders.map(order => {
+      return (
+        <tr>
+          <th scope="row">{order.numCommande}</th>
+          <td>{order.nomClient + " " + order.prenomClient}</td>
+          <td>{order.cin}</td>
+          <td>{order.date}</td>
+          <td>{order.etat}</td>
+          <td>
+            <Link to={`/admin/orders/${order.numCommande}`}>Details</Link>
+          </td>
+        </tr>
+      );
+    });
     return (
       <div id="wrapper">
         <ul
@@ -146,6 +134,22 @@ class Order extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
+            <Link to="/admin/order">
+              <a
+                className="nav-link collapsed"
+                href="#"
+                data-toggle="collapse"
+                data-target="#collapseUtilities"
+                aria-expanded="true"
+                aria-controls="collapseUtilities"
+              >
+                <i class="fas fa-fw fa-shopping-cart" />
+
+                <span>Orders</span>
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link to="/admin/personnel">
               <a
                 className="nav-link collapsed"
@@ -174,22 +178,6 @@ class Order extends React.Component {
                 <i class="fas fa-fw fa-list" />
 
                 <span>Tasks</span>
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/admin/personnel">
-              <a
-                className="nav-link collapsed"
-                href="#"
-                data-toggle="collapse"
-                data-target="#collapseUtilities"
-                aria-expanded="true"
-                aria-controls="collapseUtilities"
-              >
-                <i class="fas fa-fw fa-shopping-cart" />
-
-                <span>Orders</span>
               </a>
             </Link>
           </li>
@@ -430,25 +418,20 @@ class Order extends React.Component {
 
             <div className="container-fluid">
               <div class="card mb-3">
-              <table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Order Owner</th>
-      <th scope="col">Date</th>
-      <th scope="col">State</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-      
-    {orders}
-    
-  </tbody>
-</table>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Order Owner name </th>
+                      <th scope="col">Order Owner cin </th>
+                      <th scope="col">Date</th>
+                      <th scope="col">State</th>
+                      <th scope="col" />
+                    </tr>
+                  </thead>
+                  <tbody>{orders}</tbody>
+                </table>
 
-                
-                
                 <div class="card-footer small text-muted">
                   Updated yesterday at 11:59 PM
                 </div>
