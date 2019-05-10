@@ -13,16 +13,18 @@ import Category from "./CategoryComponent";
 import EnhancedTable from "./TableComponent";
 import { connect } from "react-redux";
 import {
-  addCars,
+  fetchOrders,
   userSignup,
   login,
   loginAdmin,
   deletePersonnel,
   fetchCars
 } from "../redux/ActionCreators";
+import Order from './OrderComponent';
+import OrderDetail from './orderDetailComponent';
+
 import Header from "./Header";
 import Admin from "./AdminComponent";
-import personnel from "./PersonnelComponent";
 import LoginAdmin from "./LoginAdminComponent";
 import Personnel from "./PersonnelComponent2";
 import Product from "./ProductComponent2";
@@ -32,7 +34,7 @@ import CheckoutComponent from "./CheckoutComponent";
 const mapStateToProps = state => {
   return {
     cars: state.cars,
-    auth: state.auth
+    auth: state.auth,
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -48,48 +50,49 @@ const mapDispatchToProps = dispatch => ({
   loginAdmin: data => {
     dispatch(loginAdmin(data));
   },
-  deletePersonnel: id => dispatch(deletePersonnel(id))
+  deletePersonnel: id => dispatch(deletePersonnel(id)),
+  fetchOrders: () => dispatch(fetchOrders()),
+
 });
 class Main extends React.Component {
   componentDidMount() {
     this.props.fetchCars();
+    
+
   }
   render() {
     const ModelWithCath = ({ match }) => {
       return (
         <Model
           cars={this.props.cars.cars.filter(
-            car => car.categorie === match.params.cath
+            car => car.nomMarque === match.params.cath
           )}
-          cathegory={match.params.cath}
+          nomMarque={match.params.nomMarque}
         />
       );
     };
     const ModelWithCars = ({ match }) => {
       {
-        console.log(match.params.cath);
+        console.log(match.params.car);
       }
 
       return (
+        
         <CarDetail
           cars={this.props.cars.cars.filter(
-            car => car.id === parseInt(match.params.car)
+            car => car.nomVehicule === match.params.car
           )}
-          cathegory={match.params.cath}
         />
       );
     };
     const CheckoutComponentCar = ({ match }) => {
-      {
-        console.log(match.params.cath);
-      }
+      
 
       return (
         <CheckoutComponent
-          cars={this.props.cars.cars.filter(
-            car => car.id === parseInt(match.params.car)
+          car={this.props.cars.cars.filter(
+            car => car.nomVehicule === match.params.car
           )}
-          cathegory={match.params.cath}
         />
       );
     };
@@ -105,6 +108,10 @@ class Main extends React.Component {
 
           <Route path="/admin/product" component={() => <Product />} />
           <Route path="/admin/personnel" component={() => <Personnel />} />
+          <Route path="/admin/order" component={() => <Order  />} />
+          <Route path="/admin/orders/:numCom" component={({ match })=><OrderDetail numCommande={ match.params.numCom
+          } />} />
+
           <Route path="/home" component={() => <Home />} />
           <Route path="/signup" component={() => <Sign />} />
           <Route
@@ -118,6 +125,10 @@ class Main extends React.Component {
           <Route
             path="/model"
             component={() => <Model cars={this.props.cars} />}
+          />
+          <Route
+            path="/cars"
+            component={() => <CarDetail cars={this.props.cars} />}
           />
           <Route
             path="/loginAdmin"

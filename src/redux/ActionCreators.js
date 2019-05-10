@@ -16,6 +16,27 @@ export const fetchCars = () => dispatch => {
     console.log(addCars(response.data));
   });
 };
+export const deleteCars = id => ({
+  type: ActionTypes.DELETE_CARS,
+  Id: id
+});
+export const deleteCar = id => dispatch => {
+  return axios
+    .delete(`http://localhost:3000/api/cars/${id}`)
+    .then(response => dispatch(deleteCars(id)))
+    .catch(function(error) {
+      console.log(error);
+    });
+};
+export const upCar = car => ({
+  type: ActionTypes.UPDATE_CAR,
+  car: car
+});
+export const updateCar = carData => dispatch => {
+  return axios.put("http://localhost:3000/api/cars", carData).then(response => {
+    dispatch(upCar(response.data));
+  });
+};
 
 export const addPersonnels = personnels => ({
   type: ActionTypes.ADD_PERSONNELS,
@@ -124,6 +145,16 @@ export const fetchPersonnels = () => dispatch => {
   });
 };
 
+export const addOrders = orders => ({
+  type: ActionTypes.ADD_ORDERS,
+  orders: orders
+});
+export const fetchOrders = () => dispatch => {
+  return axios.get("http://localhost:3000/api/order").then(response => {
+    dispatch(addOrders(response.data));
+    console.log("fetch");
+  });
+};
 export const postPersonnel = personnelData => dispatch => {
   return axios
     .post("http://localhost:3000/api/personnels", personnelData)
@@ -139,10 +170,18 @@ export const updatePersonnel = personnelData => dispatch => {
       dispatch(upPersonnel(response.data));
     });
 };
-export const postProduct = (productData) => dispatch => {
+export const postProduct = productData => dispatch => {
   return axios
     .post("http://localhost:3000/api/cars", productData)
     .then(response => {
       dispatch(addCar(response.data));
+    });
+};
+
+export const postCommand = productData => dispatch => {
+  return axios
+    .post("http://localhost:3000/api/order", productData)
+    .then(response => {
+      //dispatch(addCar(response.data));
     });
 };

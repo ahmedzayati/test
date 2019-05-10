@@ -14,7 +14,7 @@ router.post("/", (req, resp) => {
         if (res) {
           const token = jwt.sign(
             {
-              id: result[0].cin,
+              cin: result[0].cin,
               email: result[0].email,
               nom: result[0].nomClient
             },
