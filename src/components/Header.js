@@ -18,8 +18,28 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+// const mapDispatchToProps = dispatch => (  {
+//   addPersonnels: () => {
+//     dispatch(addPersonnels());
+//   },
+//   deletePersonnels: () => {
+//     dispatch(deletePersonnels());
+//   }
+
+// });
+const mapDispatchToProps = dispatch => {
+  
+};
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -108,20 +128,36 @@ class Header extends React.Component {
                   </NavLink>
                 </NavItem>
               </Nav>
+              {(this.props.auth.isAuthentificated)?
               <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <Link to="/login">
-                    {" "}
-                    <Button
-                      className="btn-login"
-                      onClick={this.toggleModal}
-                      outline
-                    >
-                      <span className="fa fa-sign-in fa-lg" /> Login
-                    </Button>
-                  </Link>
-                </NavItem>
-              </Nav>
+              <NavItem>
+                <Link to="/login">
+                  {" "}
+                  <Button
+                    className="btn-login"
+                    onClick={this.toggleModal}
+                    outline
+                  >
+                    <span className="fa fa-sign-in fa-lg" /> LogOut
+                  </Button>
+                </Link>
+              </NavItem>
+            </Nav>
+              
+              : <Nav className="ml-auto" navbar>
+              <NavItem>
+                <Link to="/login">
+                  {" "}
+                  <Button
+                    className="btn-login"
+                    onClick={this.toggleModal}
+                    outline
+                  >
+                    <span className="fa fa-sign-in fa-lg" /> Login
+                  </Button>
+                </Link>
+              </NavItem>
+            </Nav>}
             </Collapse>
           </div>
         </Navbar>
@@ -164,4 +200,10 @@ class Header extends React.Component {
     </div>)
   }
 }
-export default Header;
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Header)
+);
+

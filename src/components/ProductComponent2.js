@@ -132,6 +132,22 @@ class ProductComponent2 extends React.Component {
                 </a>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/admin/orders">
+                <a
+                  className="nav-link collapsed"
+                  href="#"
+                  data-toggle="collapse"
+                  data-target="#collapseUtilities"
+                  aria-expanded="true"
+                  aria-controls="collapseUtilities"
+                >
+                  <i class="fas fa-fw fa-shopping-cart" />
+
+                  <span>Orders</span>
+                </a>
+              </Link>
+            </li>
 
             <li className="nav-item">
               <Link to="/admin/personnel">
@@ -151,7 +167,7 @@ class ProductComponent2 extends React.Component {
             </li>
 
             <li className="nav-item">
-              <Link to="/admin/personnel">
+              <Link to="/admin/orders">
                 <a
                   className="nav-link collapsed"
                   href="#"
@@ -166,22 +182,7 @@ class ProductComponent2 extends React.Component {
                 </a>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/admin/orders">
-                <a
-                  className="nav-link collapsed"
-                  href="#"
-                  data-toggle="collapse"
-                  data-target="#collapseUtilities"
-                  aria-expanded="true"
-                  aria-controls="collapseUtilities"
-                >
-                  <i class="fas fa-fw fa-shopping-cart" />
 
-                  <span>Orders</span>
-                </a>
-              </Link>
-            </li>
             <li className="nav-item">
               <Link to="/admin/chart">
                 <a

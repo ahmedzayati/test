@@ -11,10 +11,26 @@ export const Orders = (state = { orders: [] }, action) => {
     //     ...state,
     //     personnels: state.personnels.concat(action.personnel)
     //   };
-
-    
-
-    
+    case ActionTypes.COMFIRM_ORDER:
+      return {
+        ...state,
+        orders: state.orders.map(order => {
+          if (order.numCommande == action.numCommande) {
+            order.etat = "confirm";
+          }
+          return order;
+        })
+      };
+    case ActionTypes.DECLINE_ORDER:
+      return {
+        ...state,
+        orders: state.orders.map(order => {
+          if (order.numCommande == action.numCommande) {
+            order.etat = "decline";
+          }
+          return order;
+        })
+      };
     default:
       return state;
   }

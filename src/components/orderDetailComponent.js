@@ -1,12 +1,16 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import { Document, Page, pdfjs } from "react-pdf";
+
 import {
   addPersonnels,
   deletePersonnels,
   pushPersonnels,
   alterPersonnels,
   fetchOrders,
-  deletePersonnel
+  deletePersonnel,
+  confirmOrder,
+  declineOrder
 } from "../redux/ActionCreators";
 import {
   UncontrolledDropdown,
@@ -17,10 +21,11 @@ import {
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
 import { connect } from "react-redux";
-import EnhancedTable from './TableComponent';
+import MyApp from "./pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const mapStateToProps = state => {
   return {
-    orders:state.orders
+    orders: state.orders
   };
 };
 // const mapDispatchToProps = dispatch => (  {
@@ -34,12 +39,9 @@ const mapStateToProps = state => {
 // });
 const mapDispatchToProps = dispatch => {
   return {
-    ondeletePersonnels: id => dispatch(deletePersonnels(id)),
-    onPushPersonnels: (code, pseudo) => dispatch(pushPersonnels(code, pseudo)),
-    onAlterPersonnels: (id, salary, position) =>
-      dispatch(alterPersonnels(id, salary, position)),
     fetchOrders: () => dispatch(fetchOrders()),
-    deletePersonnel:()=>dispatch(deletePersonnel()),
+    confirmOrder: numCommande => dispatch(confirmOrder(numCommande)),
+    declineOrder: numCommande => dispatch(declineOrder(numCommande))
   };
 };
 
@@ -61,7 +63,6 @@ class OrderDetail extends React.Component {
   }
   componentDidMount() {
     this.props.fetchOrders();
-
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -127,31 +128,62 @@ class OrderDetail extends React.Component {
                   <td>
                    {order.telephone}
                   </td>
+                  <td>{order.numCommande}</td>
                 </tr>
+                
+                <tr>
+                  <th scope="row">Shipping Address</th>
+                  <td>{order.adresse}</td>
+                </tr>
+                
+                
+              
+                
               </table>
             </details>
-            
-            <h2>Example #2: Controls</h2>
+            <h2>CHECK FILE</h2>
             <details>
-              <summary>
-              <div className = "App">
-        <a href ="../../home/admed/Desktop/pfa2/pfa/public/assets/files/si-Copie.pdf" target = "_blank">Download Pdf</a>
-      </div>
-              </summary>
+              <summary>                  <a href={'../../assets/files/'+order.path} target='_blank'>UPLOADED FILE</a>
+</summary>
               <ul>
-
-                <li>Open</li>
-                <li>Edit</li>
-                <li>Duplicate</li>
-                <li>Delete</li>
+                
               </ul>
             </details>
-            
-            
-          </div>)
-        return null;
-              }) 
-                 return (
+            <h2>COMFIRM ORDER</h2>
+            <details>
+              <summary>show options</summary>
+              <ul>
+                <li>
+                  <Link to="/admin/orders/">
+                    <button
+                      onClick={() => {
+                        this.props.confirmOrder(order.numCommande);
+                      }}
+                    >
+                      <i class="fa fa-check" aria-hidden="true" />
+                      confirm
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/admin/orders/">
+                    <button
+                      onClick={() => {
+                        this.props.declineOrder(order.numCommande);
+                      }}
+                    >
+                      <i class="fa fa-times" aria-hidden="true" />
+                      decline
+                    </button>
+                  </Link>
+                </li>
+              </ul>
+            </details>
+          </div>
+        );
+      return null;
+    });
+    return (
       <div id="wrapper">
         <ul
           className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -222,6 +254,22 @@ class OrderDetail extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
+            <Link to="/admin/order">
+              <a
+                className="nav-link collapsed"
+                href="#"
+                data-toggle="collapse"
+                data-target="#collapseUtilities"
+                aria-expanded="true"
+                aria-controls="collapseUtilities"
+              >
+                <i class="fas fa-fw fa-shopping-cart" />
+
+                <span>Orders</span>
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link to="/admin/personnel">
               <a
                 className="nav-link collapsed"
@@ -250,22 +298,6 @@ class OrderDetail extends React.Component {
                 <i class="fas fa-fw fa-list" />
 
                 <span>Tasks</span>
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/admin/personnel">
-              <a
-                className="nav-link collapsed"
-                href="#"
-                data-toggle="collapse"
-                data-target="#collapseUtilities"
-                aria-expanded="true"
-                aria-controls="collapseUtilities"
-              >
-                <i class="fas fa-fw fa-shopping-cart" />
-
-                <span>Orders</span>
               </a>
             </Link>
           </li>
@@ -506,10 +538,8 @@ class OrderDetail extends React.Component {
 
             <div className="container-fluid">
               <div class="card mb-3">
-            {orders}
+                {orders}
 
-                
-                
                 <div class="card-footer small text-muted">
                   Updated yesterday at 11:59 PM
                 </div>

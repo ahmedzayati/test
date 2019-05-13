@@ -104,7 +104,7 @@ export const setUser = user => ({
   type: ActionTypes.SET_USER,
   payload: user
 });
-export const login = userData => dispatch => {
+export const login = (userData,h) => dispatch => {
   return axios
     .post("http://localhost:3000/api/auth", userData)
     .then()
@@ -113,6 +113,7 @@ export const login = userData => dispatch => {
       localStorage.setItem("jwToken", token);
       setAuthToken(token);
       dispatch(setUser(jwt.decode(token)));
+      h.push("/home");
       console.log(jwt.decode(token));
     });
 };
@@ -155,6 +156,35 @@ export const fetchOrders = () => dispatch => {
     console.log("fetch");
   });
 };
+export const UpConfirm = numCommande => ({
+  type: ActionTypes.COMFIRM_ORDER,
+  numCommande: numCommande
+});
+export const UpDecline = numCommande => ({
+  type: ActionTypes.DECLINE_ORDER,
+  numCommande: numCommande
+});
+
+// export const confirmOrder = numCommande => dispatch => {
+//   return axios
+//     .put("http://localhost:3000/api/order", numCommande)
+//     .then(response => {
+//       dispatch(UpConfirm(response.data));
+//       console.log(response.data);
+//     });
+// };
+export const confirmOrder = numCommande => dispatch => {
+  return axios
+    .put(`http://localhost:3000/api/order/confirm/${numCommande}`)
+    .then(response => dispatch(UpConfirm(numCommande)));
+};
+
+export const declineOrder = numCommande => dispatch => {
+  return axios
+    .put(`http://localhost:3000/api/order/decline/${numCommande}`)
+    .then(response => dispatch(UpDecline(numCommande)));
+};
+
 export const postPersonnel = personnelData => dispatch => {
   return axios
     .post("http://localhost:3000/api/personnels", personnelData)

@@ -196,10 +196,13 @@ handleSubmit(event) {
                     </div>
 
                     <div id="items" />
-
+                    { this.props.auth.isAuthentificated ?
                     <button class="site-btn submit-order-btn" type="submit" id="order2">
                       Place Order
                     </button>
+                    : <button class="site-btn submit-order-btn" type="submit" disabled id="order2">
+                    Please login to be able to place order
+                  </button>}
                   </div>
                 </div>
                 </form>

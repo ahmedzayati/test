@@ -9,7 +9,7 @@ import Model from "./client/ModelComponent";
 import About from "./client/AboutUsComponent";
 import Contact from "./client/ContactUsComponent";
 import Category from "./CategoryComponent";
-
+import Account from './AccountComponent';
 import EnhancedTable from "./TableComponent";
 import { connect } from "react-redux";
 import {
@@ -20,8 +20,8 @@ import {
   deletePersonnel,
   fetchCars
 } from "../redux/ActionCreators";
-import Order from './OrderComponent';
-import OrderDetail from './orderDetailComponent';
+import Order from "./OrderComponent";
+import OrderDetail from "./orderDetailComponent";
 
 import Header from "./Header";
 import Admin from "./AdminComponent";
@@ -34,7 +34,7 @@ import CheckoutComponent from "./CheckoutComponent";
 const mapStateToProps = state => {
   return {
     cars: state.cars,
-    auth: state.auth,
+    auth: state.auth
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -51,14 +51,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loginAdmin(data));
   },
   deletePersonnel: id => dispatch(deletePersonnel(id)),
-  fetchOrders: () => dispatch(fetchOrders()),
-
+  fetchOrders: () => dispatch(fetchOrders())
 });
 class Main extends React.Component {
   componentDidMount() {
     this.props.fetchCars();
-    
-
   }
   render() {
     const ModelWithCath = ({ match }) => {
@@ -77,7 +74,6 @@ class Main extends React.Component {
       }
 
       return (
-        
         <CarDetail
           cars={this.props.cars.cars.filter(
             car => car.nomVehicule === match.params.car
@@ -86,8 +82,6 @@ class Main extends React.Component {
       );
     };
     const CheckoutComponentCar = ({ match }) => {
-      
-
       return (
         <CheckoutComponent
           car={this.props.cars.cars.filter(
@@ -116,7 +110,7 @@ class Main extends React.Component {
           <Route path="/signup" component={() => <Sign />} />
           <Route
             path="/login"
-            component={() => <Login login={this.props.login} />}
+            component={() => <Login />}
           />
           <Route path="/model/:cath" component={ModelWithCath} />
           <Route path="/cars/:car" component={ModelWithCars} />
@@ -133,6 +127,10 @@ class Main extends React.Component {
           <Route
             path="/loginAdmin"
             component={() => <LoginAdmin loginAdmin={this.props.loginAdmin} />}
+          />
+          <Route
+            path="/account"
+            component={Account }
           />
           <Route path="/admin" component={() => <Admin />} />
           <Route path="/table" component={() => <EnhancedTable />} />

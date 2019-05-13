@@ -1,8 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import {
+    login
+  } from "../redux/ActionCreators";
+  import { connect } from "react-redux";
 
 import { Breadcrumb, BreadcrumbItem,
     Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+    const mapStateToProps = state => {
+        return {
+          orders: state.orders
+        };
+      };
+      // const mapDispatchToProps = dispatch => (  {
+      //   addPersonnels: () => {
+      //     dispatch(addPersonnels());
+      //   },
+      //   deletePersonnels: () => {
+      //     dispatch(deletePersonnels());
+      //   }
+      
+      // });
+      const mapDispatchToProps = dispatch => {
+        return {
+          login: (user,h) => dispatch(login(user,h)),
+          
+        };
+      };
 class Login extends React.Component{
     constructor(props) {
         super(props);
@@ -29,21 +54,21 @@ class Login extends React.Component{
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.login(this.state);
+        this.props.login(this.state,this.props.history);
     }
 
     render(){
         return(
-            <div className="row row-content">
-            <div className="col-6 offset-3">
-               <h3>Create your account</h3>
+            <div  className="container">
+            <div >
+               {/* <h3>Create your account</h3>
             </div>
              <div className="col-11 col-md-8 offset-md-3">
-                 <Form onSubmit={this.handleSubmit}>
+                 <Form onSubmit={this.handleSubmit} >
                      <FormGroup row>
                          <Label htmlFor="email" md={2}>Email</Label>
-                         <Col md={7}>
-                             <Input type="email" id="email" name="email"
+                         <Col md={7} className="inputField" >
+                             <Input type="email" id="email" name="email" className="inputField" 
                                  placeholder="Email"
                                  value={this.state.email}
                                  onChange={this.handleInputChange} />
@@ -51,10 +76,10 @@ class Login extends React.Component{
                      </FormGroup>
                      <FormGroup row>
                          <Label htmlFor="password" md={2}>Password</Label>
-                         <Col md={7}>
-                             <Input type="password" id="password" name="password"
+                         <Col md={7} >
+                             <Input type="password" id="password" name="password" className="inputField"
                                  placeholder="Password"
-                                 value={this.state.passwoed}
+                                 value={this.state.password}
                                  onChange={this.handleInputChange} />
                          </Col>                        
                      </FormGroup>
@@ -79,11 +104,66 @@ class Login extends React.Component{
                              </Link>
                          </Col>
                      </FormGroup>
-                 </Form>
+                 </Form> */}
+                 <br /> <br /> <br /> <br /> 
+        <section class="checkout-section spad">
+            <div class="container">
+              <div class="row">
+              <form onSubmit={this.handleSubmit} class="col-lg-8 order-2 offset-lg-2 order-lg-1">
+                <div >
+                  <div class="checkout-form">
+                    <div class="cf-title">Login Form</div>
+                    
+                    <div class="row address-inputs">
+                      <div class="col-md-12">
+                        
+                        <input type="email" id="email" name="email" className="inputField" 
+                                 placeholder="Email"
+                                 value={this.state.email}
+                                 onChange={this.handleInputChange} />
+                      </div>
+                      <div class="col-md-12">
+                      
+                        <input
+                          type="password" id="password" name="password" className="inputField"
+                                 placeholder="Password"
+                                 value={this.state.password}
+                                 onChange={this.handleInputChange}
+                        />{" "}
+                      </div>
+                      
+                      
+                      
+                    </div>
+
+                    <div id="items" />
+                    <button class="site-btnlogin submit-order-btn" type="submit" id="order2">
+                      Login
+                    </button>
+                    <Link to='/signup'> <button class="site-btnlogin submit-order-btn"  color="primary">
+                                 Sign Up ,If you haven't an account
+                             </button>
+                             </Link>
+                    <br /> <br /> <br /> <br /> 
+
+                  </div>
+                </div>
+                </form>
+                <br />
+                
+              </div>
+            </div>
+          </section>
              </div>
         </div>
 
         );
     }    
 }
-export default Login;
+
+  export default withRouter(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(Login)
+  );
