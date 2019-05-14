@@ -5,6 +5,35 @@ import createBrowserHistory from "history/createBrowserHistory";
 
 const history = createBrowserHistory({ forceRefresh: true });
 
+export const addClient = client => ({
+  type: ActionTypes.ADD_CLIENTS,
+  client: client
+});
+export const addClients = clients => ({
+  type: ActionTypes.ADD_CLIENTS,
+  clients: clients
+});
+
+export const fetchClients = () => dispatch => {
+  return axios.get("http://localhost:3000/api/users").then(response => {
+    dispatch(addClients(response.data));
+    console.log(response.data);
+  });
+};
+
+export const deleteClient = id => ({
+  type: ActionTypes.DELETE_CLIENT,
+  Id: id
+});
+export const deleteClients = id => dispatch => {
+  return axios
+    .delete(`http://localhost:3000/api/users/${id}`)
+    .then(response => dispatch(deleteClient(id)))
+    .catch(function(error) {
+      console.log(error);
+    });
+};
+
 export const addCars = cars => ({
   type: ActionTypes.ADD_CARS,
   cars: cars
@@ -104,7 +133,7 @@ export const setUser = user => ({
   type: ActionTypes.SET_USER,
   payload: user
 });
-export const login = (userData,h) => dispatch => {
+export const login = (userData, h) => dispatch => {
   return axios
     .post("http://localhost:3000/api/auth", userData)
     .then()

@@ -117,7 +117,7 @@ class ProductComponent2 extends React.Component {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/admin/personnel">
+              <Link to="/admin/clients">
                 <a
                   className="nav-link collapsed"
                   href="#"

@@ -2,7 +2,9 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Cars } from "./cars";
 import { Auth } from "./auth";
 import { Personnels } from "./personnel";
-import {Orders} from "./order";
+import { Orders } from "./order";
+import { Clients } from "./clients";
+
 import thunk from "redux-thunk";
 
 export const ConfigureStore = () => {
@@ -11,7 +13,8 @@ export const ConfigureStore = () => {
       cars: Cars,
       auth: Auth,
       personnels: Personnels,
-      orders:Orders
+      orders: Orders,
+      clients: Clients
     }),
     compose(
       applyMiddleware(thunk),

@@ -21,7 +21,6 @@ app.use("/api/cars", cars);
 app.use("/api/auth", auth);
 app.use("/api/admin", admin);
 app.use("/api/order", order);
-
 app.use("/api/personnels", personnels);
 
 // const insertUser=(req,res,email,hash,firstname,lastname,telnum,adresse,gendre)=>{

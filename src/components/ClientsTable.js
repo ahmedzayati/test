@@ -22,25 +22,15 @@ import { withRouter } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
-import AlertDialogSlide1 from "./Dialog";
-import AlertDialogSlide2 from "./DialogUpdate";
 
 import { connect } from "react-redux";
 import { styled } from "@material-ui/styles";
 import ThreeSixtyIcon from "@material-ui/icons/ThreeSixty";
-import {
-  addPersonnels,
-  deletePersonnels,
-  pushPersonnels,
-  alterPersonnels,
-  fetchPersonnels,
-  deletePersonnel,
-  postPersonnel
-} from "../redux/ActionCreators";
+import { fetchClients, deleteClients } from "../redux/ActionCreators";
 let counter = 0;
-function createData(cin, name, position, email, startDate, salary) {
+function createData(cin, name, Name, email, DateNais, salary) {
   counter += 1;
-  return { cin, name, position, email, startDate, salary };
+  return { cin, name, Name, email, DateNais, salary };
 }
 
 function desc(a, b, orderBy) {
@@ -78,25 +68,22 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: "name", numeric: false, disablePadding: true, label: "Name" },
-  { id: "pseudo", numeric: true, disablePadding: false, label: "pseudo" },
-
-  { id: "position", numeric: true, disablePadding: false, label: "Position" },
+  { id: "Name", numeric: true, disablePadding: false, label: "Name" },
   { id: "email", numeric: true, disablePadding: false, label: "Email" },
   {
-    id: "startDate",
+    id: "DateNais",
     numeric: true,
     disablePadding: false,
-    label: "Start Date"
+    label: "birth Date"
   },
-  { id: "salaire", numeric: true, disablePadding: false, label: "Salary" },
   { id: "telephone", numeric: true, disablePadding: false, label: "Telephone" },
-  { id: "adresse", numeric: true, disablePadding: false, label: "Adress" },
+  { id: "adresse", numeric: true, disablePadding: false, label: "Adresse" },
+  { id: "sexe", numeric: true, disablePadding: false, label: "sexe" },
 
   { id: "delete", numeric: true, disablePadding: false, label: "" }
 ];
 
-class EnhancedTableHead extends React.Component {
+class ClientsTableHead extends React.Component {
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
@@ -145,7 +132,7 @@ class EnhancedTableHead extends React.Component {
   }
 }
 
-EnhancedTableHead.propTypes = {
+ClientsTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -179,7 +166,7 @@ const toolbarStyles = theme => ({
   }
 });
 
-let EnhancedTableToolbar = props => {
+let ClientsTableToolbar = props => {
   const { numSelected, classes } = props;
 
   return (
@@ -194,13 +181,7 @@ let EnhancedTableToolbar = props => {
             {numSelected} selected
           </Typography>
         ) : (
-          <div className="row">
-            <AlertDialogSlide1 postPersonnel={props.postPersonnel} />
-            {/* <Button variant="contained" color="secondary" className={classes.button}>
-        Add Personnel
-        <AddIcon className={classes.rightIcon} />
-      </Button> */}
-          </div>
+          <div className="row" />
         )}
       </div>
       <div className={classes.spacer} />
@@ -230,12 +211,12 @@ let EnhancedTableToolbar = props => {
   );
 };
 
-EnhancedTableToolbar.propTypes = {
+ClientsTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired
 };
 
-EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
+ClientsTableToolbar = withStyles(toolbarStyles)(ClientsTableToolbar);
 
 const styles = theme => ({
   root: {
@@ -251,20 +232,17 @@ const styles = theme => ({
 });
 const mapStateToProps = state => {
   return {
-    personnels: state.personnels
+    clients: state.clients
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
-    deletePersonnel: id => dispatch(deletePersonnel(id)),
-    onPushPersonnels: (code, pseudo) => dispatch(pushPersonnels(code, pseudo)),
-    onAlterPersonnels: (id, salary, position) =>
-      dispatch(alterPersonnels(id, salary, position)),
-    fetchPersonnels: () => dispatch(fetchPersonnels()),
-    postPersonnel: personnel => dispatch(postPersonnel(personnel))
+    deleteClients: id => dispatch(deleteClients(id)),
+    fetchClients: () => dispatch(fetchClients())
   };
 };
-class EnhancedTable extends React.Component {
+class ClientsTable extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -274,7 +252,7 @@ class EnhancedTable extends React.Component {
     selected: [],
     data: [
       // createData('Ahmed', '305', '3.7', '67', '4.3'),
-      //   this.props.personnels.personnels.map((personnel)=>{return(createData('Ahmed', '305', '3.7', '67', '4.3'))})
+      //   this.props.clients.clients.map((personnel)=>{return(createData('Ahmed', '305', '3.7', '67', '4.3'))})
     ],
     page: 0,
     rowsPerPage: 5,
@@ -342,10 +320,10 @@ class EnhancedTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <ClientsTableToolbar numSelected={selected.length} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
-            <EnhancedTableHead
+            <ClientsTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -355,13 +333,13 @@ class EnhancedTable extends React.Component {
             />
             <TableBody>
               {stableSort(
-                this.props.personnels.personnels,
+                this.props.clients.clients,
                 getSorting(order, orderBy)
               )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.cin);
-                  const date = new Date(n.dateEmbauche);
+                  const date = new Date(n.dateNais);
                   return (
                     <TableRow
                       hover
@@ -373,11 +351,8 @@ class EnhancedTable extends React.Component {
                     >
                       <TableCell padding="checkbox" />
                       <TableCell component="th" scope="row" padding="none">
-                        {n.nomPersonnel + " " + n.prenomPersonnel}
+                        {n.nomClient + " " + n.prenomClient}
                       </TableCell>
-                      <TableCell align="right">{n.pseudo}</TableCell>
-
-                      <TableCell align="right">{n.position}</TableCell>
                       <TableCell align="right">{n.email}</TableCell>
                       <TableCell align="right">
                         {date.getDate() +
@@ -385,25 +360,20 @@ class EnhancedTable extends React.Component {
                           date.getMonth() +
                           "-" +
                           date.getFullYear()}
-                      </TableCell>
-                      <TableCell align="right">{n.salaire}</TableCell>
+                      </TableCell>{" "}
                       <TableCell align="right">{n.telephone}</TableCell>
                       <TableCell align="right">{n.adresse}</TableCell>
-
+                      <TableCell align="right">{n.sexe}</TableCell>
                       <TableCell align="right">
                         <Tooltip title="Delete" className="col-2">
                           <IconButton aria-label="Delete">
                             <DeleteIcon
                               onClick={() => {
-                                this.props.deletePersonnel(n.cin);
+                                this.props.deleteClients(n.cin);
                                 console.log(n.cin);
                               }}
                             />
                           </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title="Update" className="col-2">
-                          <AlertDialogSlide2 personnel={n} />
                         </Tooltip>
                       </TableCell>
                     </TableRow>
@@ -437,7 +407,7 @@ class EnhancedTable extends React.Component {
   }
 }
 
-EnhancedTable.propTypes = {
+ClientsTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
@@ -445,5 +415,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(withStyles(styles)(EnhancedTable))
+  )(withStyles(styles)(ClientsTable))
 );
