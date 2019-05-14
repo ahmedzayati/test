@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const { adresse, pays, ville, telephone, zip, cin, numVehicule } = req.body;
   const query =
-    "INSERT INTO `commandes`( `cin`, `adresse`,`date`, `pays`, `ville`, `telephone`, `zip`,`path`,`etat`) VALUES (?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO `commandes`( `cin`, `adresse`,`date`, `pays`, `ville`, `telephone`, `zip`,`pathCmd`,`etat`) VALUES (?,?,?,?,?,?,?,?,?)";
 
   con.query(
     query,
@@ -40,9 +40,10 @@ router.post("/", (req, res) => {
         "INSERT INTO `association8`(`numCommande`, `numVehicule`, `nbArticle`) VALUES (?,?,?)";
       con.query(query2, [result.insertId, numVehicule, 1]);
       req.files.file.mv(
-        "/home/abla/pfa/test/public/assets/files/" + req.files.file.name,
+        "/home/admed/Desktop/pfa2/pfa/public/assets/files/" + req.files.file.name,
 
         function(err) {
+          console.log("cmd passed")
           req.body.path = req.files.file.name;
           res.send(req.body);
         }

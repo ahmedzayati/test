@@ -143,7 +143,7 @@ class OrderDetail extends React.Component {
             </details>
             <h2>CHECK FILE</h2>
             <details>
-              <summary>                  <a href={'../../assets/files/'+order.path} target='_blank'>UPLOADED FILE</a>
+              <summary>                  <a href={'../../assets/files/'+order.pathCmd} target='_blank'>UPLOADED FILE</a>
 </summary>
               <ul>
                 
