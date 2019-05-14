@@ -13,13 +13,21 @@ router.get("/", (req, res) => {
   });
  
 
- 
+  router.get("/:cin", (req, res) => {
+    const query = "SELECT * FROM `association8`, `commandes`,`Clients`,`Vehicule` where commandes.numCommande=association8.numCommande and Clients.cin=commandes.cin and association8.numVehicule=Vehicule.numVehicule and Clients.cin=?";
+  
+    con.query(query, [parseInt(req.params.cin)], function(err, result, fields) {
+      if (err) throw err;
+      res.send(result);
+      
+    });
+  });
 
 
 router.post("/", (req, res) => {
   const { adresse, pays, ville, telephone, zip, cin, numVehicule } = req.body;
   const query =
-    "INSERT INTO `commandes`( `cin`, `adresse`,`date`, `pays`, `ville`, `telephone`, `zip`,`pathCmd`,`etat`) VALUES (?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO `commandes`( `cin`, `adresseCmd`,`date`, `pays`, `ville`, `telephoneCmd`, `zip`,`pathCmd`,`etat`) VALUES (?,?,?,?,?,?,?,?,?)";
 
   con.query(
     query,

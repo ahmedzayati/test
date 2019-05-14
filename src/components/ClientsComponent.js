@@ -1,17 +1,6 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Document, Page, pdfjs } from "react-pdf";
-
-import {
-  addPersonnels,
-  deletePersonnels,
-  pushPersonnels,
-  alterPersonnels,
-  fetchOrders,
-  deletePersonnel,
-  confirmOrder,
-  declineOrder
-} from "../redux/ActionCreators";
+import { fetchClients } from "../redux/ActionCreators";
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -21,33 +10,25 @@ import {
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
 import { connect } from "react-redux";
-import MyApp from "./pdf";
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
-  pdfjs.version
-}/pdf.worker.js`;
+import ClientsTable from "./ClientsTable";
 const mapStateToProps = state => {
   return {
-    orders: state.orders
+    clients: state.clients
   };
 };
-// const mapDispatchToProps = dispatch => (  {
-//   addPersonnels: () => {
-//     dispatch(addPersonnels());
-//   },
-//   deletePersonnels: () => {
-//     dispatch(deletePersonnels());
-//   }
 
-// });
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrders: () => dispatch(fetchOrders()),
-    confirmOrder: numCommande => dispatch(confirmOrder(numCommande)),
-    declineOrder: numCommande => dispatch(declineOrder(numCommande))
+    // ondeleteclients: id => dispatch(deleteclients(id)),
+    // onPushclients: (code, pseudo) => dispatch(pushclients(code, pseudo)),
+    // onAlterclients: (id, salary, position) =>
+    //   dispatch(alterclients(id, salary, position)),
+    // deleteclient: () => dispatch(deleteclient()),
+    fetchClients: () => dispatch(fetchClients())
   };
 };
 
-class OrderDetail extends React.Component {
+class Clients extends React.Component {
   constructor(props) {
     super(props);
     this.state = { code: "", pseudo: "" };
@@ -64,118 +45,12 @@ class OrderDetail extends React.Component {
     });
   }
   componentDidMount() {
-    this.props.fetchOrders();
+    this.props.fetchClients();
   }
   handleSubmit(event) {
     event.preventDefault();
   }
   render() {
-    const orders = this.props.orders.orders.map(order => {
-      if (parseInt(order.numCommande) === parseInt(this.props.numCommande))
-        return (
-          <div id="page-wrapper">
-            <h1>Order Details and Summary </h1>
-
-            <h2>Order Information</h2>
-
-            <details>
-              <summary>Order #{order.numCommande}</summary>
-
-              <table>
-                <tr>
-                  <th scope="row">Order Owner</th>
-                  <td>
-                    {order.nomClient} {order.prenomClient}
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Owner Mail</th>
-                  <td>{order.email}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Car Name</th>
-                  <td>{order.nomVehicule}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Car Mark</th>
-                  <td>{order.nomMarque}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Order Date</th>
-                  <td>{order.date}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Order Number</th>
-                  <td>#{order.numCommande}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Shipping Address</th>
-                  <td>{order.adresse}</td>
-                </tr>
-                <tr>
-                  <th scope="row">ZIP Code</th>
-                  <td>{order.zip}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Country</th>
-                  <td>{order.pays}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Telephone</th>
-                  <td>{order.telephone}</td>
-                  <td>{order.numCommande}</td>
-                </tr>
-
-                <tr>
-                  <th scope="row">Shipping Address</th>
-                  <td>{order.adresse}</td>
-                </tr>
-              </table>
-            </details>
-            <h2>CHECK FILE</h2>
-            <details>
-              <summary>
-                {" "}
-                <a href={"../../assets/files/" + order.path} target="_blank">
-                  UPLOADED FILE
-                </a>
-              </summary>
-              <ul />
-            </details>
-            <h2>COMFIRM ORDER</h2>
-            <details>
-              <summary>show options</summary>
-              <ul>
-                <li>
-                  <Link to="/admin/orders/">
-                    <button
-                      onClick={() => {
-                        this.props.confirmOrder(order.numCommande);
-                      }}
-                    >
-                      <i class="fa fa-check" aria-hidden="true" />
-                      confirm
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/admin/orders/">
-                    <button
-                      onClick={() => {
-                        this.props.declineOrder(order.numCommande);
-                      }}
-                    >
-                      <i class="fa fa-times" aria-hidden="true" />
-                      decline
-                    </button>
-                  </Link>
-                </li>
-              </ul>
-            </details>
-          </div>
-        );
-      return null;
-    });
     return (
       <div id="wrapper">
         <ul
@@ -215,7 +90,7 @@ class OrderDetail extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/personnel">
+            <Link to="/admin/client">
               <a
                 className="nav-link collapsed"
                 href="#"
@@ -247,7 +122,7 @@ class OrderDetail extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/order">
+            <Link to="/admin/orders">
               <a
                 className="nav-link collapsed"
                 href="#"
@@ -263,7 +138,7 @@ class OrderDetail extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/personnel">
+            <Link to="/admin/client">
               <a
                 className="nav-link collapsed"
                 href="#"
@@ -279,7 +154,7 @@ class OrderDetail extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/personnel">
+            <Link to="/admin/orders">
               <a
                 className="nav-link collapsed"
                 href="#"
@@ -311,7 +186,7 @@ class OrderDetail extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/personnel">
+            <Link to="/admin/client">
               <a
                 className="nav-link collapsed"
                 href="#"
@@ -327,7 +202,7 @@ class OrderDetail extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/personnel">
+            <Link to="/admin/client">
               <a
                 className="nav-link collapsed"
                 href="#"
@@ -530,9 +405,8 @@ class OrderDetail extends React.Component {
             </nav>
 
             <div className="container-fluid">
+              <ClientsTable />
               <div class="card mb-3">
-                {orders}
-
                 <div class="card-footer small text-muted">
                   Updated yesterday at 11:59 PM
                 </div>
@@ -548,5 +422,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(OrderDetail)
+  )(Clients)
 );

@@ -29,7 +29,7 @@ class CheckoutComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      adresse:'',pays:'',ville:'',telephone:'',zip:''
+      adresseCmd:'',pays:'',ville:'',telephoneCmd:'',zip:''
       
     };
 
@@ -53,10 +53,10 @@ handleSubmit(event) {
     const data = new FormData();
     data.append("file", this.uploadInput.files[0]);
     
-    data.append("adresse", this.state.adresse);
+    data.append("adresseCmd", this.state.adresseCmd);
     data.append("pays", this.state.pays);
     data.append("ville", this.state.ville);
-    data.append("telephone", this.state.telephone);
+    data.append("telephoneCmd", this.state.telephoneCmd);
     data.append("zip", this.state.zip);
     data.append("cin", this.props.auth.user.cin);
     data.append("numVehicule", this.props.car[0].numVehicule);
@@ -147,9 +147,9 @@ handleSubmit(event) {
                     </div>
                     <div class="row address-inputs">
                       <div class="col-md-12">
-                        <input type="text" id="adresse" name="adresse"
+                        <input type="text" id="adresse" name="adresseCmd"
                                  placeholder="ADDRESS"
-                                 value={this.state.adesse}
+                                 value={this.state.adresseCmd}
                                  onChange={this.handleInputChange} />
                       </div>
                       <div class="col-md-6">
@@ -178,9 +178,9 @@ handleSubmit(event) {
                       </div>
                       <div class="col-md-6">
                         <input
-                          type="text" id="telephone" name="telephone"
+                          type="text" id="telephone" name="telephoneCmd"
                           placeholder="ACTIVE TEL"
-                          value={this.state.telephone}
+                          value={this.state.telephoneCmd}
                           onChange={this.handleInputChange}
                         />
                       </div>

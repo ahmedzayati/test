@@ -3,7 +3,8 @@ import * as ActionTypes from './ActionTypes';
 const initialState={
     isAuthentificated:false,
     grade:'',
-    user:{}
+    user:{},
+    orders:[]
 }
 export const  Auth = (state=initialState,action)=>{
     switch(action.type){
@@ -11,6 +12,10 @@ export const  Auth = (state=initialState,action)=>{
             return {...state,
                 isAuthentificated:true,
                 user:action.payload
+            };
+            case ActionTypes.ADD_CLIENT_ORDERS:
+            return {...state,
+                orders:action.orders
             };
             case ActionTypes.SET_ADMIN:
             return {...state,

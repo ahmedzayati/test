@@ -3,6 +3,11 @@ export const ADD_CAR = "ADD_CAR";
 export const DELETE_CARS = "DELETE_CARS";
 export const UPDATE_CAR = "UPDATE_CAR";
 
+export const ADD_CLIENTS = "ADD_CLIENTS";
+export const ADD_CLIENT = "ADD_CLIENT";
+export const DELETE_CLIENT = "DELETE_CLIENT";
+export const ADD_CLIENT_ORDERS= "ADD_CLIENT_ORDERS";
+
 export const SET_USER = "SET_USER";
 export const SET_ADMIN = "SET_ADMIN";
 

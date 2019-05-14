@@ -9,7 +9,7 @@ import Model from "./client/ModelComponent";
 import About from "./client/AboutUsComponent";
 import Contact from "./client/ContactUsComponent";
 import Category from "./CategoryComponent";
-import Account from './AccountComponent';
+import Account from "./AccountComponent";
 import EnhancedTable from "./TableComponent";
 import { connect } from "react-redux";
 import {
@@ -27,6 +27,7 @@ import Header from "./Header";
 import Admin from "./AdminComponent";
 import LoginAdmin from "./LoginAdminComponent";
 import Personnel from "./PersonnelComponent2";
+import Clients from "./ClientsComponent";
 import Product from "./ProductComponent2";
 import Chart from "./ChartComponent";
 import CarDetail from "./client/CarDetail";
@@ -99,19 +100,21 @@ class Main extends React.Component {
         />
         <Switch>
           <Route path="/admin/chart" component={() => <Chart />} />
+          <Route path="/admin/clients" component={() => <Clients />} />
 
           <Route path="/admin/product" component={() => <Product />} />
           <Route path="/admin/personnel" component={() => <Personnel />} />
-          <Route path="/admin/orders" component={() => <Order  />} />
-          <Route path="/admin/order/:numCom" component={({ match })=><OrderDetail numCommande={ match.params.numCom
-          } />} />
+          <Route path="/admin/orders" component={() => <Order />} />
+          <Route
+            path="/admin/order/:numCom"
+            component={({ match }) => (
+              <OrderDetail numCommande={match.params.numCom} />
+            )}
+          />
 
           <Route path="/home" component={() => <Home />} />
           <Route path="/signup" component={() => <Sign />} />
-          <Route
-            path="/login"
-            component={() => <Login />}
-          />
+          <Route path="/login" component={() => <Login />} />
           <Route path="/model/:cath" component={ModelWithCath} />
           <Route path="/cars/:car" component={ModelWithCars} />
           <Route path="/checkout/:car" component={CheckoutComponentCar} />
@@ -128,14 +131,11 @@ class Main extends React.Component {
             path="/loginAdmin"
             component={() => <LoginAdmin loginAdmin={this.props.loginAdmin} />}
           />
-          <Route
-            path="/account"
-            component={Account }
-          />
+          <Route path="/account" component={Account} />
           <Route path="/admin" component={() => <Admin />} />
           <Route path="/table" component={() => <EnhancedTable />} />
 
-          <Route path="/aboutus" component={() => <About />} />
+          <Route path="/aboutus/:id" component={() => <About />} />
           <Route path="/contactus" component={() => <Contact />} />
           <Route path="/category" component={() => <Category />} />
 

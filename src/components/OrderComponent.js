@@ -49,16 +49,22 @@ class Order extends React.Component {
   }
 
   render() {
-      const orders=this.props.orders.orders.map(order=>{return(
-<tr>
-      <th scope="row">1</th>
-      <td>{order.nomClient} {order.prenomClient}</td>
-      <td>{order.cin}</td>
-      <td>{order.date}</td>
-      <td>{order.etat}</td>
-      <td><Link to={`/admin/order/${order.numCommande}`}>Details</Link></td>
-    </tr>)
-      })
+    const orders = this.props.orders.orders.map(order => {
+      return (
+        <tr>
+          <th scope="row">1</th>
+          <td>
+            {order.nomClient} {order.prenomClient}
+          </td>
+          <td>{order.cin}</td>
+          <td>{order.date}</td>
+          <td>{order.etat}</td>
+          <td>
+            <Link to={`/admin/order/${order.numCommande}`}>Details</Link>
+          </td>
+        </tr>
+      );
+    });
     return (
       <div id="wrapper">
         <ul

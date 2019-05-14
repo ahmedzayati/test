@@ -9,8 +9,110 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { addCars, fetchCars, deleteCar } from "../redux/ActionCreators";
+
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import IconButton from "@material-ui/core/IconButton";
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  CartesianGrid
+} from "recharts";
+
+const styles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
+    backgroundColor: theme.palette.background.paper
+  },
+  gridList: {
+    width: 1100,
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)"
+  },
+  title: {
+    color: theme.palette.primary.light
+  },
+  titleBar: {
+    background:
+      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
+  }
+});
+
 class Admin extends React.Component {
   render() {
+    const { classes } = this.props;
+    const data = [
+      {
+        name: "bmw",
+        sold: 200,
+        pv: 2400,
+        amt: 2400
+      },
+      {
+        name: "fiat",
+        sold: 310,
+        pv: 2400,
+        amt: 2400
+      },
+      {
+        name: "kia",
+        sold: 350,
+        pv: 2400,
+        amt: 2400
+      },
+      {
+        name: "ford",
+        sold: 190,
+        pv: 2400,
+        amt: 2400
+      },
+      {
+        name: "mazda",
+        sold: 300,
+        pv: 2400,
+        amt: 2400
+      },
+      {
+        name: "porche",
+        sold: 100,
+        pv: 2400,
+        amt: 2400
+      },
+      {
+        name: "rolls",
+        sold: 150,
+        pv: 2400,
+        amt: 2400
+      },
+      {
+        name: "betly",
+        sold: 170,
+        pv: 2400,
+        amt: 2400
+      },
+      {
+        name: "audi",
+        sold: 400,
+        pv: 2400,
+        amt: 2400
+      }
+    ];
+
     return (
       <div id="wrapper">
         <div className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion fixed-nav-bar">
@@ -69,7 +171,7 @@ class Admin extends React.Component {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/admin/personnel">
+              <Link to="/admin/clients">
                 <a
                   className="nav-link collapsed"
                   href="#"
@@ -96,9 +198,7 @@ class Admin extends React.Component {
                 >
                   <i class="fas fa-fw fa-shopping-cart" />
 
-                  <span>
-                    Orders<span class="badge badge-secondary">3</span>
-                  </span>
+                  <span>Orders</span>
                 </a>
               </Link>
             </li>
@@ -374,7 +474,6 @@ class Admin extends React.Component {
                 </li>
               </ul>
             </nav>
-
             <div className="container-fluid">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
@@ -385,13 +484,13 @@ class Admin extends React.Component {
                     <div class="col-xl-3 col-sm-6 mb-3">
                       <div
                         class="card text-white o-hidden h-100"
-                        style={{ backgroundColor: "#93a6c4" }}
+                        style={{ backgroundColor: "#00b0ff" }}
                       >
                         <div class="card-body">
                           <div class="card-body-icon">
                             <i class="fas fa-fw fa-comments" />
                           </div>
-                          <div class="mr-5">26 New Messages!</div>
+                          <div class="mr-5">check Messages</div>
                         </div>
                         <a
                           class="card-footer text-white clearfix small z-1"
@@ -407,13 +506,15 @@ class Admin extends React.Component {
                     <div class="col-xl-3 col-sm-6 mb-3">
                       <div
                         class="card text-white o-hidden h-100"
-                        style={{ backgroundColor: "#93a6c4" }}
+                        style={{
+                          backgroundColor: "#03a9f4"
+                        }}
                       >
                         <div class="card-body">
                           <div class="card-body-icon">
                             <i class="fas fa-fw fa-list" />
                           </div>
-                          <div class="mr-5">11 New Tasks!</div>
+                          <div class="mr-5">check Orders</div>
                         </div>
                         <a
                           class="card-footer text-white clearfix small z-1"
@@ -429,13 +530,13 @@ class Admin extends React.Component {
                     <div class="col-xl-3 col-sm-6 mb-3">
                       <div
                         class="card text-white  o-hidden h-100"
-                        style={{ backgroundColor: "#93a6c4" }}
+                        style={{ backgroundColor: "#00bcd4" }}
                       >
                         <div class="card-body">
                           <div class="card-body-icon">
                             <i class="fas fa-fw fa-shopping-cart" />
                           </div>
-                          <div class="mr-5">123 New Orders!</div>
+                          <div class="mr-5">check Cars</div>
                         </div>
                         <a
                           class="card-footer text-white clearfix small z-1"
@@ -451,13 +552,13 @@ class Admin extends React.Component {
                     <div class="col-xl-3 col-sm-6 mb-3">
                       <div
                         class="card text-white  o-hidden h-100"
-                        style={{ backgroundColor: "#93a6c4" }}
+                        style={{ backgroundColor: "#4db6ac" }}
                       >
                         <div class="card-body">
                           <div class="card-body-icon">
                             <i class="fas fa-fw fa-life-ring" />
                           </div>
-                          <div class="mr-5">13 New Tickets!</div>
+                          <div class="mr-5">check Statistics</div>
                         </div>
                         <a
                           class="card-footer text-white clearfix small z-1"
@@ -473,68 +574,96 @@ class Admin extends React.Component {
                   </div>{" "}
                 </div>
               </div>
+              <br />
               <div class="card mb-2">
-                <div class="card-header">
-                  <i class="fas fa-chart-area m-2" />
-                  Area Chart Example
-                </div>
-                <div class="card-body">
-                  <img
-                    src="../assets/images/chart.jpg"
-                    id="myAreaChart"
-                    width="100%"
-                    height="400"
-                  />
-                </div>
-                <div class="card-footer small text-muted">
-                  Updated yesterday at 11:59 PM
+                <div className={classes.root}>
+                  <GridList
+                    cellHeight={160}
+                    className={classes.gridList}
+                    cols={4}
+                  >
+                    {this.props.cars.cars.map(tile => (
+                      <GridListTile key={tile.img} cols={tile.cols || 1}>
+                        <img
+                          src={"../../assets/images/" + tile.path}
+                          alt={tile.title}
+                        />
+                        <GridListTileBar
+                          title={tile.nomVehicule}
+                          classes={{
+                            root: classes.titleBar,
+                            title: classes.title
+                          }}
+                          actionIcon={
+                            <IconButton>
+                              <StarBorderIcon className={classes.title} />
+                            </IconButton>
+                          }
+                        />
+                      </GridListTile>
+                    ))}
+                  </GridList>
                 </div>
               </div>
-              {/* <div class="row">
-                <div class="col-lg-7 ">
-                  <div class="card mb-1">
-                    <div class="card-header">
-                      <i class="fas fa-chart-bar m-2" />
-                      best brand
-                    </div>
-                    <div class="card-body">
-                      <img
-                        src="../assets/images/ranck.png"
-                        id="myAreaChart"
-                        width="100%"
-                        height="300"
-                      />{" "}
-                    </div>
-                    <div class="card-footer small text-muted">
-                      Updated yesterday at 11:59 PM
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-5 ">
-                  <div class="card mb-1">
-                    <div class="card-header">
-                      <i class="fas fa-chart-pie m-3" />
-                      best saller of the month{" "}
-                    </div>
-                    <div class="card-body">
-                      <img
-                        src="../assets/images/best.jpg"
-                        id="myAreaChart"
-                        width="100%"
-                        height="300"
-                      />{" "}
-                    </div>
-                    <div class="card-footer small text-muted">
-                      Updated yesterday at 11:59 PM
-                    </div>
-                  </div>
-                </div>
-              </div>{" "} */}
+              <br />
+              <br />
+              <BarChart width={1000} height={300} data={data}>
+                <XAxis dataKey="name" stroke="#8884d8" />
+                <YAxis />
+                <Tooltip
+                  wrapperStyle={{ width: 100, backgroundColor: "#ccc" }}
+                />
+                <Legend
+                  width={100}
+                  wrapperStyle={{
+                    top: 40,
+                    right: 20,
+                    backgroundColor: "#f5f5f5",
+                    border: "1px solid #d5d5d5",
+                    borderRadius: 3,
+                    lineHeight: "40px"
+                  }}
+                />
+                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                <Bar
+                  type="monotone"
+                  dataKey="sold"
+                  fill="#8884d8"
+                  barSize={30}
+                />
+              </BarChart>
+              <div class="card-footer small text-muted">
+                Updated yesterday at 11:59 PM
+              </div>
             </div>
           </div>
+
+          {/* <div className="container-fluid"> */}
+          {/* <div className="d-sm-flex align-items-center justify-content-between mb-4"> */}
         </div>
       </div>
     );
   }
 }
-export default Admin;
+
+Admin.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+const mapStateToProps = state => {
+  console.log(state.cars);
+  return {
+    cars: state.cars
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCars: () => dispatch(fetchCars()),
+    ondeleteCar: id => dispatch(deleteCar(id))
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withStyles(styles)(Admin))
+);
