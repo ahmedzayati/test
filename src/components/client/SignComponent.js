@@ -5,12 +5,36 @@ import { Breadcrumb, FormFeedback,
     import createBrowserHistory from 'history/createBrowserHistory';
 import {connect} from 'react-redux';
 import {userSignup} from './../../redux/ActionCreators'
-const history = createBrowserHistory({forceRefresh:true});
+const mapStateToProps = state => {
+    return {
+      auth: state.auth
+    };
+  };
 class Sign extends React.Component{
     constructor(props) {
         super(props);
-
-        this.state = {
+    if(localStorage.getItem('state')){
+        const s=JSON.parse(localStorage.getItem('state'))
+    this.state= {
+        firstname:s.firstname,
+        lastname:s.lastname,
+        telnum: s.telnum,
+        email:s.email,
+        password:s.password,
+        password2:s.password2,
+        contactType:s.contactType,
+        gendre:s.gendre,
+        adresse:s.adresse,
+        touched: {
+            firstname: false,
+            lastname: false,
+            telnum: false,
+            email: false,
+            password:false,
+            adresse:false
+        }
+    };}
+      else  this.state = {
             firstname: '',
             lastname: '',
             telnum: '',
@@ -51,7 +75,13 @@ class Sign extends React.Component{
     }
     handleSubmit(event) {
         event.preventDefault();
+        localStorage.setItem('state',JSON.stringify(this.state))
+
         this.props.userSignup(this.state,this.props.history)
+        console.log(JSON.parse(localStorage.getItem('state')).firstname)
+        console.log(localStorage.getItem('state').firstname)
+    }
+    componentDidMount(){
     }
     validate(firstname, lastname, telnum, email,password,password2,adresse) {
 
@@ -109,7 +139,7 @@ class Sign extends React.Component{
                <h3>Create your account</h3>
             </div>
              <div className="col-12 col-md-8 offset-3">
-                 <Form onSubmit={this.handleSubmit}>
+                 <Form >
                      <FormGroup row>
                          <Label htmlFor="firstname" md={2}>First Name</Label>
                          <Col md={7}>
@@ -147,7 +177,8 @@ class Sign extends React.Component{
                                  invalid={errors.email !== ''}
                                  onBlur={this.handleBlur('email')}
                                  onChange={this.handleInputChange} />
-                             <FormFeedback>{errors.email}</FormFeedback>
+                             <FormFeedback>{errors.email} </FormFeedback>
+                             <span className="help-block" >{this.props.auth.errors.error}</span>
                          </Col>
                      </FormGroup>
                      <FormGroup row>
@@ -237,7 +268,7 @@ class Sign extends React.Component{
                      </FormGroup> 
                      <FormGroup row>
                          <Col md={{size: 7, offset: 2}}>
-                             <Button type="submit" color="primary">
+                             <Button onClick={this.handleSubmit} color="primary">
                                  Submit
                              </Button>
                          </Col>
@@ -249,4 +280,4 @@ class Sign extends React.Component{
         );
     }    
 }
-export default withRouter(connect (null,{userSignup})(Sign));
+export default withRouter(connect (mapStateToProps,{userSignup})(Sign));

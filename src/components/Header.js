@@ -20,7 +20,14 @@ import {
 } from "reactstrap";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-
+import {
+  addPersonnels,
+  deletePersonnels,
+  pushPersonnels,
+  alterPersonnels,
+  fetchOrders,
+  logout
+} from "../redux/ActionCreators";
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
 const mapStateToProps = state => {
@@ -38,7 +45,9 @@ const mapStateToProps = state => {
 
 // });
 const mapDispatchToProps = dispatch => {
-  
+    return(
+      {logout:()=>dispatch(logout())}
+    )
 };
 class Header extends React.Component {
   constructor(props) {
@@ -64,6 +73,10 @@ class Header extends React.Component {
   //       isModalOpen: !this.state.isModalOpen
   //     });
   //   }
+   logout=(e)=>{
+    e.preventDefault();
+    this.props.logout();
+  }
 
   handleLogin(event) {
     this.toggleModal();
@@ -135,7 +148,7 @@ class Header extends React.Component {
                   {" "}
                   <Button
                     className="btn-login"
-                    onClick={this.toggleModal}
+                    onClick={this.logout}
                     outline
                   >
                     <span className="fa fa-sign-in fa-lg" /> LogOut
