@@ -37,9 +37,7 @@ const mapStateToProps = state => {
 //   }
 
 // });
-const mapDispatchToProps = dispatch => {
-  
-};
+const mapDispatchToProps = dispatch => {};
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -78,90 +76,103 @@ class Header extends React.Component {
     event.preventDefault();
   }
   render() {
-    if (this.props.grade!=="2")
-    return (
-      <div>
-        
-         <Navbar dark expand="md">
-          <div className="container">
-            <NavbarToggler onClick={this.toggleNav} />
-            <Link className="nav-link" to="/home"> <NavbarBrand className="mr-auto" >
-              <img
-                src="assets/images/logo.png"
-                height="30"
-                width="41"
-                alt="CarMaster"
-              />
-            </NavbarBrand>
-            </Link>
-            <Collapse isOpen={this.state.isNavOpen} navbar>
-              <Nav navbar className="ml-5">
-                <NavItem>
-                  <Link className="nav-link" to="/home">
-                    <span className="fa fa-home fa-lg" /> Home
-                  </Link>
-                </NavItem>
-                <NavItem>
-                  <UncontrolledDropdown>
-                    <DropdownToggle nav caret>
-                      <span className="fa fa-list fa-lg" /> Menu
-                      
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <NavLink className="nav-link" to="/category">
-                        <DropdownItem>our brands</DropdownItem>
-                      </NavLink>
-                      <DropdownItem>Option 2</DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>Reset</DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" to="/contactus">
-                    <span className="fa fa-address-card fa-lg" /> Contact Us
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" to="/aboutus">
-                    <span className="fa fa-address-card fa-lg" /> About Us
-                  </NavLink>
-                </NavItem>
-              </Nav>
-              {(this.props.auth.isAuthentificated)?
-              <Nav className="ml-auto" navbar>
-              <NavItem>
-                <Link to="/login">
-                  {" "}
-                  <Button
-                    className="btn-login"
-                    onClick={this.toggleModal}
-                    outline
-                  >
-                    <span className="fa fa-sign-in fa-lg" /> LogOut
-                  </Button>
-                </Link>
-              </NavItem>
-            </Nav>
-              
-              : <Nav className="ml-auto" navbar>
-              <NavItem>
-                <Link to="/login">
-                  {" "}
-                  <Button
-                    className="btn-login"
-                    onClick={this.toggleModal}
-                    outline
-                  >
-                    <span className="fa fa-sign-in fa-lg" /> Login
-                  </Button>
-                </Link>
-              </NavItem>
-            </Nav>}
-            </Collapse>
-          </div>
-        </Navbar>
-         {/* <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+    if (this.props.grade !== "2")
+      return (
+        <div>
+          <Navbar dark expand="md">
+            <div className="container">
+              <NavbarToggler onClick={this.toggleNav} />
+              <Link className="nav-link" to="/home">
+                {" "}
+                <NavbarBrand className="mr-auto">
+                  <img
+                    src="assets/images/logo.png"
+                    height="30"
+                    width="41"
+                    alt="CarMaster"
+                  />
+                </NavbarBrand>
+              </Link>
+              <Collapse isOpen={this.state.isNavOpen} navbar>
+                <Nav navbar className="ml-5">
+                  <NavItem>
+                    <Link className="nav-link" to="/home">
+                      <span className="fa fa-home fa-lg" /> Home
+                    </Link>
+                  </NavItem>
+                  <NavItem>
+                    <UncontrolledDropdown>
+                      <DropdownToggle nav caret>
+                        <span className="fa fa-list fa-lg" /> Menu
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                        <NavLink className="nav-link" to="/category">
+                          <DropdownItem>our brands</DropdownItem>
+                        </NavLink>
+                        <DropdownItem>Option 2</DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem>Reset</DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink className="nav-link" to="/contactus">
+                      <span className="fa fa-envelope-open fa-lg" /> Contact Us
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink className="nav-link" to="/aboutus">
+                      <span className="fa fa-address-card fa-lg" /> About Us
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+                {this.props.auth.isAuthentificated ? (
+                  <Nav className="ml-auto" navbar>
+                    <NavItem>
+                      <Link to="/login">
+                        {" "}
+                        <Button
+                          className="btn-login"
+                          onClick={this.toggleModal}
+                          outline
+                        >
+                          <span className="fa fa-sign-out fa-lg" /> LogOut
+                        </Button>
+                      </Link>
+                    </NavItem>
+                    <NavItem>
+                      <Link to="/account">
+                        {" "}
+                        <Button
+                          className="btn-login"
+                          onClick={this.toggleModal}
+                          outline
+                        >
+                          <span className="fa fa-settings fa-lg" /> My account
+                        </Button>
+                      </Link>
+                    </NavItem>
+                  </Nav>
+                ) : (
+                  <Nav className="ml-auto" navbar>
+                    <NavItem>
+                      <Link to="/login">
+                        {" "}
+                        <Button
+                          className="btn-login"
+                          onClick={this.toggleModal}
+                          outline
+                        >
+                          <span className="fa fa-sign-in fa-lg" /> Login
+                        </Button>
+                      </Link>
+                    </NavItem>
+                  </Nav>
+                )}
+              </Collapse>
+            </div>
+          </Navbar>
+          {/* <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader>Login</ModalHeader>
                     <ModalBody>
                     <Form onSubmit={this.handleLogin}>
@@ -191,13 +202,9 @@ class Header extends React.Component {
                         </Form>
                     </ModalBody>
                 </Modal>  */}
-              </div>
-    );
-
-    else return(<div>
-
-      
-    </div>)
+        </div>
+      );
+    else return <div />;
   }
 }
 export default withRouter(
@@ -206,4 +213,3 @@ export default withRouter(
     mapDispatchToProps
   )(Header)
 );
-

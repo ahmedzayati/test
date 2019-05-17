@@ -84,7 +84,7 @@ class Order extends React.Component {
           <li className="nav-item active">
             <a className="nav-link" href="index.html">
               <i className="fas fa-fw fa-tachometer-alt" />
-              <span>manage the staff</span>
+              <span>manage the orders</span>
             </a>
           </li>
           <hr className="sidebar-divider" />

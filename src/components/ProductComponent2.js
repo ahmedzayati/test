@@ -78,7 +78,7 @@ class ProductComponent2 extends React.Component {
             <li className="nav-item active">
               <a className="nav-link">
                 <i className="fas fa-fw fa-tachometer-alt" />
-                <span>Dashboard</span>
+                <span>Manage the product</span>
               </a>
             </li>
 
