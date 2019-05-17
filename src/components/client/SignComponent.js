@@ -25,7 +25,29 @@ const history = createBrowserHistory({ forceRefresh: true });
 class Sign extends React.Component {
   constructor(props) {
     super(props);
-
+    if(localStorage.getItem('state')){
+        const s=localStorage.getItem('state')
+        this.state = {
+            firstname: s.firstname,
+            lastname: "",
+            telnum: "",
+            email: "",
+            password: "",
+            password2: "",
+            contactType: "Tel.",
+            gendre: "",
+            adresse: "",
+            touched: {
+              firstname: false,
+              lastname: false,
+              telnum: false,
+              email: false,
+              password: false,
+              adresse: false
+            }
+          };
+    }
+    else 
     this.state = {
       firstname: "",
       lastname: "",
@@ -66,7 +88,9 @@ class Sign extends React.Component {
   };
   handleSubmit(event) {
     event.preventDefault();
+    localStorage.setItem("state","ffff")
     this.props.userSignup(this.state, this.props.history);
+    console.log(this.state)
   }
   validate(firstname, lastname, telnum, email, password, password2, adresse) {
     const errors = {
@@ -154,7 +178,7 @@ class Sign extends React.Component {
       <div className="row row-content">
         <div className="col-12 col-md-8 offset-1">
           <form
-            onSubmit={this.handleSubmit}
+            
             class="col-lg-12 order-2 offset-lg-1 order-lg-1"
           >
             <div class="cf-title">
@@ -343,6 +367,7 @@ class Sign extends React.Component {
                       type="submit"
                       name="submit"
                       disabled={!enabled}
+                      onClick={this.handleSubmit}
                       classes={{
                         disabled: classes.disabledButton
                       }}

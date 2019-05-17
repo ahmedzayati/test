@@ -50,7 +50,7 @@ class Account extends React.Component{
             <div class="card mb-3">
                 <div class="card-body text-center">
                     <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Kathy Davis" class="img-fluid rounded-circle mb-2" width="128" height="128"/>
-                    <h4 class="card-title mb-0">{user.nom} {user.prenom}</h4>
+                    <h4 class="card-title mb-0">{user.nomClient} {user.prenomClient}</h4>
                     <div class="text-muted mb-2">Client</div>
 
                     

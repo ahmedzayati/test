@@ -176,7 +176,7 @@ class Login extends React.Component {
                             name="password"
                             className="inputField"
                             placeholder="Password"
-                            minLength="5"
+                            minLength="3"
                             value={this.state.password}
                             onChange={this.handleInputChange}
                           />{" "}
