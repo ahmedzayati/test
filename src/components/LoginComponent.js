@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { login } from "../redux/ActionCreators";
 import { connect } from "react-redux";
+import { fetchClients } from "../redux/ActionCreators";
 
 import {
   Breadcrumb,
@@ -14,25 +15,21 @@ import {
   Input,
   Col
 } from "reactstrap";
+import { isNull, isUndefined } from "util";
 const mapStateToProps = state => {
   return {
-    orders: state.orders
+    orders: state.orders,
+    clients: state.clients
   };
 };
-// const mapDispatchToProps = dispatch => (  {
-//   addPersonnels: () => {
-//     dispatch(addPersonnels());
-//   },
-//   deletePersonnels: () => {
-//     dispatch(deletePersonnels());
-//   }
 
-// });
 const mapDispatchToProps = dispatch => {
   return {
-    login: (user, h) => dispatch(login(user, h))
+    login: (user, h) => dispatch(login(user, h)),
+    fetchClients: () => dispatch(fetchClients())
   };
 };
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -90,6 +87,17 @@ class Login extends React.Component {
 
   //     return errors;
   // }
+
+  alerticon = () => {
+    const list = this.props.clients.clients;
+    const resultat = list.find(client => client.email === this.state.email);
+
+    console.log(this.state.password);
+    if (isUndefined(resultat)) alert("NOT A VALIDE EMAIL ! ");
+  };
+  componentDidMount() {
+    this.props.fetchClients();
+  }
   render() {
     return (
       <div className="container">
@@ -176,16 +184,19 @@ class Login extends React.Component {
                       </div>
                       <div id="items" />
                       <button
-                        class="site-btnlogin submit-order-btn"
+                        class="site-btnlogin submit-order-btn-sm"
                         type="submit"
                         id="order2"
+                        onClick={() => {
+                          this.alerticon();
+                        }}
                       >
                         Login
                       </button>
                       <Link to="/signup">
                         {" "}
                         <button
-                          class="site-btnlogin submit-order-btn"
+                          class="site-btnlogin submit-order-btn-sm"
                           color="primary"
                         >
                           Sign Up ,If you haven't an account

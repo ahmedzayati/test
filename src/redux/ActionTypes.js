@@ -9,6 +9,8 @@ export const DELETE_CLIENT = "DELETE_CLIENT";
 export const ADD_CLIENT_ORDERS= "ADD_CLIENT_ORDERS";
 
 export const SET_USER = "SET_USER";
+
+export const RM_USER = "RM_USER";
 export const SET_ADMIN = "SET_ADMIN";
 
 export const ADD_PERSONNELS = "ADD_PERSONNELS";
@@ -21,3 +23,4 @@ export const ALTER_PERSONNELS = "ALTER_PERSONNELS";
 export const ADD_ORDERS = "ADD_ORDERS";
 export const COMFIRM_ORDER = "COMFIRM_ORDER";
 export const DECLINE_ORDER = "DECLINE_ORDER";
+export const SET_ERROR = "SET_ERROR";

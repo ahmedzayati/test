@@ -74,7 +74,7 @@ router.post("/", (req, res) => {
           gendre
         );
       });
-    } else console.log("user exist");
+    } else res.status(401).json({ error: "User already exists" });
   });
 });
 

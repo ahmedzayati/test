@@ -20,7 +20,14 @@ import {
 } from "reactstrap";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-
+import {
+  addPersonnels,
+  deletePersonnels,
+  pushPersonnels,
+  alterPersonnels,
+  fetchOrders,
+  logout
+} from "../redux/ActionCreators";
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
 const mapStateToProps = state => {
@@ -37,7 +44,9 @@ const mapStateToProps = state => {
 //   }
 
 // });
-const mapDispatchToProps = dispatch => {};
+const mapDispatchToProps = dispatch => {
+  return { logout: () => dispatch(logout()) };
+};
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +71,10 @@ class Header extends React.Component {
   //       isModalOpen: !this.state.isModalOpen
   //     });
   //   }
+  logout = e => {
+    e.preventDefault();
+    this.props.logout();
+  };
 
   handleLogin(event) {
     this.toggleModal();
@@ -117,7 +130,7 @@ class Header extends React.Component {
                   </NavItem>
                   <NavItem>
                     <NavLink className="nav-link" to="/contactus">
-                      <span className="fa fa-envelope-open fa-lg" /> Contact Us
+                      <span className="fa fa-address-card fa-lg" /> Contact Us
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -129,26 +142,22 @@ class Header extends React.Component {
                 {this.props.auth.isAuthentificated ? (
                   <Nav className="ml-auto" navbar>
                     <NavItem>
-                      <Link to="/login">
+                      <Link to="/home">
                         {" "}
                         <Button
                           className="btn-login"
-                          onClick={this.toggleModal}
+                          onClick={this.logout}
                           outline
                         >
-                          <span className="fa fa-sign-out fa-lg" /> LogOut
+                          <span className="fa fa-sign-in fa-lg" /> LogOut
                         </Button>
                       </Link>
                     </NavItem>
                     <NavItem>
-                      <Link to="/account">
+                      <Link to="/login">
                         {" "}
-                        <Button
-                          className="btn-login"
-                          onClick={this.toggleModal}
-                          outline
-                        >
-                          <span className="fa fa-settings fa-lg" /> My account
+                        <Button className="btn-login" outline>
+                          <span className="fa fa- fa-lg" /> my account
                         </Button>
                       </Link>
                     </NavItem>

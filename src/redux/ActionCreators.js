@@ -112,6 +112,10 @@ export const deletePersonnel = id => dispatch => {
       console.log(error);
     });
 };
+export const setError = error => ({
+  type: ActionTypes.SET_ERROR,
+  payload: error
+});
 export const userSignup = (userData, history) => dispatch => {
   return axios
     .post("http://localhost:3000/api/users", userData)
@@ -119,7 +123,9 @@ export const userSignup = (userData, history) => dispatch => {
       history.push("/home");
     })
     .catch(function(error) {
-      console.log(error);
+      dispatch(setError(error.response.data));
+
+      console.log(error.response.data);
     });
 };
 
@@ -133,6 +139,10 @@ export const setUser = user => ({
   type: ActionTypes.SET_USER,
   payload: user
 });
+export const rmUser = user => ({
+  type: ActionTypes.RM_USER,
+  payload: user
+});
 export const login = (userData, h) => dispatch => {
   return axios
     .post("http://localhost:3000/api/auth", userData)
@@ -142,11 +152,15 @@ export const login = (userData, h) => dispatch => {
       localStorage.setItem("jwToken", token);
       setAuthToken(token);
       dispatch(setUser(jwt.decode(token)));
-      h.push("/home");
+      h.push("/account");
       console.log(jwt.decode(token));
     });
 };
-
+export const logout = () => dispatch => {
+  localStorage.removeItem("jwToken");
+  setAuthToken(false);
+  dispatch(rmUser({}));
+};
 export const setAdmin = user => ({
   type: ActionTypes.SET_ADMIN,
   payload: user
@@ -175,7 +189,7 @@ export const fetchPersonnels = () => dispatch => {
   });
 };
 
-export const fetchOrdersByCliens = (data) => dispatch => {
+export const fetchOrdersByCliens = data => dispatch => {
   return axios.get(`http://localhost:3000/api/order/${data}`).then(response => {
     dispatch(addClientOrders(response.data));
     console.log("fetch ordd");
