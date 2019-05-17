@@ -4,25 +4,22 @@ import { withStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
-import InfoIcon from "@material-ui/icons/Info";
 import { NavLink, Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import AlertDialogSlide1 from "./DialogProduct";
 import AlertDialogSlide2 from "./CarUpdate";
 
 import { connect } from "react-redux";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+import {  withRouter } from "react-router-dom";
 import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { addCars, fetchCars, deleteCar } from "../redux/ActionCreators";
+import {  fetchCars, deleteCar } from "../redux/ActionCreators";
 
 const styles = theme => ({
   root: {
@@ -402,7 +399,7 @@ class ProductComponent2 extends React.Component {
                       Admin{" "}
                       <img
                         className="mg-profile rounded-circle ml-1"
-                        src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
+                        src="https://source.unsplash.com/QAB-WJcbgJk/60x60" alt="img"
                       />
                     </DropdownToggle>
                     <DropdownMenu right>

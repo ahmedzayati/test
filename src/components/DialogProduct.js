@@ -1,14 +1,11 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { withRouter } from "react-router-dom";
-import { Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { connect } from "react-redux";
 
 import {
@@ -16,7 +13,6 @@ import {
   postPersonnel,
   postProduct
 } from "../redux/ActionCreators";
-import axios from "axios";
 const mapDispatchToProps = dispatch => {
   return {
     fetchPersonnels: () => dispatch(fetchPersonnels()),
@@ -71,7 +67,6 @@ class FormDialog extends React.Component {
   }
 
   render() {
-    const { email } = this.state;
 
     return (
       <div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import jwt from "jsonwebtoken";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter ,Redirect} from "react-router-dom";
 import {fetchOrdersByCliens} from './../redux/ActionCreators';
 import FormDialog from './OederClientModel';
 const mapStateToProps = state => {
@@ -17,11 +17,13 @@ const mapStateToProps = state => {
 class Account extends React.Component{
 
     componentDidMount(){
+        if(localStorage.getItem('jwToken')){
         var user=jwt.decode(localStorage.getItem('jwToken'));
 
        this.props.fetchOrdersByCliens( user.cin) ;
        console.log(user);
-
+        }
+    else this.props.history.push('/home')
     }
     
 
@@ -29,6 +31,7 @@ class Account extends React.Component{
     var user=jwt.decode(localStorage.getItem('jwToken'));
         const orders = this.props.auth.orders.map(order => {
             var date =new Date(order.date)
+            
             return (
               <tr>
                 
@@ -42,6 +45,7 @@ class Account extends React.Component{
               </tr>
             );
           });
+          if(user)
     return (
       <div >
         <div class="container">
@@ -182,6 +186,7 @@ class Account extends React.Component{
 
       </div>
     );
+    else return(<Redirect to='/home' />)
   }
 }
 

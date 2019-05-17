@@ -1,9 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import createBrowserHistory from "history/createBrowserHistory";
 
-const history = createBrowserHistory({ forceRefresh: true });
 
 export const addClient = client => ({
   type: ActionTypes.ADD_CLIENTS,
@@ -153,7 +151,7 @@ export const login = (userData, h) => dispatch => {
       localStorage.setItem("jwToken", token);
       setAuthToken(token);
       dispatch(setUser(jwt.decode(token)));
-      h.push("/home");
+      h.push("/account");
       console.log(jwt.decode(token));
     });
 };

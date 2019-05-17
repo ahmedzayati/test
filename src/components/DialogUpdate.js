@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -44,9 +43,7 @@ class FormDialogUpdate extends React.Component {
     pseudo: this.props.personnel.pseudo,
     cin: this.props.personnel.cin
   };
-  constructor(props) {
-    super(props);
-  }
+  
 
   handleChange = event => {
     const target = event.target;
@@ -71,7 +68,6 @@ class FormDialogUpdate extends React.Component {
   };
 
   render() {
-    const { email } = this.state;
     const { classes } = this.props;
 
     return (

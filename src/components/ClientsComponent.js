@@ -7,8 +7,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
-import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
+import { withRouter } from "react-router-dom";
+
 import { connect } from "react-redux";
 import ClientsTable from "./ClientsTable";
 const mapStateToProps = state => {

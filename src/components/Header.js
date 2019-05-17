@@ -5,27 +5,18 @@ import {
   NavbarToggler,
   Collapse,
   NavItem,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  Label,
-  Input,
+ 
   Button,
-  Form,
-  FormGroup,
+  
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  addPersonnels,
-  deletePersonnels,
-  pushPersonnels,
-  alterPersonnels,
-  fetchOrders,
+  
   logout
 } from "../redux/ActionCreators";
 import { NavLink, Link } from "react-router-dom";
@@ -91,7 +82,7 @@ class Header extends React.Component {
     event.preventDefault();
   }
   render() {
-    if (this.props.grade!=="2")
+    if (this.props.grade=="")
     return (
       <div>
         

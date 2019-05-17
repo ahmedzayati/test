@@ -1,27 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { addCars, fetchCars } from "../../redux/ActionCreators";
 
-import {
-  Badge,
-  Card,
-  Button,
-  CardImg,
-  CardTitle,
-  CardText,
-  CardSubtitle,
-  CardBody,
-  Modal,
-  ModalHeader,
-  ModalBody
-} from "reactstrap";
 
-import { connect } from "react-redux";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+
+
 
 class CarDetail extends React.Component {
   render() {
-    let carModels = new Array();
+    let carModels =[];
     carModels = this.props.cars;
     console.log(carModels);
 

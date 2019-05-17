@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 
 import {
   Col,
-  Row,
   Button,
   Form,
   FormGroup,
   Label,
-  Input,
-  FormText,
-  Badge
+  Input
 } from "reactstrap";
 
 class Contact extends React.Component {

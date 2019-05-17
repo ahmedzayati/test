@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -42,9 +41,7 @@ class CarUpdate extends React.Component {
     description: this.props.car.description,
     numVehicule: this.props.car.numVehicule
   };
-  constructor(props) {
-    super(props);
-  }
+  
 
   handleChange = event => {
     const target = event.target;

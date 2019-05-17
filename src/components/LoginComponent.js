@@ -6,8 +6,7 @@ import {
   } from "../redux/ActionCreators";
   import { connect } from "react-redux";
 
-import { Breadcrumb, BreadcrumbItem,
-    Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+
     const mapStateToProps = state => {
         return {
           orders: state.orders

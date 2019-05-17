@@ -1,14 +1,9 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Document, Page, pdfjs } from "react-pdf";
 
 import {
-  addPersonnels,
-  deletePersonnels,
-  pushPersonnels,
-  alterPersonnels,
+  
   fetchOrders,
-  deletePersonnel,
   confirmOrder,
   declineOrder
 } from "../redux/ActionCreators";
@@ -18,13 +13,9 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
-import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
+import {  withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import MyApp from "./pdf";
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
-  pdfjs.version
-}/pdf.worker.js`;
+
 const mapStateToProps = state => {
   return {
     orders: state.orders
@@ -511,6 +502,7 @@ class OrderDetail extends React.Component {
                       <img
                         className="mg-profile rounded-circle ml-1"
                         src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
+                        alt="img"
                       />
                     </DropdownToggle>
                     <DropdownMenu right>

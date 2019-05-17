@@ -1,21 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Badge,
-  Card,
-  Button,
-  CardImg,
-  CardTitle,
-  CardText,
-  CardSubtitle,
-  CardBody,
-  Modal,
-  ModalHeader,
-  ModalBody
-} from "reactstrap";
+
 import {postCommand} from './../redux/ActionCreators';
 import { connect } from "react-redux";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+import {  withRouter } from "react-router-dom";
 const mapStateToProps = state => {
   return {
     cars: state.cars,
