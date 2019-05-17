@@ -135,6 +135,17 @@ class Header extends React.Component {
               {(this.props.auth.isAuthentificated)?
               <Nav className="ml-auto" navbar>
               <NavItem>
+                <Link to="/account">
+                  {" "}
+                  <Button
+                    className="btn-login"
+                    outline
+                  >
+                    <span className="fa  fa-lg" /> My Account
+                  </Button>
+                </Link>
+              </NavItem>
+              <NavItem>
                 <Link to="/login">
                   {" "}
                   <Button

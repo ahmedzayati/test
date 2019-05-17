@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {  withRouter } from "react-router-dom";
 
 
 
@@ -174,4 +175,4 @@ class CarDetail extends React.Component {
     );
   }
 }
-export default CarDetail;
+export default withRouter(CarDetail);

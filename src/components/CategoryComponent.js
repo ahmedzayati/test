@@ -107,7 +107,7 @@ class Category extends React.Component {
     ];
     const allCath = cathegories.map(cathegory => {
       return (
-        <div className="col-5 col-sm-2 mt-4 " cath={cathegory.cath}>
+        <div className="col-5 col-sm-2 mt-4 mr-4" cath={cathegory.cath}>
           <Link to={`/model/${cathegory.cath}`}>
             <img
               key={cathegory.id}
@@ -129,14 +129,16 @@ class Category extends React.Component {
         <center>
           <h3>Make your choice</h3>
         </center>
+        <div className="container">
         <div className="row mb-5">
-          <div className="col-12 col-sm-8 offset-1">
+          <div className="col-11 col-sm-10 ">
             <div className="row">{allCath}</div>
           </div>
-          <div className="col-12 col-sm-2">
+          <div className="col-12 col-sm-2 ">
             <img src="assets/images/pub1.jpg"alt="j" width="300" />
             <img src="assets/images/pub2.jpg"alt="j" width="300" className="img-responsive"/>
           </div>
+        </div>
         </div>
       </>
     );

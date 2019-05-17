@@ -12,7 +12,6 @@ export const  Auth = (state=initialState,action)=>{
         case ActionTypes.SET_USER:
             return {...state,
                 isAuthentificated:true,
-                grade:1,
                 user:action.payload
             };
             case ActionTypes.RM_USER:
