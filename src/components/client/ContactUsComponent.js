@@ -50,7 +50,7 @@ class Contact extends React.Component {
     return (
       <div className="container">
         <div>
-          <br /> <br /> <br /> <br />
+          <br /> <br /> <br />
           <section class="checkout-section spad">
             <div class="container">
               <div class="row">
@@ -63,10 +63,11 @@ class Contact extends React.Component {
                       <center>
                         {" "}
                         <div class="cf-title">CONTACT US</div>
+                        <br /> <br />
                       </center>
                       <div class="row address-inputs">
                         <div class="col-md-12">
-                          <Input
+                          {/* <Input
                             type="email"
                             id="email"
                             name="email"
@@ -74,7 +75,7 @@ class Contact extends React.Component {
                             value={this.state.email}
                             onBlur={this.handleBlur("email")}
                             onChange={this.handleInputChange}
-                          />
+                          /> */}
 
                           <div class="col-md-12">
                             <Input
@@ -93,7 +94,7 @@ class Contact extends React.Component {
                           <div id="items" />
                         </div>
                       </div>
-                      <br /> <br />
+                      <br />
                       <div id="items" />
                       {this.props.auth.isAuthentificated ? (
                         <button
