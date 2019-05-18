@@ -1,9 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import createBrowserHistory from "history/createBrowserHistory";
-
-const history = createBrowserHistory({ forceRefresh: true });
 
 export const addClient = client => ({
   type: ActionTypes.ADD_CLIENTS,
@@ -174,12 +171,12 @@ export const loginAdmin = (userData, h) => dispatch => {
       setAuthToken(token);
       dispatch(setAdmin(jwt.decode(token)));
       h.push("/admin");
-    })
-
-    .catch(function(error) {
-      console.log(error);
-      h.push("home");
     });
+
+  // .catch(function(error) {
+  //   console.log(error);
+  //   h.push("loginAdmin");
+  // });
 };
 
 export const fetchPersonnels = () => dispatch => {

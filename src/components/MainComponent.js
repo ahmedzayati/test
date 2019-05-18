@@ -1,5 +1,4 @@
 import React from "react";
-import HeaderHeader from "./AdminHeader";
 import Footer from "./client/Footer";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import Home from "./HomeComponent";
@@ -70,9 +69,7 @@ class Main extends React.Component {
       );
     };
     const ModelWithCars = ({ match }) => {
-      {
-        console.log(match.params.car);
-      }
+      
 
       return (
         <CarDetail

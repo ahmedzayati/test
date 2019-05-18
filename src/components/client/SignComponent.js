@@ -3,48 +3,64 @@ import { withRouter } from "react-router-dom";
 import {
   Breadcrumb,
   FormFeedback,
+  Button,
   Form,
   FormGroup,
   Label,
   Input,
   Col
 } from "reactstrap";
-import createBrowserHistory from "history/createBrowserHistory";
 import { connect } from "react-redux";
 import { userSignup } from "./../../redux/ActionCreators";
-
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-const styles = {
-  disabledButton: {
-    backgroundColor: "gray"
-  }
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
 };
-const history = createBrowserHistory({ forceRefresh: true });
 class Sign extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      firstname: "",
-      lastname: "",
-      telnum: "",
-      email: "",
-      password: "",
-      password2: "",
-      contactType: "Tel.",
-      gendre: "",
-      adresse: "",
-      touched: {
-        firstname: false,
-        lastname: false,
-        telnum: false,
-        email: false,
-        password: false,
-        adresse: false
-      }
-    };
+    if (localStorage.getItem("state")) {
+      const s = JSON.parse(localStorage.getItem("state"));
+      this.state = {
+        firstname: s.firstname,
+        lastname: s.lastname,
+        telnum: s.telnum,
+        email: s.email,
+        password: s.password,
+        password2: s.password2,
+        contactType: s.contactType,
+        gendre: s.gendre,
+        adresse: s.adresse,
+        touched: {
+          firstname: false,
+          lastname: false,
+          telnum: false,
+          email: false,
+          password: false,
+          adresse: false
+        }
+      };
+    } else
+      this.state = {
+        firstname: "",
+        lastname: "",
+        telnum: "",
+        email: "",
+        password: "",
+        password2: "",
+        contactType: "Tel.",
+        gendre: "",
+        adresse: "",
+        touched: {
+          firstname: false,
+          lastname: false,
+          telnum: false,
+          email: false,
+          password: false,
+          adresse: false
+        }
+      };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,8 +82,12 @@ class Sign extends React.Component {
   };
   handleSubmit(event) {
     event.preventDefault();
+    localStorage.setItem("state", JSON.stringify(this.state));
     this.props.userSignup(this.state, this.props.history);
+    console.log(JSON.parse(localStorage.getItem("state")).firstname);
+    console.log(localStorage.getItem("state").firstname);
   }
+  componentDidMount() {}
   validate(firstname, lastname, telnum, email, password, password2, adresse) {
     const errors = {
       firstname: "",
@@ -117,13 +137,8 @@ class Sign extends React.Component {
 
     return errors;
   }
-  alerticon = () => {
-    alert("WELCOME " + this.state.firstname + " have a nice DAY ! ");
-  };
 
   render() {
-    const { classes } = this.props;
-
     const errors = this.validate(
       this.state.firstname,
       this.state.lastname,
@@ -133,7 +148,6 @@ class Sign extends React.Component {
       this.state.password2,
       this.state.adresse
     );
-
     const enabled =
       errors.firstname == "" &&
       errors.lastname == "" &&
@@ -218,6 +232,9 @@ class Sign extends React.Component {
                       onChange={this.handleInputChange}
                     />
                     <FormFeedback>{errors.email}</FormFeedback>
+                    <span className="help-block" style={{ color: "red" }}>
+                      {this.props.auth.errors.error}
+                    </span>
                   </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -283,7 +300,8 @@ class Sign extends React.Component {
                   </Label>
                   <Col md={7}>
                     <Input
-                      type="tel"
+                      type="number"
+                      maxLength="8"
                       id="telnum"
                       name="telnum"
                       placeholder="Tel. number"
@@ -315,13 +333,13 @@ class Sign extends React.Component {
                     </FormGroup>
                   </Col>
                   {/*  <Col md={{size: 3, offset: 0}}>
-                             <Input type="select" name="contactType"
-                                     value={this.state.contactType}
-                                     onChange={this.handleInputChange}>
-                                 <option>Tel.</option>
-                                 <option>Email</option>
-                             </Input>
-                         </Col>*/}
+                                 <Input type="select" name="contactType"
+                                         value={this.state.contactType}
+                                         onChange={this.handleInputChange}>
+                                     <option>Tel.</option>
+                                     <option>Email</option>
+                                 </Input>
+                             </Col>*/}
                   <Col md={{ size: 4 }}>
                     <FormGroup check>
                       <Label check>
@@ -337,15 +355,12 @@ class Sign extends React.Component {
                   </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Col md={{ size: 5, offset: 3 }}>
+                  <Col md={{ size: 7, offset: 2 }}>
                     <Button
-                      className="site-btnlogin submit-order-btn"
-                      type="submit"
-                      name="submit"
+                      onClick={this.handleSubmit}
+                      color="success"
+                      className=" submit-order-btn"
                       disabled={!enabled}
-                      classes={{
-                        disabled: classes.disabledButton
-                      }}
                     >
                       Submit
                     </Button>
@@ -359,13 +374,9 @@ class Sign extends React.Component {
     );
   }
 }
-Sign.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     { userSignup }
-  )(withStyles(styles)(Sign))
+  )(Sign)
 );

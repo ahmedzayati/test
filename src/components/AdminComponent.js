@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { addCars, fetchCars, deleteCar } from "../redux/ActionCreators";
+import { logout, fetchCars, deleteCar } from "../redux/ActionCreators";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -54,6 +54,11 @@ const styles = theme => ({
 });
 
 class Admin extends React.Component {
+  logout = e => {
+    e.preventDefault();
+    this.props.logout();
+    this.props.history.push("/home");
+  };
   render() {
     const { classes } = this.props;
     const data = [
@@ -466,7 +471,7 @@ class Admin extends React.Component {
                       <NavLink to="/category">
                         <DropdownItem>Settings</DropdownItem>
                       </NavLink>
-                      <NavLink to="/category">
+                      <NavLink onClick={this.logout} to="">
                         <DropdownItem>Logout</DropdownItem>
                       </NavLink>
                     </DropdownMenu>
@@ -652,13 +657,15 @@ Admin.propTypes = {
 const mapStateToProps = state => {
   console.log(state.cars);
   return {
-    cars: state.cars
+    cars: state.cars,
+    auth: state.auth
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     fetchCars: () => dispatch(fetchCars()),
-    ondeleteCar: id => dispatch(deleteCar(id))
+    ondeleteCar: id => dispatch(deleteCar(id)),
+    logout: () => dispatch(logout())
   };
 };
 export default withRouter(

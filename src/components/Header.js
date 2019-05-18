@@ -5,29 +5,15 @@ import {
   NavbarToggler,
   Collapse,
   NavItem,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  Label,
-  Input,
   Button,
-  Form,
-  FormGroup,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  addPersonnels,
-  deletePersonnels,
-  pushPersonnels,
-  alterPersonnels,
-  fetchOrders,
-  logout
-} from "../redux/ActionCreators";
+import { logout } from "../redux/ActionCreators";
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
 const mapStateToProps = state => {
@@ -89,7 +75,7 @@ class Header extends React.Component {
     event.preventDefault();
   }
   render() {
-    if (this.props.grade !== "2")
+    if (this.props.grade == "")
       return (
         <div>
           <Navbar dark expand="md">
@@ -130,7 +116,7 @@ class Header extends React.Component {
                   </NavItem>
                   <NavItem>
                     <NavLink className="nav-link" to="/contactus">
-                      <span className="fa fa-address-card fa-lg" /> Contact Us
+                      <span className="fa fa-envelope fa-lg" /> Contact Us
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -142,7 +128,15 @@ class Header extends React.Component {
                 {this.props.auth.isAuthentificated ? (
                   <Nav className="ml-auto" navbar>
                     <NavItem>
-                      <Link to="/home">
+                      <Link to="/account">
+                        {" "}
+                        <Button className="btn-login" outline>
+                          <span className="fa fa-bars  fa-lg" /> My Account
+                        </Button>
+                      </Link>
+                    </NavItem>
+                    <NavItem>
+                      <Link to="/login">
                         {" "}
                         <Button
                           className="btn-login"
@@ -150,14 +144,6 @@ class Header extends React.Component {
                           outline
                         >
                           <span className="fa fa-sign-in fa-lg" /> LogOut
-                        </Button>
-                      </Link>
-                    </NavItem>
-                    <NavItem>
-                      <Link to="/login">
-                        {" "}
-                        <Button className="btn-login" outline>
-                          <span className="fa fa- fa-lg" /> my account
                         </Button>
                       </Link>
                     </NavItem>

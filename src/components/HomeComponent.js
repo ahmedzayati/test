@@ -1,24 +1,10 @@
 import React from "react";
 import CarouselHome from "./client/design/CarouselComponent";
 import Category from "./CategoryComponent";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
-import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
-import NavigationIcon from "@material-ui/icons/Navigation";
+
 class Home extends React.Component {
   render() {
-    const styles = theme => ({
-      margin: {
-        margin: theme.spacing.unit
-      },
-      extendedIcon: {
-        marginRight: theme.spacing.unit
-      }
-    });
+   
 
     return (
       <div>

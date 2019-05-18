@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { login } from "../redux/ActionCreators";
 import { connect } from "react-redux";
 import { fetchClients } from "../redux/ActionCreators";
-
+import { FormFeedback } from "reactstrap";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -35,6 +35,7 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
+      error: "",
       email: "",
       password: "",
       touched: {
@@ -61,6 +62,11 @@ class Login extends React.Component {
     event.preventDefault();
     this.props.login(this.state, this.props.history);
   }
+  handleBlur = field => evt => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true }
+    });
+  };
   // validate(email, password) {
 
   //     const errors = {
@@ -88,16 +94,25 @@ class Login extends React.Component {
   //     return errors;
   // }
 
-  alerticon = () => {
-    const list = this.props.clients.clients;
-    const resultat = list.find(client => client.email === this.state.email);
-
-    console.log(this.state.password);
-    if (isUndefined(resultat)) alert("NOT A VALIDE EMAIL ! ");
-  };
+  // alerticon = () => {
+  //   const list = this.props.clients.clients;
+  //   const resultat = list.find(client => client.email === this.state.email);
+  //   console.log(this.state.password);
+  //   if (isUndefined(resultat)) alert("NOT A VALIDE EMAIL ! ");
+  // };
   componentDidMount() {
     this.props.fetchClients();
   }
+  validate() {
+    let error = "";
+    const list = this.props.clients.clients;
+    const resultat = list.find(client => client.email === this.state.email);
+    if (isUndefined(resultat))
+      error = "please check again email or password incorrect ";
+    this.setState({ error });
+    console.log(error);
+  }
+
   render() {
     return (
       <div className="container">
@@ -156,31 +171,37 @@ class Login extends React.Component {
                 >
                   <div>
                     <div class="checkout-form">
-                      <div class="cf-title">Login Form</div>
+                      <center>
+                        {" "}
+                        <div class="cf-title">Login Form</div>
+                      </center>
                       <div class="row address-inputs">
                         <div class="col-md-12">
-                          <input
+                          <Input
                             type="email"
                             id="email"
                             name="email"
-                            className="inputField"
                             placeholder="Email"
                             value={this.state.email}
+                            onBlur={this.handleBlur("email")}
                             onChange={this.handleInputChange}
                           />
                         </div>
                         <div class="col-md-12">
-                          <input
+                          <Input
                             type="password"
                             id="password"
                             name="password"
                             className="inputField"
                             placeholder="Password"
-                            minLength="5"
+                            minLength="3"
                             value={this.state.password}
                             onChange={this.handleInputChange}
                           />{" "}
                         </div>
+                        <span className="help-block" style={{ color: "red" }}>
+                          {this.state.error}
+                        </span>{" "}
                       </div>
                       <div id="items" />
                       <button
@@ -188,7 +209,7 @@ class Login extends React.Component {
                         type="submit"
                         id="order2"
                         onClick={() => {
-                          this.alerticon();
+                          this.validate();
                         }}
                       >
                         Login
@@ -215,7 +236,6 @@ class Login extends React.Component {
     );
   }
 }
-
 export default withRouter(
   connect(
     mapStateToProps,
