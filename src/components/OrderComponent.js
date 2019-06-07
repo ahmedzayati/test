@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import {
-  addPersonnels,
   deletePersonnels,
   pushPersonnels,
   alterPersonnels,
@@ -14,10 +13,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
-import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
+import {  withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import EnhancedTable from "./TableComponent";
 const mapStateToProps = state => {
   return {
     orders: state.orders

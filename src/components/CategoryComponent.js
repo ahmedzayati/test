@@ -18,43 +18,55 @@ class Category extends React.Component {
       },
       {
         id: 3,
-        src: "assets/images/alpha.png"
+        src: "assets/images/alpha.png",
+        cath: "alpha"
       },
       {
         id: 4,
         src: "assets/images/mercedes.png"
+        ,
+        cath: "mercedes"
       },
       {
         id: 5,
         src: "assets/images/mazda.png"
+        ,
+        cath: "mazda"
       },
       {
         id: 6,
-        src: "assets/images/porche.png"
+        src: "assets/images/porche.png",
+        cath: "porche"
       },
       {
         id: 7,
-        src: "assets/images/peugeot.png"
+        src: "assets/images/peugeot.png",
+        cath: "peugeot"
       },
       {
         id: 8,
-        src: "assets/images/betly.png"
+        src: "assets/images/betly.png",
+        cath: "betly"
       },
       {
         id: 9,
-        src: "assets/images/bugati.png"
+        src: "assets/images/bugati.png",
+        cath: "bugati"
       },
       {
         id: 10,
-        src: "assets/images/rolls.png"
+        src: "assets/images/rolls.png",
+        cath: "rolls"
       },
       {
         id: 11,
-        src: "assets/images/renault.png"
+        src: "assets/images/renault.png",
+        cath: "renault"
       },
       {
         id: 12,
-        src: "assets/images/citroen.png"
+        src: "assets/images/citroen.png",
+        cath: "citroen"
       },
       {
         id: 13,
@@ -107,7 +119,7 @@ class Category extends React.Component {
     ];
     const allCath = cathegories.map(cathegory => {
       return (
-        <div className="col-5 col-sm-2 mt-4 " cath={cathegory.cath}>
+        <div className="col-5 col-sm-2 mt-4 mr-4" cath={cathegory.cath}>
           <Link to={`/model/${cathegory.cath}`}>
             <img
               key={cathegory.id}
@@ -129,14 +141,17 @@ class Category extends React.Component {
         <center>
           <h3>Make your choice</h3>
         </center>
+        <div className="container">
         <div className="row mb-5">
-          <div className="col-12 col-sm-8 offset-1">
+          <div className="col-11 col-sm-10 ">
             <div className="row">{allCath}</div>
+            <div>         </div>
           </div>
-          <div className="col-12 col-sm-2">
+          <div className="col-12 col-sm-2 ">
             <img src="assets/images/pub1.jpg"alt="j" width="300" />
             <img src="assets/images/pub2.jpg"alt="j" width="300" className="img-responsive"/>
           </div>
+        </div>
         </div>
       </>
     );

@@ -2,6 +2,7 @@ const users = require("./routes/users");
 const auth = require("./routes/auth");
 const cars = require("./routes/cars");
 const order = require("./routes/command");
+const forum = require("./routes/forum");
 
 const admin = require("./routes/admin");
 const personnels = require("./routes/personnels");
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // default options
 app.use(fileUpload());
 app.use("/api/users", users);
+app.use("/api/forum", forum);
 app.use("/api/cars", cars);
 app.use("/api/auth", auth);
 app.use("/api/admin", admin);

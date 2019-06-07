@@ -1,9 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import createBrowserHistory from "history/createBrowserHistory";
-
-const history = createBrowserHistory({ forceRefresh: true });
 
 export const addClient = client => ({
   type: ActionTypes.ADD_CLIENTS,
@@ -156,9 +153,10 @@ export const login = (userData, h) => dispatch => {
       console.log(jwt.decode(token));
     });
 };
-export const logout = () => dispatch => {
+export const logout = (h) => dispatch => {
   localStorage.removeItem("jwToken");
   setAuthToken(false);
+  h.push("/home");
   dispatch(rmUser({}));
 };
 export const setAdmin = user => ({
@@ -174,12 +172,12 @@ export const loginAdmin = (userData, h) => dispatch => {
       setAuthToken(token);
       dispatch(setAdmin(jwt.decode(token)));
       h.push("/admin");
-    })
-
-    .catch(function(error) {
-      console.log(error);
-      h.push("home");
     });
+
+  // .catch(function(error) {
+  //   console.log(error);
+  //   h.push("loginAdmin");
+  // });
 };
 
 export const fetchPersonnels = () => dispatch => {
@@ -268,3 +266,34 @@ export const postCommand = productData => dispatch => {
       //dispatch(addCar(response.data));
     });
 };
+export const fetchForum=() => dispatch => {
+  return axios
+    .get("http://localhost:3000/api/forum")
+    .then(response => {
+        dispatch(addForum(response.data))
+        console.log(response.data)
+    });}
+    export const addForum = forum => ({
+      type: ActionTypes.ADD_FORUM,
+      forum: forum
+    });
+
+
+    export const addComment = comment => ({
+      type: ActionTypes.ADD_COMMENT,
+      comment: comment
+    });
+   
+        export const postComment = (a, b) => dispatch => {
+          var user=jwt.decode(localStorage.getItem('jwToken'));
+          return axios
+            .post("http://localhost:3000/api/forum", {codePublication:a,contenu:b,cinClient:user.cin,nomClient:user.nomClient})
+            .then(function(response) {
+              
+              dispatch(addComment({codePublication:a,contenu:b,cinClient:user.cin,nomClient:user.nomClient}))
+            });
+        };
+
+        
+        
+

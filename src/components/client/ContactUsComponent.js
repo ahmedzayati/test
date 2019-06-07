@@ -1,25 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import {
-  Col,
-  Row,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  Badge
-} from "reactstrap";
-
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
+const mapStateToProps = state => {
+  return {
+    cars: state.cars,
+    auth: state.auth
+  };
+};
 class Contact extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
-      message: ""
+      message: "",
+      touched: {
+        message: false,
+        email: false
+      }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -35,7 +35,11 @@ class Contact extends React.Component {
       [name]: value
     });
   }
-
+  handleBlur = field => evt => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true }
+    });
+  };
   handleSubmit(event) {
     console.log("Current State is: " + JSON.stringify(this.state));
     alert("Current State is: " + JSON.stringify(this.state));
@@ -44,61 +48,85 @@ class Contact extends React.Component {
 
   render() {
     return (
-      <div className="row row-content">
-        <div className="col-6 offset-3">
-          <h3>contact us</h3>
-        </div>
-        <div className="col-12 col-md-8 offset-3">
-          <Form onSubmit={this.handleSubmit}>
-            <FormGroup row>
-              <Label htmlFor="email" md={2}>
-                Email
-              </Label>
-              <Col md={7}>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleInputChange}
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="exampleText" sm={2}>
-                Message
-              </Label>
-              <Col sm={10}>
-                <Input
-                  type="textarea"
-                  id="textarea"
-                  name="textarea"
-                  placeholder="write you message"
-                  value={this.state.message}
-                  onChange={this.handleInputChange}
-                />
-              </Col>
-            </FormGroup>
+      <div className="container">
+        <div>
+          <br /> <br /> <br />
+          <section class="checkout-section spad">
+            <div class="container">
+              <div class="row">
+                <form
+                  onSubmit={this.handleSubmit}
+                  class="col-lg-8 order-2 offset-lg-2 order-lg-1"
+                >
+                  <div>
+                    <div class="checkout-form">
+                      <center>
+                        {" "}
+                        <div class="cf-title">CONTACT US</div>
+                        <br /> <br />
+                      </center>
+                      <div class="row address-inputs">
+                        <div class="col-md-12">
+                          {/* <Input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Email"
+                            value={this.state.email}
+                            onBlur={this.handleBlur("email")}
+                            onChange={this.handleInputChange}
+                          /> */}
 
-            <FormGroup row>
-              <Col md={{ size: 4, offset: 2 }}>
-                <Button className="col-md-12" type="submit" color="success">
-                  send message
-                </Button>
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Col className="mt-2">
-                <Link to="/signup">
-                  <h3>you haven't an account??</h3>
-                </Link>
-              </Col>
-            </FormGroup>
-          </Form>
+                          <div class="col-md-12">
+                            <Input
+                              style={{ backgroundColor: "#F0F0F6" }}
+                              className="textarea"
+                              type="textarea"
+                              rows="5"
+                              id="textarea"
+                              name="textarea"
+                              placeholder="write you message"
+                              value={this.state.message}
+                              onBlur={this.handleBlur("message")}
+                              onChange={this.handleInputChange}
+                            />
+                          </div>
+                          <div id="items" />
+                        </div>
+                      </div>
+                      <br />
+                      <div id="items" />
+                      {this.props.auth.isAuthentificated ? (
+                        <button
+                          onClick={this.handleSubmit}
+                          color="success"
+                          className="site-btnlogin submit-order-btn-sm"
+                          // disabled={!enabled}
+                        >
+                          Sent
+                        </button>
+                      ) : (
+                        <Link to="/signup">
+                          {" "}
+                          <button
+                            className="site-btnlogin submit-order-btn-sm"
+                            color="primary"
+                          >
+                            Sign Up ,If you haven't an account
+                          </button>
+                        </Link>
+                      )}
+                    </div>
+                    <br /> <br /> <br /> <br />
+                  </div>
+                </form>
+                <br />
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     );
   }
 }
-export default Contact;
+export default withRouter(connect(mapStateToProps)(Contact));

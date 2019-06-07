@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import {
-  addPersonnels,
   deletePersonnels,
   pushPersonnels,
   alterPersonnels,
@@ -14,8 +13,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
-import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
+import {  withRouter } from "react-router-dom";
+
 import { connect } from "react-redux";
 import EnhancedTable from "./TableComponent";
 const mapStateToProps = state => {
@@ -69,7 +68,7 @@ class Personnel extends React.Component {
     return (
       <div id="wrapper">
         <ul
-          className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+          className="navbar-nav  sidebar sidebar-dark accordion"
           id="accordionSidebar"
         >
           {" "}
@@ -400,7 +399,7 @@ class Personnel extends React.Component {
                       Admin{" "}
                       <img
                         className="mg-profile rounded-circle ml-1"
-                        src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
+                        src="https://source.unsplash.com/QAB-WJcbgJk/60x60" alt="img"
                       />
                     </DropdownToggle>
                     <DropdownMenu right>

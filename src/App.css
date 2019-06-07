@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 body {
   font-family: 'Josefin Sans', cursive;
-  /* background-image: url("https://hougumlaw.com/wp-content/uploads/2016/05/light-website-backgrounds-light-color-background-images-light-color-background-images-for-website-1024x640.jpg");
+  background-image: url("https://hougumlaw.com/wp-content/uploads/2016/05/light-website-backgrounds-light-color-background-images-light-color-background-images-for-website-1024x640.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100%; */
+  background-size: 100%;
 }
 .row-header{
   margin:0px auto;
   padding:0px auto;
   
+}
+#accordionSidebar{
+	background: rgba(0,47,53,0.8)
 }
 .navbar-dark .navbar-nav .nav-link,.navbar-dark .navbar-nav .btn-login{
   color:white !important;
@@ -23,8 +26,8 @@ body {
 }
 
 .footer{
-  background-color: black;
-  opacity: 0.8; 
+  background-color: #002f35;
+  opacity: 0.6; 
    margin:0px auto;
   padding: 20px 0px 20px 0px;
   color:white;
@@ -43,8 +46,8 @@ body {
 }
 
 .navbar-dark {
-  background-color: black;
-  opacity: 0.6;
+  background-color: #002f35;
+  opacity: 0.5;
   
 }
 .page-enter{
@@ -72,6 +75,8 @@ body {
 .carousel-item  {
   width:100%;
   height:500px;
+}
+.publication{
 }
 @media (max-width: 900px) {
   /* .carousel {
@@ -161,7 +166,7 @@ li a{
 	height: 100%;
 	left: 0;
 	top: 0;
-	border: 2px solid #f51167;
+	border: 2px solid #ff6337;
 	z-index: 1;
 }
 
@@ -189,7 +194,7 @@ li a{
 }
 
 .product-details .p-stock span {
-	color: #f51167;
+	color: #ff6337;
 }
 
 .product-details .p-rating {
@@ -197,7 +202,7 @@ li a{
 }
 
 .product-details .p-rating i {
-	color: #f51167;
+	color: #ff6337;
 }
 
 .product-details .p-rating i.fa-fade {
@@ -243,7 +248,7 @@ li a{
 }
 
 .product-details .fw-size-choose input[type=radio]:checked+label {
-	border: 2px solid #f51167;
+	border: 2px solid #ff6337;
 }
 
 .product-details .fw-size-choose .disable label {
@@ -397,7 +402,7 @@ li a{
 	font-size: 12px;
 	font-weight: 700;
 	text-transform: uppercase;
-	color: #f51167;
+	color: #ff6337;
 }
 
 .accordion-area .panel-body img {
@@ -420,7 +425,7 @@ li a{
 	padding: 18px 47px 14px;
 	border-radius: 50px;
 	text-transform: uppercase;
-	background: #f51167;
+	background: #ff6337;
 	color: #fff;
 	line-height: normal;
 	cursor: pointer;
@@ -482,7 +487,7 @@ li a{
 	color: #fff;
 	line-height: 1;
 	border-radius: 50px;
-	background: #3b3b3b;
+	background: rgba(0,74,55,0.7);
 	padding: 21px 29px 20px;
 	margin-bottom: 1em;
 }
@@ -684,8 +689,8 @@ li a{
 	background: #FFFFFF;
 	padding: 1em;
 	margin: 1em auto;
-	border-top: 5px solid #69c773;
-	box-shadow: 0 2px 10px rgba(0,0,0,0.8);
+	border-top: 5px solid rgba(255,99,55,0.7);
+	box-shadow: 0 2px 10px rgba(255,99,55,0.7);
   }
   
  
@@ -697,8 +702,8 @@ li a{
   }
   
   summary {
-	background: #333;
-	color: #FFF;
+	background: rgba(255,99,55,0.7);;
+	color: #004a2f;
 	border-radius: 3px;
 	padding: 5px 10px;
 	outline: none;
@@ -706,7 +711,7 @@ li a{
   
   /* Style the summary when details box is open */
   details[open] summary {
-	background: #69c773;
+	background: rgba(255,99,55,0.7);
 	color: #333;
   }
   

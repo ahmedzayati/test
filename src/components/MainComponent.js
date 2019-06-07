@@ -1,5 +1,4 @@
 import React from "react";
-import HeaderHeader from "./AdminHeader";
 import Footer from "./client/Footer";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import Home from "./HomeComponent";
@@ -32,6 +31,8 @@ import Product from "./ProductComponent2";
 import Chart from "./ChartComponent";
 import CarDetail from "./client/CarDetail";
 import CheckoutComponent from "./CheckoutComponent";
+import Forum from "./forumComponent";
+
 const mapStateToProps = state => {
   return {
     cars: state.cars,
@@ -70,9 +71,7 @@ class Main extends React.Component {
       );
     };
     const ModelWithCars = ({ match }) => {
-      {
-        console.log(match.params.car);
-      }
+      
 
       return (
         <CarDetail
@@ -111,6 +110,7 @@ class Main extends React.Component {
               <OrderDetail numCommande={match.params.numCom} />
             )}
           />
+          <Route path="/forum" component={() => <Forum />} />
 
           <Route path="/home" component={() => <Home />} />
           <Route path="/signup" component={() => <Sign />} />

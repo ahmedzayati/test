@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 
 
 router.post("/", (req, res) => {
-  const { adresse, pays, ville, telephone, zip, cin, numVehicule } = req.body;
+  const { adresseCmd, pays, ville, telephoneCmd, zip, cin, numVehicule } = req.body;
   const query =
     "INSERT INTO `commandes`( `cin`, `adresseCmd`,`date`, `pays`, `ville`, `telephoneCmd`, `zip`,`pathCmd`,`etat`) VALUES (?,?,?,?,?,?,?,?,?)";
 
@@ -33,11 +33,11 @@ router.post("/", (req, res) => {
     query,
     [
       cin,
-      adresse,
+      adresseCmd,
       new Date(),
       pays,
       ville,
-      telephone,
+      telephoneCmd,
       zip,
       req.files.file.name,
       "On Hold"

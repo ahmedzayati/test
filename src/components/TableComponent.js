@@ -91,7 +91,6 @@ const rows = [
   },
   { id: "salaire", numeric: true, disablePadding: false, label: "Salary" },
   { id: "telephone", numeric: true, disablePadding: false, label: "Telephone" },
-  { id: "adresse", numeric: true, disablePadding: false, label: "Adress" },
 
   { id: "delete", numeric: true, disablePadding: false, label: "" }
 ];
@@ -388,7 +387,6 @@ class EnhancedTable extends React.Component {
                       </TableCell>
                       <TableCell align="right">{n.salaire}</TableCell>
                       <TableCell align="right">{n.telephone}</TableCell>
-                      <TableCell align="right">{n.adresse}</TableCell>
 
                       <TableCell align="right">
                         <Tooltip title="Delete" className="col-2">

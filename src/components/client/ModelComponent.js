@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CARS } from "../../shared/cars";
 
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -9,8 +8,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
-import { connect } from "react-redux";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+
 
 const styles = theme => ({
   root: {
@@ -36,7 +34,7 @@ class Model extends React.Component {
     return (
       <div className={classes.root}>
         <GridList
-          cellHeight={150}
+          cellHeight={200}
           cols={3}
           spacing={40}
           className={classes.gridList}

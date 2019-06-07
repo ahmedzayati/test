@@ -15,9 +15,9 @@ router.post("/", (req, resp) => {
           const token = jwt.sign(
             {
               cin: result[0].cin,
-              prenom:result[0].prenomClient,
+              prenomClient:result[0].prenomClient,
               email: result[0].email,
-              nom: result[0].nomClient,
+              nomClient: result[0].nomClient,
               adresse:result[0].adresse,
               telephone:result[0].telephone
             },

@@ -5,29 +5,17 @@ import {
   NavbarToggler,
   Collapse,
   NavItem,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  Label,
-  Input,
   Button,
-  Form,
-  FormGroup,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+import jwt from "jsonwebtoken";
+
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  addPersonnels,
-  deletePersonnels,
-  pushPersonnels,
-  alterPersonnels,
-  fetchOrders,
-  logout
-} from "../redux/ActionCreators";
+import { logout } from "../redux/ActionCreators";
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
 const mapStateToProps = state => {
@@ -45,7 +33,7 @@ const mapStateToProps = state => {
 
 // });
 const mapDispatchToProps = dispatch => {
-  return { logout: () => dispatch(logout()) };
+  return { logout: (h) => dispatch(logout(h)) };
 };
 class Header extends React.Component {
   constructor(props) {
@@ -73,7 +61,7 @@ class Header extends React.Component {
   //   }
   logout = e => {
     e.preventDefault();
-    this.props.logout();
+    this.props.logout(this.props.history);
   };
 
   handleLogin(event) {
@@ -89,7 +77,9 @@ class Header extends React.Component {
     event.preventDefault();
   }
   render() {
-    if (this.props.grade !== "2")
+    var user=jwt.decode(localStorage.getItem('jwToken'));
+
+    if (this.props.grade == "")
       return (
         <div>
           <Navbar dark expand="md">
@@ -114,23 +104,13 @@ class Header extends React.Component {
                     </Link>
                   </NavItem>
                   <NavItem>
-                    <UncontrolledDropdown>
-                      <DropdownToggle nav caret>
-                        <span className="fa fa-list fa-lg" /> Menu
-                      </DropdownToggle>
-                      <DropdownMenu right>
-                        <NavLink className="nav-link" to="/category">
-                          <DropdownItem>our brands</DropdownItem>
-                        </NavLink>
-                        <DropdownItem>Option 2</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem>Reset</DropdownItem>
-                      </DropdownMenu>
-                    </UncontrolledDropdown>
+                  <Link className="nav-link" to="/home">
+                      <span className="fa fa-home fa-lg" /> Home
+                    </Link>
                   </NavItem>
                   <NavItem>
                     <NavLink className="nav-link" to="/contactus">
-                      <span className="fa fa-address-card fa-lg" /> Contact Us
+                      <span className="fa fa-envelope fa-lg" /> Contact Us
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -139,10 +119,18 @@ class Header extends React.Component {
                     </NavLink>
                   </NavItem>
                 </Nav>
-                {this.props.auth.isAuthentificated ? (
+                {user ? (
                   <Nav className="ml-auto" navbar>
                     <NavItem>
-                      <Link to="/home">
+                      <Link to="/account">
+                        {" "}
+                        <Button className="btn-login" outline>
+                          <span className="fa fa-bars  fa-lg" /> My Account
+                        </Button>
+                      </Link>
+                    </NavItem>
+                    <NavItem>
+                      <Link to="/login">
                         {" "}
                         <Button
                           className="btn-login"
@@ -150,14 +138,6 @@ class Header extends React.Component {
                           outline
                         >
                           <span className="fa fa-sign-in fa-lg" /> LogOut
-                        </Button>
-                      </Link>
-                    </NavItem>
-                    <NavItem>
-                      <Link to="/login">
-                        {" "}
-                        <Button className="btn-login" outline>
-                          <span className="fa fa- fa-lg" /> my account
                         </Button>
                       </Link>
                     </NavItem>
