@@ -7,6 +7,7 @@ import { Clients } from "./clients";
 
 import thunk from "redux-thunk";
 import { Forum } from "./forum";
+import { Message } from "./message";
 
 export const ConfigureStore = () => {
   const store = createStore(
@@ -16,7 +17,8 @@ export const ConfigureStore = () => {
       personnels: Personnels,
       orders: Orders,
       clients: Clients,
-      forum:Forum
+      forum: Forum,
+      message: Message
     }),
     compose(
       applyMiddleware(thunk),

@@ -12,14 +12,14 @@ import AlertDialogSlide1 from "./DialogProduct";
 import AlertDialogSlide2 from "./CarUpdate";
 
 import { connect } from "react-redux";
-import {  withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import {  fetchCars, deleteCar } from "../redux/ActionCreators";
+import { fetchCars, deleteCar } from "../redux/ActionCreators";
 
 const styles = theme => ({
   root: {
@@ -147,7 +147,7 @@ class ProductComponent2 extends React.Component {
             </li>
 
             <li className="nav-item">
-              <Link to="/admin/personnel">
+              <Link to="/admin/message">
                 <a
                   className="nav-link collapsed"
                   href="#"
@@ -399,7 +399,8 @@ class ProductComponent2 extends React.Component {
                       Admin{" "}
                       <img
                         className="mg-profile rounded-circle ml-1"
-                        src="https://source.unsplash.com/QAB-WJcbgJk/60x60" alt="img"
+                        src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
+                        alt="img"
                       />
                     </DropdownToggle>
                     <DropdownMenu right>

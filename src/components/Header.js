@@ -33,7 +33,7 @@ const mapStateToProps = state => {
 
 // });
 const mapDispatchToProps = dispatch => {
-  return { logout: (h) => dispatch(logout(h)) };
+  return { logout: h => dispatch(logout(h)) };
 };
 class Header extends React.Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class Header extends React.Component {
     event.preventDefault();
   }
   render() {
-    var user=jwt.decode(localStorage.getItem('jwToken'));
+    var user = jwt.decode(localStorage.getItem("jwToken"));
 
     if (this.props.grade == "")
       return (
@@ -104,7 +104,7 @@ class Header extends React.Component {
                     </Link>
                   </NavItem>
                   <NavItem>
-                  <Link className="nav-link" to="/home">
+                    <Link className="nav-link" to="/home">
                       <span className="fa fa-home fa-lg" /> Home
                     </Link>
                   </NavItem>
@@ -121,6 +121,14 @@ class Header extends React.Component {
                 </Nav>
                 {user ? (
                   <Nav className="ml-auto" navbar>
+                    <NavItem>
+                      <Link to="/received">
+                        {" "}
+                        <Button className="btn-login" outline>
+                          <span className="fa fa-envelope fa-lg" /> Messages
+                        </Button>
+                      </Link>
+                    </NavItem>
                     <NavItem>
                       <Link to="/account">
                         {" "}

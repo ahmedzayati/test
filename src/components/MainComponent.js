@@ -32,6 +32,7 @@ import Chart from "./ChartComponent";
 import CarDetail from "./client/CarDetail";
 import CheckoutComponent from "./CheckoutComponent";
 import Forum from "./forumComponent";
+import Message from "./MessageComponent";
 
 const mapStateToProps = state => {
   return {
@@ -71,8 +72,6 @@ class Main extends React.Component {
       );
     };
     const ModelWithCars = ({ match }) => {
-      
-
       return (
         <CarDetail
           cars={this.props.cars.cars.filter(
@@ -111,6 +110,7 @@ class Main extends React.Component {
             )}
           />
           <Route path="/forum" component={() => <Forum />} />
+          <Route path="/admin/message" component={() => <Message />} />
 
           <Route path="/home" component={() => <Home />} />
           <Route path="/signup" component={() => <Sign />} />
