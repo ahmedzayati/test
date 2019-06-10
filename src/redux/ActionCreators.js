@@ -294,6 +294,18 @@ export const fetchForum=() => dispatch => {
             });
         };
 
-        
+        export const postQuestion = (b) => dispatch => {
+          var user=jwt.decode(localStorage.getItem('jwToken'));
+          return axios
+            .post("http://localhost:3000/api/forum/question", {contenu:b,cinClient:user.cin,nomClient:user.nomClient})
+            .then(function(response) {
+              
+              dispatch(addQuestion({contenu:b,cinClient:user.cin,nomClient:user.nomClient,codePublication:response.data.codePublication}))
+            });
+        }; 
         
 
+        export const addQuestion = question => ({
+          type: ActionTypes.ADD_QUESTION,
+          question: question
+        });

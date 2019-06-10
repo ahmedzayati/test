@@ -25,5 +25,6 @@ export const COMFIRM_ORDER = "COMFIRM_ORDER";
 export const DECLINE_ORDER = "DECLINE_ORDER";
 export const SET_ERROR = "SET_ERROR";
 export const ADD_COMMENT = "ADD_COMMENT";
+export const ADD_QUESTION = "ADD_QUESTION";
 
 export const ADD_FORUM = "ADD_FORUM";

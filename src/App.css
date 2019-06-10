@@ -17,7 +17,9 @@ body {
 .navbar-dark .navbar-nav .nav-link,.navbar-dark .navbar-nav .btn-login{
   color:white !important;
 }
-
+textarea{
+	width: 100%;
+}
 .row-content {
   margin:0px auto;
   padding: 50px 0px 50px 0px;

@@ -47,7 +47,24 @@ router.get("/", (req, res) => {
 
   });
 
+  router.post("/question", (req, res) => {
 
+    const { contenu ,cinClient} = req.body;
+    const query = "INSERT INTO `publication`(`contenu`, `cinClient`, `date`) VALUES (?,?,?)";
+    
+    con.query(query, [contenu,cinClient,Date.now()], function(err, result1, fields) {
+      if (err) throw err;
+      console.log("succ")
+      res.send({
+        contenu:contenu ,cinClient:cinClient,codePublication:result1.insertId
+      })
+      
+
+    
+    
+});
+
+  });
 
 
 

@@ -1,5 +1,6 @@
 // import { PERSONNELS } from "../shared/personnel";
 import * as ActionTypes from "./ActionTypes";
+import { stat } from "fs";
 
 export const Forum = (state = {forum:[]} , action) => {
   switch (action.type) {
@@ -19,6 +20,21 @@ export const Forum = (state = {forum:[]} , action) => {
 
         
         }
+        
+        case ActionTypes.ADD_QUESTION:
+       return({...state,
+                forum:state.forum.concat({
+                  publication: action.question.contenu,
+                  date: Date.now().toString(),
+                  nomClient: action.question.nomClient,
+                  codePublication: action.question.codePublication,
+                  reponses: [
+                    
+                  ]
+                })          
+      })
+
+        
         
         
         
