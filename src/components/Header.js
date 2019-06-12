@@ -103,11 +103,7 @@ class Header extends React.Component {
                       <span className="fa fa-home fa-lg" /> Home
                     </Link>
                   </NavItem>
-                  <NavItem>
-                    <Link className="nav-link" to="/home">
-                      <span className="fa fa-home fa-lg" /> Home
-                    </Link>
-                  </NavItem>
+
                   <NavItem>
                     <NavLink className="nav-link" to="/contactus">
                       <span className="fa fa-envelope fa-lg" /> Contact Us
@@ -121,14 +117,6 @@ class Header extends React.Component {
                 </Nav>
                 {user ? (
                   <Nav className="ml-auto" navbar>
-                    <NavItem>
-                      <Link to="/received">
-                        {" "}
-                        <Button className="btn-login" outline>
-                          <span className="fa fa-envelope fa-lg" /> Messages
-                        </Button>
-                      </Link>
-                    </NavItem>
                     <NavItem>
                       <Link to="/account">
                         {" "}

@@ -27,9 +27,8 @@ class Contact extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log("Current State is: " + JSON.stringify(this.state));
-    alert("Current State is: " + JSON.stringify(this.state));
     event.preventDefault();
+    this.props.sendMessage(this.state.message);
   }
 
   render() {
@@ -40,7 +39,10 @@ class Contact extends React.Component {
           <section class="checkout-section spad">
             <div class="container">
               <div class="row">
-                <form class="col-lg-8 order-2 offset-lg-2 order-lg-1">
+                <form
+                  class="col-lg-8 order-2 offset-lg-2 order-lg-1"
+                  onSubmit={this.handleSubmit}
+                >
                   <div>
                     <div class="checkout-form">
                       <center>
@@ -70,12 +72,8 @@ class Contact extends React.Component {
                       </div>
                       <br />
                       <div id="items" />
-                      {this.props.auth.isAuthentificated ? (
-                        <button
-                          onClick={() =>
-                            this.props.sendMessage(this.state.message)
-                          }
-                        >
+                      {localStorage.getItem("jwToken") ? (
+                        <button type="submit">
                           {console.log(this.props.message)}
                           Sent
                         </button>

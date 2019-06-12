@@ -72,13 +72,7 @@ class Main extends React.Component {
       );
     };
     const ModelWithCars = ({ match }) => {
-      return (
-        <CarDetail
-          cars={this.props.cars.cars.filter(
-            car => car.nomVehicule === match.params.car
-          )}
-        />
-      );
+      return <CarDetail nomVehicule={match.params.car} />;
     };
     const CheckoutComponentCar = ({ match }) => {
       return (
@@ -135,7 +129,7 @@ class Main extends React.Component {
           <Route path="/admin" component={() => <Admin />} />
           <Route path="/table" component={() => <EnhancedTable />} />
 
-          <Route path="/aboutus/:id" component={() => <About />} />
+          <Route path="/aboutus/" component={() => <About />} />
           <Route path="/contactus" component={() => <Contact />} />
           <Route path="/category" component={() => <Category />} />
 
