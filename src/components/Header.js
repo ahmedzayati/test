@@ -78,8 +78,8 @@ class Header extends React.Component {
   }
   render() {
     var user=jwt.decode(localStorage.getItem('jwToken'));
-
-    if (this.props.grade == "")
+    if(user){
+      if(user.grade!=="1"){
       return (
         <div>
           <Navbar dark expand="md">
@@ -103,11 +103,7 @@ class Header extends React.Component {
                       <span className="fa fa-home fa-lg" /> Home
                     </Link>
                   </NavItem>
-                  <NavItem>
-                  <Link className="nav-link" to="/home">
-                      <span className="fa fa-home fa-lg" /> Home
-                    </Link>
-                  </NavItem>
+                 
                   <NavItem>
                     <NavLink className="nav-link" to="/contactus">
                       <span className="fa fa-envelope fa-lg" /> Contact Us
@@ -119,7 +115,6 @@ class Header extends React.Component {
                     </NavLink>
                   </NavItem>
                 </Nav>
-                {user ? (
                   <Nav className="ml-auto" navbar>
                     <NavItem>
                       <Link to="/account">
@@ -142,22 +137,7 @@ class Header extends React.Component {
                       </Link>
                     </NavItem>
                   </Nav>
-                ) : (
-                  <Nav className="ml-auto" navbar>
-                    <NavItem>
-                      <Link to="/login">
-                        {" "}
-                        <Button
-                          className="btn-login"
-                          onClick={this.toggleModal}
-                          outline
-                        >
-                          <span className="fa fa-sign-in fa-lg" /> Login
-                        </Button>
-                      </Link>
-                    </NavItem>
-                  </Nav>
-                )}
+              
               </Collapse>
             </div>
           </Navbar>
@@ -192,8 +172,91 @@ class Header extends React.Component {
                     </ModalBody>
                 </Modal>  */}
         </div>
+      );}else return(<div></div>)
+    }
+    else{
+      return (
+        <div>
+          <Navbar dark expand="md">
+            <div className="container">
+              <NavbarToggler onClick={this.toggleNav} />
+              <Link className="nav-link" to="/home">
+                {" "}
+                <NavbarBrand className="mr-auto">
+                  <img
+                    src="assets/images/logo.png"
+                    height="30"
+                    width="41"
+                    alt="CarMaster"
+                  />
+                </NavbarBrand>
+              </Link>
+              <Collapse isOpen={this.state.isNavOpen} navbar>
+                <Nav navbar className="ml-5">
+                  <NavItem>
+                    <Link className="nav-link" to="/home">
+                      <span className="fa fa-home fa-lg" /> Home
+                    </Link>
+                  </NavItem>
+                 
+                  <NavItem>
+                    <NavLink className="nav-link" to="/contactus">
+                      <span className="fa fa-envelope fa-lg" /> Contact Us
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink className="nav-link" to="/aboutus">
+                      <span className="fa fa-address-card fa-lg" /> About Us
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+                
+                  {/* <Nav className="ml-auto" navbar>
+                    <NavItem>
+                      <Link to="/account">
+                        {" "}
+                        <Button className="btn-login" outline>
+                          <span className="fa fa-bars  fa-lg" /> My Account
+                        </Button>
+                      </Link>
+                    </NavItem>
+                    <NavItem>
+                      <Link to="/login">
+                        {" "}
+                        <Button
+                          className="btn-login"
+                          onClick={this.logout}
+                          outline
+                        >
+                          <span className="fa fa-sign-in fa-lg" /> LogOut
+                        </Button>
+                      </Link>
+                    </NavItem>
+                  </Nav> */}
+                
+                  <Nav className="ml-auto" navbar>
+                    <NavItem>
+                      <Link to="/login">
+                        {" "}
+                        <Button
+                          className="btn-login"
+                          onClick={this.toggleModal}
+                          outline
+                        >
+                          <span className="fa fa-sign-in fa-lg" /> Login
+                        </Button>
+                      </Link>
+                    </NavItem>
+                  </Nav>
+                )}
+              </Collapse>
+            </div>
+          </Navbar>
+          
+        </div>
       );
-    else return <div />;
+    }
+   
   }
 }
 export default withRouter(

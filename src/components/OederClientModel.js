@@ -5,8 +5,21 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
-export default class FormDialog extends React.Component {
+import { connect } from "react-redux";
+import { withRouter ,Redirect} from "react-router-dom";
+import {fetchOrdersByCliens,cancelOrder} from './../redux/ActionCreators';
+import jsPDF from "jspdf";
+const mapStateToProps = state => {
+    return {
+      cars: state.cars,
+      auth: state.auth
+    };
+  };
+  const mapDispatchToProps = dispatch => ({
+    fetchOrdersByCliens:(data)=>{dispatch(fetchOrdersByCliens(data))},
+    cancelOrder:(order)=>{dispatch(cancelOrder(order))}
+  })
+ class FormDialog extends React.Component {
   state = {
     open: false
   };
@@ -20,6 +33,47 @@ export default class FormDialog extends React.Component {
   };
 
   render() {
+    
+  const print = () => {
+      // const string = renderToString(<Prints />);
+      // const pdf = new jsPDF("p", "mm", "a4");
+     
+        let x=0;
+        const doc = new jsPDF();
+        let b= new Date();
+        
+    
+        //doc.setTextColor(255,0,0);
+        // if(c == 'facture'){
+        //   doc.text('Facture',80,30);
+        //
+        // } else{
+        //   doc.text('Devis',80,30);
+        //
+        // }
+    
+        doc.setFontSize(16);
+       // doc.setTextColor(0,0,0);
+        doc.text('Commande effectuée a : ',20,60);
+        doc.text(b.toDateString(),80,60);
+       // doc.setTextColor(0,230,0);
+        doc.text('Nom',20,90);
+        doc.text('Prix',90,90);
+        doc.text('Quantite',140,90);
+        
+        //doc.addImage("./assets/img/cla.jpg", 'JPG', 15, 40, 180, 160);
+    
+        doc.setFontSize(40);
+        doc.text('Master Car',10,30);
+        doc.setFontSize(20);
+        doc.text('555 DT',145,50);
+        doc.setFontSize(50);
+       
+    
+      
+      // pdf.fromHTML(string);
+      doc.save("pdf");
+    };
     var order=this.props.orders.filter((order)=>order.numCommande===this.props.numCommande)[0]
     console.log(order)
     return (
@@ -58,7 +112,10 @@ export default class FormDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={()=>this.props.cancelOrder(order.numCommande)} color="primary">
+              Cancel Bill
+            </Button>
+            <Button onClick={print} color="primary">
               Get Bill
             </Button>
           </DialogActions>
@@ -67,3 +124,4 @@ export default class FormDialog extends React.Component {
     );
   }
 }
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(FormDialog));

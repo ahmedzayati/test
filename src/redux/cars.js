@@ -9,6 +9,10 @@ export const Cars = (state = { cars: [] }, action) => {
         ...state,
         cars: state.cars.concat(action.car)
       };
+      case ActionTypes.SUCCES_ORDER:
+      return {
+        ...state,snack:true,message:action.message
+      };
     case ActionTypes.DELETE_CARS:
       console.log(action.Id + "red"); //Id = numVehicule
       var x = state.cars.filter(car => car.numVehicule !== action.Id);

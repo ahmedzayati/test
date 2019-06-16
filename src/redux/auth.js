@@ -34,6 +34,12 @@ export const  Auth = (state=initialState,action)=>{
                 grade:action.payload.grade,
                 user:action.payload
             };
+            case ActionTypes.DELETE_ORDER:
+      var x = state.orders.filter(car =>parseInt(car.numCommande) !==parseInt(action.order));
+      return {
+        ...state,
+        orders: x
+      };
         default:
             return state; 
     }

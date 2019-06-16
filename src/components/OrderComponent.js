@@ -5,7 +5,7 @@ import {
   pushPersonnels,
   alterPersonnels,
   fetchOrders,
-  deletePersonnel
+  deletePersonnel,logout
 } from "../redux/ActionCreators";
 import {
   UncontrolledDropdown,
@@ -36,7 +36,9 @@ const mapDispatchToProps = dispatch => {
     onAlterPersonnels: (id, salary, position) =>
       dispatch(alterPersonnels(id, salary, position)),
     fetchOrders: () => dispatch(fetchOrders()),
-    deletePersonnel: () => dispatch(deletePersonnel())
+    deletePersonnel: () => dispatch(deletePersonnel()),
+    logout: (h) => dispatch(logout(h))
+
   };
 };
 
@@ -44,7 +46,10 @@ class Order extends React.Component {
   componentDidMount() {
     this.props.fetchOrders();
   }
-
+  logout = e => {
+    e.preventDefault();
+    this.props.logout(this.props.history);
+  };
   render() {
     const orders = this.props.orders.orders.map(order => {
       return (
@@ -406,7 +411,7 @@ class Order extends React.Component {
                       <NavLink to="/category">
                         <DropdownItem>Settings</DropdownItem>
                       </NavLink>
-                      <NavLink to="/category">
+                      <NavLink onClick={this.logout} to="">
                         <DropdownItem>Logout</DropdownItem>
                       </NavLink>
                     </DropdownMenu>

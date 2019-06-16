@@ -1,7 +1,7 @@
 // import { PERSONNELS } from "../shared/personnel";
 import * as ActionTypes from "./ActionTypes";
 
-export const Personnels = (state = { personnels: [] }, action) => {
+export const Personnels = (state = { snack:false,message:"",personnels: [] }, action) => {
   switch (action.type) {
     case ActionTypes.ADD_PERSONNELS:
       return { ...state, personnels: action.personnels };
@@ -11,7 +11,10 @@ export const Personnels = (state = { personnels: [] }, action) => {
         ...state,
         personnels: state.personnels.concat(action.personnel)
       };
-
+      case ActionTypes.SUCCES_ORDER:
+      return {
+        ...state,snack:true,message:action.message
+      };
     case ActionTypes.UPDATE_PERSONNEL:
       return {
         ...state,

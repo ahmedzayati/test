@@ -5,7 +5,7 @@ import {
   
   fetchOrders,
   confirmOrder,
-  declineOrder
+  declineOrder,logout
 } from "../redux/ActionCreators";
 import {
   UncontrolledDropdown,
@@ -34,7 +34,9 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchOrders: () => dispatch(fetchOrders()),
     confirmOrder: numCommande => dispatch(confirmOrder(numCommande)),
-    declineOrder: numCommande => dispatch(declineOrder(numCommande))
+    declineOrder: numCommande => dispatch(declineOrder(numCommande)),
+    logout: (h) => dispatch(logout(h))
+
   };
 };
 
@@ -45,7 +47,10 @@ class OrderDetail extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  logout = e => {
+    e.preventDefault();
+    this.props.logout(this.props.history);
+  };
   handleInputChange(event) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -127,7 +132,7 @@ class OrderDetail extends React.Component {
             <details>
               <summary>
                 {" "}
-                <a href={"../../assets/files/" + order.path} target="_blank">
+                <a href={"../../assets/files/" + order.pathCmd} target="_blank">
                   UPLOADED FILE
                 </a>
               </summary>
@@ -512,7 +517,7 @@ class OrderDetail extends React.Component {
                       <NavLink to="/category">
                         <DropdownItem>Settings</DropdownItem>
                       </NavLink>
-                      <NavLink to="/category">
+                      <NavLink onClick={this.logout} to="">
                         <DropdownItem>Logout</DropdownItem>
                       </NavLink>
                     </DropdownMenu>

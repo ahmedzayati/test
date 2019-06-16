@@ -241,6 +241,8 @@ export const postPersonnel = personnelData => dispatch => {
     .post("http://localhost:3000/api/personnels", personnelData)
     .then(response => {
       dispatch(addPersonnel(response.data));
+      dispatch(successOrder("PERSONNEL ADDED WITH SUCCESS"))
+
     });
 };
 
@@ -256,6 +258,8 @@ export const postProduct = productData => dispatch => {
     .post("http://localhost:3000/api/cars", productData)
     .then(response => {
       dispatch(addCar(response.data));
+      dispatch(successOrder("CAR ADDED WITH SUCCESS"))
+
     });
 };
 
@@ -263,7 +267,7 @@ export const postCommand = productData => dispatch => {
   return axios
     .post("http://localhost:3000/api/order", productData)
     .then(response => {
-      //dispatch(addCar(response.data));
+      dispatch(successOrder("YOUR ORDER HAD BEEN PASSED WITH SUCCESS"))
     });
 };
 export const fetchForum=() => dispatch => {
@@ -308,4 +312,30 @@ export const fetchForum=() => dispatch => {
         export const addQuestion = question => ({
           type: ActionTypes.ADD_QUESTION,
           question: question
+        });
+        export const successOrder=(message)=> ({
+          type: ActionTypes.SUCCES_ORDER,
+          message:message
+        });
+        export const closeSnackBar=()=> ({
+          type: ActionTypes.CLOSE_SNACK
+          
+        });
+        export const closeSnackBar2 = dispatch => {
+          dispatch(closeSnackBar())
+        }; 
+
+
+        export const cancelOrder = (order) => dispatch => {
+          return axios
+            .delete(`http://localhost:3000/api/order/${order}`)
+            .then(function(response) {
+                dispatch(deleteOrder(order))
+            });
+        }; 
+
+        export const deleteOrder=(order)=> ({
+          type: ActionTypes.DELETE_ORDER,
+          order:order
+          
         });

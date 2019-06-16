@@ -1,9 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import jwt from "jsonwebtoken";
+import CustomizedSnackbars from './snackBar'
 import { postCommand } from "./../redux/ActionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+
+
+
+
 const mapStateToProps = state => {
   return {
     cars: state.cars,
@@ -41,7 +46,10 @@ class CheckoutComponent extends React.Component {
   }
 
   handleSubmit(event) {
+
     event.preventDefault();
+    var user=jwt.decode(localStorage.getItem('jwToken'));
+
     const data = new FormData();
     data.append("file", this.uploadInput.files[0]);
 
@@ -50,14 +58,14 @@ class CheckoutComponent extends React.Component {
     data.append("ville", this.state.ville);
     data.append("telephoneCmd", this.state.telephoneCmd);
     data.append("zip", this.state.zip);
-    data.append("cin", this.props.auth.user.cin);
+    data.append("cin", user.cin);
     data.append("numVehicule", this.props.car[0].numVehicule);
 
-    this.props.postCommand(data);
+    this.props.postCommand(data)
   }
   render() {
     const carModels = this.props.car;
-
+    var user=jwt.decode(localStorage.getItem('jwToken'));
     console.log(carModels);
 
     // const allmodels = this.props.cars.cars.map.map(model => {
@@ -100,6 +108,7 @@ class CheckoutComponent extends React.Component {
       <div>
         <div class="page-top-info">
           <div class="container">
+          <CustomizedSnackbars />
             <h4>Category PAge</h4>
             <div class="site-pagination">
               <Link to="/home">Home</Link> /
@@ -193,7 +202,7 @@ class CheckoutComponent extends React.Component {
                       </div>
 
                       <div id="items" />
-                      {this.props.auth.isAuthentificated ? (
+                      {user ? (
                         <button
                           class="site-btn submit-order-btn"
                           type="submit"

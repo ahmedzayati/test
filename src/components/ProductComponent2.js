@@ -7,6 +7,7 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
 import { NavLink, Link } from "react-router-dom";
 import Tooltip from "@material-ui/core/Tooltip";
+import CustomizedSnackbars from './snackBar'
 
 import AlertDialogSlide1 from "./DialogProduct";
 import AlertDialogSlide2 from "./CarUpdate";
@@ -19,7 +20,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import {  fetchCars, deleteCar } from "../redux/ActionCreators";
+import {  fetchCars, deleteCar,logout } from "../redux/ActionCreators";
 
 const styles = theme => ({
   root: {
@@ -46,18 +47,24 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchCars: () => dispatch(fetchCars()),
-    ondeleteCar: id => dispatch(deleteCar(id))
+    ondeleteCar: id => dispatch(deleteCar(id)),
+    logout: (h) => dispatch(logout(h))
+
   };
 };
 
 class ProductComponent2 extends React.Component {
   componentDidMount() {}
-
+  logout = e => {
+    e.preventDefault();
+    this.props.logout(this.props.history);
+  };
   render() {
     const { classes } = this.props;
 
     return (
       <div id="wrapper">
+      <CustomizedSnackbars />
         <div className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion fixed-nav-bar">
           <ul class="nav navbar-top-links navbar-right">
             <Link to="/admin" style={{ color: "white" }}>
@@ -409,7 +416,7 @@ class ProductComponent2 extends React.Component {
                       <NavLink to="/category">
                         <DropdownItem>Settings</DropdownItem>
                       </NavLink>
-                      <NavLink to="/category">
+                      <NavLink onClick={this.logout} to="">
                         <DropdownItem>Logout</DropdownItem>
                       </NavLink>
                     </DropdownMenu>

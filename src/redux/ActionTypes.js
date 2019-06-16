@@ -28,3 +28,6 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const ADD_QUESTION = "ADD_QUESTION";
 
 export const ADD_FORUM = "ADD_FORUM";
+export const SUCCES_ORDER="SUCCES_ORDER";
+export const CLOSE_SNACK="CLOSE_SNACK";
+export const DELETE_ORDER="DELETE_ORDER"

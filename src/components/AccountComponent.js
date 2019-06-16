@@ -2,7 +2,7 @@ import React from 'react';
 import jwt from "jsonwebtoken";
 import { connect } from "react-redux";
 import { withRouter ,Redirect} from "react-router-dom";
-import {fetchOrdersByCliens} from './../redux/ActionCreators';
+import {fetchOrdersByCliens,cancelOrder} from './../redux/ActionCreators';
 import FormDialog from './OederClientModel';
 const mapStateToProps = state => {
     return {
@@ -11,11 +11,11 @@ const mapStateToProps = state => {
     };
   };
   const mapDispatchToProps = dispatch => ({
-    fetchOrdersByCliens:(data)=>{dispatch(fetchOrdersByCliens(data))}
+    fetchOrdersByCliens:(data)=>{dispatch(fetchOrdersByCliens(data))},
+    cancelOrder:(order)=>{dispatch(cancelOrder(order))}
   });
  
 class Account extends React.Component{
-
     componentDidMount(){
         if(localStorage.getItem('jwToken')){
         var user=jwt.decode(localStorage.getItem('jwToken'));
@@ -40,7 +40,7 @@ class Account extends React.Component{
                 <td>{date.getDate()}-{date.getMonth()+1}-{date.getFullYear()}</td>
                 <td>{order.etat}</td>
                 <td>
-                <FormDialog  numCommande={order.numCommande} orders={this.props.auth.orders}/>
+                <FormDialog  numCommande={order.numCommande} orders={this.props.auth.orders} />
                 </td>
               </tr>
             );

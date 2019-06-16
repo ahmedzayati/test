@@ -5,8 +5,9 @@ import {
   pushPersonnels,
   alterPersonnels,
   fetchPersonnels,
-  deletePersonnel
+  deletePersonnel,logout
 } from "../redux/ActionCreators";
+import CustomizedSnackbars from './snackBar'
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -38,7 +39,9 @@ const mapDispatchToProps = dispatch => {
     onAlterPersonnels: (id, salary, position) =>
       dispatch(alterPersonnels(id, salary, position)),
     fetchPersonnels: () => dispatch(fetchPersonnels()),
-    deletePersonnel: () => dispatch(deletePersonnel())
+    deletePersonnel: () => dispatch(deletePersonnel()),
+    logout: (h) => dispatch(logout(h))
+
   };
 };
 
@@ -64,9 +67,15 @@ class Personnel extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
   }
+  logout = e => {
+    e.preventDefault();
+    this.props.logout(this.props.history);
+  };
   render() {
     return (
       <div id="wrapper">
+                <CustomizedSnackbars />
+
         <ul
           className="navbar-nav  sidebar sidebar-dark accordion"
           id="accordionSidebar"
@@ -409,7 +418,7 @@ class Personnel extends React.Component {
                       <NavLink to="/category">
                         <DropdownItem>Settings</DropdownItem>
                       </NavLink>
-                      <NavLink to="/category">
+                      <NavLink onClick={this.logout} to="">
                         <DropdownItem>Logout</DropdownItem>
                       </NavLink>
                     </DropdownMenu>

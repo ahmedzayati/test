@@ -79,4 +79,16 @@ router.put("/decline/:numCommande", (req, res) => {
   });
 });
 
+
+router.delete("/:order", (req, res) => {
+  const query = "DELETE FROM `commandes` WHERE numCommande=?";
+
+  con.query(query, [parseInt(req.params.order)], function(err, result, fields) {
+    if (err) throw err;
+    res.sendStatus(200);
+    
+  });
+});
+
+
 module.exports = router;
