@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { fetchClients } from "../redux/ActionCreators";
+import { fetchMessages } from "../redux/ActionCreators";
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -10,10 +10,10 @@ import {
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
-import ClientsTable from "./ClientsTable";
+import MessagesTable from "./MessagesTable";
 const mapStateToProps = state => {
   return {
-    clients: state.clients
+    Message: state.Message
   };
 };
 
@@ -24,11 +24,11 @@ const mapDispatchToProps = dispatch => {
     // onAlterclients: (id, salary, position) =>
     //   dispatch(alterclients(id, salary, position)),
     // deleteclient: () => dispatch(deleteclient()),
-    fetchClients: () => dispatch(fetchClients())
+    fetchMessages: () => dispatch(fetchMessages())
   };
 };
 
-class Clients extends React.Component {
+class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = { code: "", pseudo: "" };
@@ -45,7 +45,7 @@ class Clients extends React.Component {
     });
   }
   componentDidMount() {
-    this.props.fetchClients();
+    this.props.fetchMessages();
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -138,7 +138,7 @@ class Clients extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/message">
+            <Link to="/admin/client">
               <a
                 className="nav-link collapsed"
                 href="#"
@@ -405,7 +405,7 @@ class Clients extends React.Component {
             </nav>
 
             <div className="container-fluid">
-              <ClientsTable />
+              <MessagesTable />
               <div class="card mb-3">
                 <div class="card-footer small text-muted">
                   Updated yesterday at 11:59 PM
@@ -422,5 +422,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Clients)
+  )(Message)
 );

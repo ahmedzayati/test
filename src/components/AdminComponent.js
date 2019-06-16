@@ -208,7 +208,7 @@ class Admin extends React.Component {
             </li>
 
             <li className="nav-item">
-              <Link to="/admin/personnel">
+              <Link to="/admin/message">
                 <a
                   className="nav-link collapsed"
                   href="#"
@@ -664,7 +664,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchCars: () => dispatch(fetchCars()),
     ondeleteCar: id => dispatch(deleteCar(id)),
-    logout: (h) => dispatch(logout(h))
+    logout: h => dispatch(logout(h))
   };
 };
 export default withRouter(

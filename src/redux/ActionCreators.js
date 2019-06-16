@@ -1,6 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import thunk from "redux-thunk";
 
 export const addClient = client => ({
   type: ActionTypes.ADD_CLIENTS,
@@ -153,7 +154,7 @@ export const login = (userData, h) => dispatch => {
       console.log(jwt.decode(token));
     });
 };
-export const logout = (h) => dispatch => {
+export const logout = h => dispatch => {
   localStorage.removeItem("jwToken");
   setAuthToken(false);
   h.push("/home");
@@ -270,49 +271,90 @@ export const postCommand = productData => dispatch => {
       dispatch(successOrder("YOUR ORDER HAD BEEN PASSED WITH SUCCESS"))
     });
 };
-export const fetchForum=() => dispatch => {
+export const fetchForum = () => dispatch => {
+  return axios.get("http://localhost:3000/api/forum").then(response => {
+    dispatch(addForum(response.data));
+    console.log(response.data);
+  });
+};
+export const addForum = forum => ({
+  type: ActionTypes.ADD_FORUM,
+  forum: forum
+});
+
+export const addComment = comment => ({
+  type: ActionTypes.ADD_COMMENT,
+  comment: comment
+});
+
+export const postComment = (a, b) => dispatch => {
+  var user = jwt.decode(localStorage.getItem("jwToken"));
   return axios
-    .get("http://localhost:3000/api/forum")
-    .then(response => {
-        dispatch(addForum(response.data))
-        console.log(response.data)
-    });}
-    export const addForum = forum => ({
-      type: ActionTypes.ADD_FORUM,
-      forum: forum
+    .post("http://localhost:3000/api/forum", {
+      codePublication: a,
+      contenu: b,
+      cinClient: user.cin,
+      nomClient: user.nomClient
+    })
+    .then(function(response) {
+      dispatch(
+        addComment({
+          codePublication: a,
+          contenu: b,
+          cinClient: user.cin,
+          nomClient: user.nomClient
+        })
+      );
     });
+};
 
-
-    export const addComment = comment => ({
-      type: ActionTypes.ADD_COMMENT,
-      comment: comment
+export const postQuestion = b => dispatch => {
+  var user = jwt.decode(localStorage.getItem("jwToken"));
+  return axios
+    .post("http://localhost:3000/api/forum/question", {
+      contenu: b,
+      cinClient: user.cin,
+      nomClient: user.nomClient
+    })
+    .then(function(response) {
+      dispatch(
+        addQuestion({
+          contenu: b,
+          cinClient: user.cin,
+          nomClient: user.nomClient,
+          codePublication: response.data.codePublication
+        })
+      );
     });
-   
-        export const postComment = (a, b) => dispatch => {
-          var user=jwt.decode(localStorage.getItem('jwToken'));
-          return axios
-            .post("http://localhost:3000/api/forum", {codePublication:a,contenu:b,cinClient:user.cin,nomClient:user.nomClient})
-            .then(function(response) {
-              
-              dispatch(addComment({codePublication:a,contenu:b,cinClient:user.cin,nomClient:user.nomClient}))
-            });
-        };
+};
+export const addQuestion = question => ({
+  type: ActionTypes.ADD_QUESTION,
+  question: question
+});
 
-        export const postQuestion = (b) => dispatch => {
-          var user=jwt.decode(localStorage.getItem('jwToken'));
-          return axios
-            .post("http://localhost:3000/api/forum/question", {contenu:b,cinClient:user.cin,nomClient:user.nomClient})
-            .then(function(response) {
-              
-              dispatch(addQuestion({contenu:b,cinClient:user.cin,nomClient:user.nomClient,codePublication:response.data.codePublication}))
-            });
-        }; 
+export const sendMessage = b => dispatch => {
+  var user = jwt.decode(localStorage.getItem("jwToken"));
+  return axios
+    .post("http://localhost:3000/api/message", {
+      contenu: b,
+      cinClient: user.cin
+    })
+    .then(function(response) {
+      dispatch(
+        addMessage({
+          contenu: b,
+          cinClient: user.cin
+        })
+      );
+    });
+};
+
+export const addMessage = message => ({
+  type: ActionTypes.ADD_MESSAGE,
+  message: message
+});
+
         
-
-        export const addQuestion = question => ({
-          type: ActionTypes.ADD_QUESTION,
-          question: question
-        });
         export const successOrder=(message)=> ({
           type: ActionTypes.SUCCES_ORDER,
           message:message
@@ -339,3 +381,20 @@ export const fetchForum=() => dispatch => {
           order:order
           
         });
+export const fetchMessages = () => dispatch => {
+  return axios.get("http://localhost:3000/api/message").then(response => {
+    dispatch(addMessage(response.data));
+    console.log(response.data);
+  });
+};
+export const replyMessage = (reponse, numMessage) => dispatch => {
+  return axios
+    .put(`http://localhost:3000/api/message/`, {
+      reponse: reponse,
+      numMessage: numMessage
+    })
+    .then(response => {
+      // dispatch(addMessage(response.data));
+      console.log(response.data);
+    });
+};

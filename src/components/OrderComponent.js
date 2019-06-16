@@ -13,7 +13,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import {  withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 const mapStateToProps = state => {
   return {
@@ -154,7 +154,7 @@ class Order extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/admin/personnel">
+            <Link to="/admin/message">
               <a
                 className="nav-link collapsed"
                 href="#"

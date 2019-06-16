@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import CustomizedSnackbars from './snackBar'
-import { postCommand } from "./../redux/ActionCreators";
+import { postCommand ,fetchCars} from "./../redux/ActionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -18,8 +18,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   postCommand: data => {
     dispatch(postCommand(data));
+  },
+  fetchCars: () => {
+    dispatch(fetchCars());
   }
 });
+
 class CheckoutComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -67,195 +71,157 @@ class CheckoutComponent extends React.Component {
     const carModels = this.props.car;
     var user=jwt.decode(localStorage.getItem('jwToken'));
     console.log(carModels);
-
-    // const allmodels = this.props.cars.cars.map.map(model => {
-    //   return (
-    //     <div
-    //       style={{ backgroundColor: "#f3f8ff" }}
-    //       className=" col-4 py-3 md-8"
-    //     >
-    //       <Card key={model.id} style={{ backgroundColor: "#deecff" }}>
-    //         <CardImg
-    //           top
-    //           width="100%"
-    //           src={"../" + model.path}
-    //           alt="Card image cap"
-    //         />
-    //         <CardBody>
-    //           <h2>
-    //             {model.name} <Badge color="warning">{model.nomMarque}</Badge>
-    //           </h2>
-    //           <CardTitle />
-    //           <CardSubtitle>
-    //             <span class="product-grid__price">{model.prixProduit}</span>
-    //           </CardSubtitle>
-    //           <CardText>{model.description}</CardText>
-    //           <center>
-    //             {" "}
-    //             <Link to={"/signup"}>
-    //               <Button color="info">BUY NOW </Button>{" "}
-    //             </Link>
-    //             <Link to={`/cars/${model.id}`}>
-    //               <Button color="secondary">show more</Button>
-    //             </Link>
-    //           </center>
-    //         </CardBody>
-    //       </Card>
-    //     </div>
-    //   );
-    // });
-    return (
-      <div>
-        <div class="page-top-info">
-          <div class="container">
-          <CustomizedSnackbars />
-            <h4>Category PAge</h4>
-            <div class="site-pagination">
-              <Link to="/home">Home</Link> /
-              <Link to={"/model/" + this.props.car[0].nomMarque}>
-                {carModels[0].nomMarque}{" "}
-              </Link>{" "}
-              /
-              <Link to={"/cars/" + carModels[0].nomVehicule}>
-                {carModels[0].nomVehicule}{" "}
-              </Link>
-            </div>
-          </div>  
-          <hr />
-          <section class="checkout-section spad">
+    if (carModels.length)
+      return (
+        <div>
+          <div class="page-top-info">
             <div class="container">
-              <div class="row">
-                <form
-                  onSubmit={this.handleSubmit}
-                  class="col-lg-8 order-2 order-lg-1"
-                >
-                  <div>
-                    <div class="checkout-form">
-                      <div class="cf-title">Billing Address</div>
-                      <div class="row">
-                        <div class="col-md-7">
-                          <p>*Billing Information</p>
+              <h4>Category PAge</h4>
+              <div class="site-pagination">
+                <Link to="/home">Home</Link> /
+                <Link to={"/model/" + this.props.car[0].nomMarque}>
+                  {carModels[0].nomMarque}{" "}
+                </Link>{" "}
+                /
+                <Link to={"/cars/" + carModels[0].nomVehicule}>
+                  {carModels[0].nomVehicule}{" "}
+                </Link>
+              </div>
+            </div>
+            <hr />
+            <section class="checkout-section spad">
+              <div class="container">
+                <div class="row">
+                  <form
+                    onSubmit={this.handleSubmit}
+                    class="col-lg-8 order-2 order-lg-1"
+                  >
+                    <div>
+                      <div class="checkout-form">
+                        <div class="cf-title">Billing Address</div>
+                        <div class="row">
+                          <div class="col-md-7">
+                            <p>*Billing Information</p>
+                          </div>
+                        </div>
+                        <div class="row address-inputs">
+                          <div class="col-md-12">
+                            <input
+                              type="text"
+                              id="adresse"
+                              name="adresseCmd"
+                              placeholder="ADDRESS"
+                              value={this.state.adresseCmd}
+                              onChange={this.handleInputChange}
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <input
+                              type="text"
+                              id="pays"
+                              name="pays"
+                              placeholder="Country"
+                              value={this.state.pays}
+                              onChange={this.handleInputChange}
+                            />{" "}
+                          </div>
+                          <div class="col-md-6">
+                            <input
+                              type="text"
+                              id="ville"
+                              name="ville"
+                              placeholder="Town"
+                              value={this.state.ville}
+                              onChange={this.handleInputChange}
+                            />{" "}
+                          </div>
+                          <div class="col-md-6">
+                            <input
+                              type="text"
+                              id="zip"
+                              name="zip"
+                              placeholder="ZIP CODE"
+                              value={this.state.zip}
+                              onChange={this.handleInputChange}
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <input
+                              type="text"
+                              id="telephone"
+                              name="telephoneCmd"
+                              placeholder="ACTIVE TEL"
+                              value={this.state.telephoneCmd}
+                              onChange={this.handleInputChange}
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <input
+                              required
+                              ref={ref => {
+                                this.uploadInput = ref;
+                              }}
+                              type="file"
+                            />
+                          </div>
                         </div>
 
-                        
+                        <div id="items" />
+                        {localStorage.getItem("jwToken") ? (
+                          <button
+                            class="site-btn submit-order-btn"
+                            type="submit"
+                            id="order2"
+                          >
+                            Place Order
+                          </button>
+                        ) : (
+                          <button
+                            class="site-btn submit-order-btn"
+                            type="submit"
+                            disabled
+                            id="order2"
+                          >
+                            Please login to be able to place order
+                          </button>
+                        )}
                       </div>
-                      <div class="row address-inputs">
-                        <div class="col-md-12">
-                          <input
-                            type="text"
-                            id="adresse"
-                            name="adresseCmd"
-                            placeholder="ADDRESS"
-                            value={this.state.adresseCmd}
-                            onChange={this.handleInputChange}
-                          />
-                        </div>
-                        <div class="col-md-6">
-                          <input
-                            type="text"
-                            id="pays"
-                            name="pays"
-                            placeholder="Country"
-                            value={this.state.pays}
-                            onChange={this.handleInputChange}
-                          />{" "}
-                        </div>
-                        <div class="col-md-6">
-                          <input
-                            type="text"
-                            id="ville"
-                            name="ville"
-                            placeholder="Town"
-                            value={this.state.ville}
-                            onChange={this.handleInputChange}
-                          />{" "}
-                        </div>
-                        <div class="col-md-6">
-                          <input
-                            type="text"
-                            id="zip"
-                            name="zip"
-                            placeholder="ZIP CODE"
-                            value={this.state.zip}
-                            onChange={this.handleInputChange}
-                          />
-                        </div>
-                        <div class="col-md-6">
-                          <input
-                            type="text"
-                            id="telephone"
-                            name="telephoneCmd"
-                            placeholder="ACTIVE TEL"
-                            value={this.state.telephoneCmd}
-                            onChange={this.handleInputChange}
-                          />
-                        </div>
-                        <div class="col-md-6">
-                          <input
-                            required
-                            ref={ref => {
-                              this.uploadInput = ref;
-                            }}
-                            type="file"
-                          />
-                        </div>
-                      </div>
-
-                      <div id="items" />
-                      {user ? (
-                        <button
-                          class="site-btn submit-order-btn"
-                          type="submit"
-                          id="order2"
-                        >
-                          Place Order
-                        </button>
-                      ) : (
-                        <button
-                          class="site-btn submit-order-btn"
-                          type="submit"
-                          disabled
-                          id="order2"
-                        >
-                          Please login to be able to place order
-                        </button>
-                      )}
                     </div>
-                  </div>
-                </form>
-                <div class="col-lg-4 order-1 order-lg-2">
-                  <div class="checkout-cart">
-                    <h3>Your Cart</h3>
-                    <ul class="product-list">
-                      <li>
-                        <div class="pl-thumb">
-                          <img
-                            width="70%"
-                            height="40%"
-                            src={"../" + carModels[0].path}
-                            alt=""
-                          />
-                        </div>
-                        <h6>{carModels[0].nomVehicule}</h6>
-                        <p>{carModels[0].prix}</p>
-                      </li>
-                    </ul>
-                    <ul class="price-list">
-                      <li>
-                        Car<span>{carModels[0].nomVehicule}</span>
-                      </li>
-                      <li>
-                        Price<span>{carModels[0].prix}</span>
-                      </li>
-                    </ul>
+                  </form>
+                  <div class="col-lg-4 order-1 order-lg-2">
+                    <div class="checkout-cart">
+                      <h3>Your Cart</h3>
+                      <ul class="product-list">
+                        <li>
+                          <div class="pl-thumb">
+                            <img
+                              width="70%"
+                              height="40%"
+                              src={"../" + carModels[0].path}
+                              alt=""
+                            />
+                          </div>
+                          <h6>{carModels[0].nomVehicule}</h6>
+                          <p>{carModels[0].prix}</p>
+                        </li>
+                      </ul>
+                      <ul class="price-list">
+                        <li>
+                          Car<span>{carModels[0].nomVehicule}</span>
+                        </li>
+                        <li>
+                          Price<span>{carModels[0].prix}</span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
-      </div>
-    );
+      );
+    else return <div />;
   }
 }
 

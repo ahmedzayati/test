@@ -6,7 +6,7 @@ export const UPDATE_CAR = "UPDATE_CAR";
 export const ADD_CLIENTS = "ADD_CLIENTS";
 export const ADD_CLIENT = "ADD_CLIENT";
 export const DELETE_CLIENT = "DELETE_CLIENT";
-export const ADD_CLIENT_ORDERS= "ADD_CLIENT_ORDERS";
+export const ADD_CLIENT_ORDERS = "ADD_CLIENT_ORDERS";
 
 export const SET_USER = "SET_USER";
 
@@ -26,6 +26,9 @@ export const DECLINE_ORDER = "DECLINE_ORDER";
 export const SET_ERROR = "SET_ERROR";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const ADD_QUESTION = "ADD_QUESTION";
+
+export const SEND_MESSAGE = "SEND_MESSAGE";
+export const ADD_MESSAGE = "ADD_MESSAGE";
 
 export const ADD_FORUM = "ADD_FORUM";
 export const SUCCES_ORDER="SUCCES_ORDER";

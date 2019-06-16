@@ -3,23 +3,14 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
-const mapStateToProps = state => {
-  return {
-    cars: state.cars,
-    auth: state.auth
-  };
-};
+import { sendMessage } from "../../redux/ActionCreators";
+
 class Contact extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
-      message: "",
-      touched: {
-        message: false,
-        email: false
-      }
+      message: ""
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -30,20 +21,14 @@ class Contact extends React.Component {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-
     this.setState({
       [name]: value
     });
   }
-  handleBlur = field => evt => {
-    this.setState({
-      touched: { ...this.state.touched, [field]: true }
-    });
-  };
+
   handleSubmit(event) {
-    console.log("Current State is: " + JSON.stringify(this.state));
-    alert("Current State is: " + JSON.stringify(this.state));
     event.preventDefault();
+    this.props.sendMessage(this.state.message);
   }
 
   render() {
@@ -55,8 +40,8 @@ class Contact extends React.Component {
             <div class="container">
               <div class="row">
                 <form
-                  onSubmit={this.handleSubmit}
                   class="col-lg-8 order-2 offset-lg-2 order-lg-1"
+                  onSubmit={this.handleSubmit}
                 >
                   <div>
                     <div class="checkout-form">
@@ -67,42 +52,29 @@ class Contact extends React.Component {
                       </center>
                       <div class="row address-inputs">
                         <div class="col-md-12">
-                          {/* <Input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Email"
-                            value={this.state.email}
-                            onBlur={this.handleBlur("email")}
-                            onChange={this.handleInputChange}
-                          /> */}
-
                           <div class="col-md-12">
-                            <Input
+                            <textarea
                               style={{ backgroundColor: "#F0F0F6" }}
                               className="textarea"
                               type="textarea"
                               rows="5"
                               id="textarea"
-                              name="textarea"
+                              name="message"
                               placeholder="write you message"
-                              value={this.state.message}
-                              onBlur={this.handleBlur("message")}
+                              value={this.state.name}
                               onChange={this.handleInputChange}
                             />
+
+                            {console.log(this.state)}
                           </div>
                           <div id="items" />
                         </div>
                       </div>
                       <br />
                       <div id="items" />
-                      {this.props.auth.isAuthentificated ? (
-                        <button
-                          onClick={this.handleSubmit}
-                          color="success"
-                          className="site-btnlogin submit-order-btn-sm"
-                          // disabled={!enabled}
-                        >
+                      {localStorage.getItem("jwToken") ? (
+                        <button type="submit">
+                          {console.log(this.props.message)}
                           Sent
                         </button>
                       ) : (
@@ -129,4 +101,20 @@ class Contact extends React.Component {
     );
   }
 }
-export default withRouter(connect(mapStateToProps)(Contact));
+const mapStateToProps = state => {
+  return {
+    message: state.message,
+    auth: state.auth
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    sendMessage: message => dispatch(sendMessage(message))
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Contact)
+);

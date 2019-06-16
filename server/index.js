@@ -6,6 +6,7 @@ const forum = require("./routes/forum");
 
 const admin = require("./routes/admin");
 const personnels = require("./routes/personnels");
+const message = require("./routes/message");
 
 const express = require("express");
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // default options
 app.use(fileUpload());
 app.use("/api/users", users);
+app.use("/api/message", message);
 app.use("/api/forum", forum);
 app.use("/api/cars", cars);
 app.use("/api/auth", auth);

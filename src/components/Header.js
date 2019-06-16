@@ -33,7 +33,7 @@ const mapStateToProps = state => {
 
 // });
 const mapDispatchToProps = dispatch => {
-  return { logout: (h) => dispatch(logout(h)) };
+  return { logout: h => dispatch(logout(h)) };
 };
 class Header extends React.Component {
   constructor(props) {
@@ -207,6 +207,11 @@ class Header extends React.Component {
                   <NavItem>
                     <NavLink className="nav-link" to="/aboutus">
                       <span className="fa fa-address-card fa-lg" /> About Us
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink className="nav-link" to="/forum">
+                      <span className="fa fa-address-card fa-lg" /> Forum
                     </NavLink>
                   </NavItem>
                 </Nav>
