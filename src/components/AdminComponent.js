@@ -58,6 +58,10 @@ class Admin extends React.Component {
     e.preventDefault();
     this.props.logout(this.props.history);
   };
+  componentDidMount(){
+    if(this.props.auth.grade!=="1")
+      this.props.history.push('/home')
+  }
   render() {
     const { classes } = this.props;
     const data = [

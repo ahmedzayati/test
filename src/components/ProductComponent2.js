@@ -65,9 +65,10 @@ class ProductComponent2 extends React.Component {
     return (
       <div id="wrapper">
       <CustomizedSnackbars />
-        <div className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion fixed-nav-bar">
-          <ul class="nav navbar-top-links navbar-right">
-            <Link to="/admin" style={{ color: "white" }}>
+ <ul
+          className="navbar-nav  sidebar sidebar-dark accordion"
+          id="accordionSidebar"
+        >            <Link to="/admin" style={{ color: "white" }}>
               <a className="sidebar-brand d-flex align-items-center justify-content-center">
                 <div className="sidebar-brand-icon rotate-n-15">
                   <i className="fas fa-laugh-wink" />
@@ -239,7 +240,7 @@ class ProductComponent2 extends React.Component {
 
             <hr className="sidebar-divider" />
           </ul>
-        </div>
+        
 
         <div id="content-wrapper" className="d-flex flex-column">
           <div id="content">

@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
   });
 });
 router.get("/", (req, res) => {
-  const query = "select * from Message ";
+  const query = "select * from Message,Clients where Message.cinClient=Clients.cin ";
 
   con.query(query, [], function(err, result, fields) {
     if (err) throw err;

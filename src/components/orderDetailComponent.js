@@ -119,7 +119,6 @@ class OrderDetail extends React.Component {
                 <tr>
                   <th scope="row">Telephone</th>
                   <td>{order.telephone}</td>
-                  <td>{order.numCommande}</td>
                 </tr>
 
                 <tr>

@@ -74,6 +74,8 @@ class CheckoutComponent extends React.Component {
     if (carModels.length)
       return (
         <div>
+                <CustomizedSnackbars />
+
           <div class="page-top-info">
             <div class="container">
               <h4>Category PAge</h4>

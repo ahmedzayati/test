@@ -79,7 +79,7 @@ function getSorting(order, orderBy) {
 const rows = [
   {
     id: "numMessage",
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: "num Message"
   },
@@ -391,14 +391,13 @@ class MessagesTable extends React.Component {
                       <TableCell component="th" scope="row" padding="none">
                         {n.numMessage}
                       </TableCell>
-                      <TableCell align="right">{n.cinClient}</TableCell>
+                      <TableCell align="right">{n.nomClient} {n.prenomClient}</TableCell>
 
                       <TableCell align="right">{n.corps}</TableCell>
                       <TableCell align="right">
-                        <Tooltip title="answer" className="col-2">
+                        <Tooltip title="answer" >
                           <IconButton aria-label="Answer">
                             <Button
-                              variant="contained"
                               color="danger"
                               onClick={this.toggle}
                             >
@@ -447,7 +446,7 @@ class MessagesTable extends React.Component {
                                       >
                                         {" "}
                                         {console.log(this.state.reponse)}
-                                        Sent
+                                        Send
                                         <i
                                           class="fa fa-paper-plane"
                                           aria-hidden="true"
