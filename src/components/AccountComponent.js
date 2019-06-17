@@ -233,12 +233,11 @@ class Account extends React.Component {
                         <div>
                           <div class="media">
                             <div class="media-body">
-                              <small class="text-muted">{n.corps}</small>
-                              <br />
-                              <strong>reply : </strong>{" "}
+                              <p ><big>{user.nomClient}:</big>{n.corps}</p>
+                              
                               {n.reponse.length === 0
-                                ? (reply = <p> no answer yet </p>)
-                                : (reply = <p> {n.reponse} </p>)}{" "}
+                                ? (reply = <p> <big>Admin:</big> no answer yet </p>)
+                                : (reply = <p> <big>Admin:</big>{n.reponse} </p>)}{" "}
                               <reply />
                             </div>
                           </div>

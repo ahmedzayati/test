@@ -453,19 +453,18 @@ class ProductComponent2 extends React.Component {
                       title={car.nomVehicule}
                       subtitle={<span>by:{car.nomMarque}</span>}
                       actionIcon={
-                        <IconButton className={classes.icon}>
-                          <i
-                            class="fa fa-trash"
-                            aria-hidden="true"
+                        <IconButton className={classes.icon} >
+                          <i style={{marginRight:10}}
+                            className="fa fa-trash"
                             onClick={() => {
                               this.props.ondeleteCar(car.numVehicule);
                             }}
                           />
-                          <IconButton className={classes.icon}>
-                            <Tooltip title="Update" className="col-2">
+                         
+                            <Tooltip title="Update" className="col-2" style={{marginLeft:50}} >
                               <AlertDialogSlide2 car={car} />
                             </Tooltip>
-                          </IconButton>
+                          
                         </IconButton>
                       }
                     />

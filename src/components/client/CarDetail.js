@@ -44,8 +44,6 @@ class CarDetail extends React.Component {
                 </Link>
               </div>
             </div>
-            <hr />
-            <hr />
           </div>
           <section class="product-section">
             <div class="container">
@@ -65,7 +63,7 @@ class CarDetail extends React.Component {
                       width="100%"
                     />
                   </div>
-                  <div
+                  {/* <div
                     class="product-thumbs"
                     style={{ overflow: "hidden", outline: "none" }}
                   >
@@ -82,7 +80,7 @@ class CarDetail extends React.Component {
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div class="col-lg-6 product-details">
                   <h2 class="p-title">{carModels[0].nomVehicule}</h2>
@@ -115,39 +113,13 @@ class CarDetail extends React.Component {
                       </div>
                       <div>
                         <div class="panel-body">
-                          <p>{carModels[0].description} </p>
+                          <a href="https://www.press.bmwgroup.com/belux/article/attachment/T0080392FR/127675" target="_blank">technical sheet</a>
                         </div>
                       </div>
                     </div>
-                    <div class="panel">
-                      <div class="panel-header" id="headingTwo">
-                        <button class="panel-link">care details </button>
-                      </div>
-                      <div id="collapse2" class="collapse">
-                        <div class="panel-body">
-                          <img src="./img/cards.png" alt="" />
-                          <p> </p>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
-                  <div class="social-sharing">
-                    <a href="">
-                      <i class="fa fa-google-plus" />
-                    </a>
-                    <a href="">
-                      <i class="fa fa-pinterest" />
-                    </a>
-                    <a href="">
-                      <i class="fa fa-facebook" />
-                    </a>
-                    <a href="">
-                      <i class="fa fa-twitter" />
-                    </a>
-                    <a href="">
-                      <i class="fa fa-youtube" />
-                    </a>
-                  </div>
+                  
                 </div>
               </div>
             </div>

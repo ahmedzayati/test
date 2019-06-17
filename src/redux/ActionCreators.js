@@ -152,6 +152,11 @@ export const login = (userData, h) => dispatch => {
       dispatch(setUser(jwt.decode(token)));
       h.push("/account");
       console.log(jwt.decode(token));
+    })
+    .catch(function(error) {
+      dispatch(setError(error.response.data));
+
+      console.log(error.response.data);
     });
 };
 export const logout = h => dispatch => {

@@ -22,10 +22,12 @@ export const Forum = (state = {forum:[]} , action) => {
         }
         
         case ActionTypes.ADD_QUESTION:
+        const date=new Date();
+        const d=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()
        return({...state,
                 forum:state.forum.concat({
                   publication: action.question.contenu,
-                  date: Date.now().toString(),
+                  date: d,
                   nomClient: action.question.nomClient,
                   codePublication: action.question.codePublication,
                   reponses: [

@@ -73,14 +73,15 @@ class Contact extends React.Component {
                       <br />
                       <div id="items" />
                       {localStorage.getItem("jwToken") ? (
-                        <button type="submit">
+                        <Button type="submit" variant="contained" color="primary" style={{marginLeft:15}}>
                           {console.log(this.props.message)}
-                          Sent
-                        </button>
+                          SEND
+                        </Button>
                       ) : (
                         <Link to="/signup">
                           {" "}
                           <button
+                          style={{marginLeft:15}}
                             className="site-btnlogin submit-order-btn-sm"
                             color="primary"
                           >

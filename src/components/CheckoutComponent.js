@@ -197,12 +197,12 @@ class CheckoutComponent extends React.Component {
                             <img
                               width="70%"
                               height="40%"
-                              src={"../" + carModels[0].path}
+                              src={"../../assets/images/" + carModels[0].path}
                               alt=""
                             />
                           </div>
-                          <h6>{carModels[0].nomVehicule}</h6>
-                          <p>{carModels[0].prix}</p>
+                          {/* <h6>{carModels[0].nomVehicule}</h6>
+                          <p>{carModels[0].prix}</p> */}
                         </li>
                       </ul>
                       <ul class="price-list">

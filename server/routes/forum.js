@@ -57,8 +57,8 @@ router.post("/question", (req, res) => {
   const { contenu, cinClient } = req.body;
   const query =
     "INSERT INTO `publication`(`contenu`, `cinClient`, `date`) VALUES (?,?,?)";
-
-  con.query(query, [contenu, cinClient, Date.now()], function(
+  const date= new Date();
+  con.query(query, [contenu, cinClient, date], function(
     err,
     result1,
     fields

@@ -59,9 +59,7 @@ class Model extends React.Component {
                     <Link to={`/cars/${model.nomVehicule}`}>
                       <i class="fa fa-plus" aria-hidden="true" />
                     </Link>
-                    <IconButton>
-                      <i class="fa fa-buy" aria-hidden="true" />{" "}
-                    </IconButton>
+                   
                   </IconButton>
                 }
               />

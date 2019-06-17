@@ -24,7 +24,7 @@ class FormDialog extends React.Component {
   state = {
     open: false,
     description: "",
-    nomProduit: "",
+    nomVehicule: "",
     prixProduit: "",
     marque: "",
     nomMarque: "",
@@ -56,8 +56,7 @@ class FormDialog extends React.Component {
   handleUploadImage() {
     const data = new FormData();
     data.append("file", this.uploadInput.files[0]);
-    data.append("filename", this.fileName.value);
-    data.append("nomProduit", this.state.nomProduit);
+    data.append("nomVehicule", this.state.nomVehicule);
     data.append("prixProduit", this.state.prixProduit);
     data.append("nomMarque", this.state.nomMarque);
     data.append("couleur", this.state.couleur);
@@ -96,8 +95,8 @@ class FormDialog extends React.Component {
               <TextValidator
                 label="Product Name"
                 onChange={this.handleChange}
-                name="nomProduit"
-                value={this.state.nomProduit}
+                name="nomVehicule"
+                value={this.state.nomVehicule}
                 validators={["required"]}
                 errorMessages={["this field is required"]}
                 fullWidth
@@ -163,16 +162,7 @@ class FormDialog extends React.Component {
                   />
                 </div>
 
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    ref={ref => {
-                      this.fileName = ref;
-                    }}
-                    type="text"
-                    placeholder="Optional name for the file"
-                  />
-                </div>
+               
               </form>
               <br />
               <Button

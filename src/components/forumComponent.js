@@ -174,10 +174,10 @@ class Forum extends React.Component {
             Send
             
           </Button>
-              :<button disabled
+              :<Button disabled variant="contained" color="primary"
             >
               Please Login
-            </button>}
+            </Button>}
             </div>
           </div>
         </div>

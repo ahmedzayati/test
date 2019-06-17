@@ -73,7 +73,6 @@ class CarUpdate extends React.Component {
       <div>
         <IconButton
           aria-label="Update"
-          variant="outlined"
           color="primary"
           onClick={this.handleClickOpen}
         >
@@ -97,7 +96,7 @@ class CarUpdate extends React.Component {
               <TextValidator
                 label="product name "
                 onChange={this.handleChange}
-                name="product name"
+                name="nomVehicule"
                 value={this.state.nomVehicule}
                 validators={["required"]}
                 errorMessages={["this field is required"]}
@@ -106,7 +105,7 @@ class CarUpdate extends React.Component {
               <TextValidator
                 label="marque Name"
                 onChange={this.handleChange}
-                name="Marque"
+                name="nomMarque"
                 value={this.state.nomMarque}
                 validators={["required"]}
                 errorMessages={["this field is required"]}
@@ -124,36 +123,13 @@ class CarUpdate extends React.Component {
               <TextValidator
                 label="couleur"
                 onChange={this.handleChange}
-                name="position"
+                name="couleur"
                 value={this.state.couleur}
                 validators={["required"]}
                 errorMessages={["this field is required"]}
                 fullWidth
               />
 
-              <form>
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    ref={ref => {
-                      this.uploadInput = ref;
-                    }}
-                    type="file"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    ref={ref => {
-                      this.fileName = ref;
-                    }}
-                    type="text"
-                    placeholder="Optional name for the file"
-                    value={this.state.path}
-                  />
-                </div>
-              </form>
               <br />
               <TextValidator
                 label="description"
@@ -174,7 +150,7 @@ class CarUpdate extends React.Component {
                 Cancel
               </Button>
               <Button type="submit" color="primary" className="mt-3">
-                Subscribe
+                Update
               </Button>
             </ValidatorForm>
           </DialogContent>

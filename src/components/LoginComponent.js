@@ -19,7 +19,8 @@ import { isNull, isUndefined } from "util";
 const mapStateToProps = state => {
   return {
     orders: state.orders,
-    clients: state.clients
+    clients: state.clients,
+    auth:state.auth
   };
 };
 
@@ -38,6 +39,7 @@ class Login extends React.Component {
       error: "",
       email: "",
       password: "",
+      errors:this.props.auth.errors.error,
       touched: {
         password: false,
         email: false
@@ -54,7 +56,7 @@ class Login extends React.Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,error:'',errors:''
     });
   }
 
@@ -199,9 +201,12 @@ class Login extends React.Component {
                             onChange={this.handleInputChange}
                           />{" "}
                         </div>
-                        <span className="help-block" style={{ color: "red" }}>
+                        <span className="help-block" style={{ color: "red" ,marginLeft:20}}>
                           {this.state.error}
                         </span>{" "}
+                        <span className="help-block" style={{ color: "red" ,marginLeft:20}}>
+                      {this.state.errors}
+                    </span>
                       </div>
                       <div id="items" />
                       <button

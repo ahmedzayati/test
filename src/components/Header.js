@@ -114,6 +114,11 @@ class Header extends React.Component {
                       <span className="fa fa-address-card fa-lg" /> About Us
                     </NavLink>
                   </NavItem>
+                  <NavItem>
+                    <NavLink className="nav-link" to="/forum">
+                      <span className="fa fa-address-card fa-lg" /> Forum
+                    </NavLink>
+                  </NavItem>
                 </Nav>
                   <Nav className="ml-auto" navbar>
                     <NavItem>
