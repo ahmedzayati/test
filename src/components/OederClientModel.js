@@ -12,7 +12,7 @@ import jsPDF from "jspdf";
 const mapStateToProps = state => {
     return {
       cars: state.cars,
-      auth: state.auth
+      auth: state.auth 
     };
   };
   const mapDispatchToProps = dispatch => ({

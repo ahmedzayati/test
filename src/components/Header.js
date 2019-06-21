@@ -89,7 +89,7 @@ class Header extends React.Component {
                 {" "}
                 <NavbarBrand className="mr-auto">
                   <img
-                    src="assets/images/logo.png"
+                    src="assets/images/logo2.gif"
                     height="30"
                     width="41"
                     alt="CarMaster"
@@ -189,9 +189,9 @@ class Header extends React.Component {
                 {" "}
                 <NavbarBrand className="mr-auto">
                   <img
-                    src="assets/images/logo.png"
-                    height="30"
-                    width="41"
+                    src="assets/images/logo2.gif"
+                    height="40"
+                    width="100"
                     alt="CarMaster"
                   />
                 </NavbarBrand>
